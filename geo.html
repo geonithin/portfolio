@@ -1,20 +1,378 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Review</title>
-  <link rel="stylesheet" href="style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J Geo Nithin's Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3a8a, #4c1d95);
+            color: #e5e7eb;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 90%;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 0;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .header-content img {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+            border: 3px solid #a5b4fc;
+            object-fit: cover;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .header-content img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(165, 180, 252, 0.5);
+        }
+
+        header h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        header p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: #d1d5db;
+        }
+
+        .section {
+            background: rgba(31, 41, 55, 0.8);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .section h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            color: #a5b4fc;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            width: 50px;
+            height: 3px;
+            background: #a5b4fc;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .section:hover h2::after {
+            width: 100px;
+        }
+
+        .section p, .section li {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: #d1d5db;
+        }
+
+        .section ul {
+            list-style: none;
+        }
+
+        .section ul li {
+            margin: 0.8rem 0;
+            display: flex;
+            align-items: flex-start;
+            transition: transform 0.3s ease;
+        }
+
+        .section ul li:hover {
+            transform: translateX(10px);
+        }
+
+        .section ul li i {
+            color: #a5b4fc;
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            width: 1.5rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .section ul li:hover i {
+            transform: rotate(20deg);
+        }
+
+        .section ul li span {
+            flex: 1;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .skill-item {
+            background: #1e3a8a;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 8px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: scale(1.1);
+            background: #2b4db6;
+        }
+
+        .skill-item i {
+            font-size: 2rem;
+            color: #a5b4fc;
+            margin-bottom: 0.5rem;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .certificate-item {
+            background: #1e3a8a;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .certificate-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .certificate-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            border: 2px solid #a5b4fc;
+            object-fit: cover;
+        }
+
+        .certificate-item p {
+            margin-top: 0.5rem;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: #d1d5db;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: #1f2937;
+            margin-top: 2rem;
+            border-radius: 10px;
+        }
+
+        footer p {
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: #d1d5db;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-content img {
+                width: 5rem;
+                height: 5rem;
+            }
+
+            .skills-grid, .certificates-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .header-content img {
+                width: 4rem;
+                height: 4rem;
+            }
+
+            .certificates-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body class="geo">
-    <h1 class="heading"> rewiew</h1>
-    <p></p>
-<sction class="certificate">
-<img class="yyy" src="C:\Users\ADMIN\Pictures\450192578.jpg" width="500">
+<body>
+    <div class="container">
+        <header data-aos="fade-down">
+            <div class="header-content">
+                <img src="geo.jpeg" alt="J Geo Nithin">
+                <div>
+                    <h1>J Geo Nithin</h1>
+                    <p>B.E Computer Science & Engineering | Stella Mary’s College of Engineering</p>
+                </div>
+            </div>
+        </header>
 
-<img class="yyy" src="C:\Users\ADMIN\Pictures\450192578.jpg" width="500">
-</sction>
+        <div class="section" data-aos="fade-up" data-aos-delay="100">
+            <h2>About Me</h2>
+            <p>I’m a budding programmer from the Computer Science and Engineering Department at Stella Mary’s College of Engineering. With a basic foundation in C and Python, I joined a vibrant programming community to expand my skills, collaborate with peers, and explore opportunities in software development and data science.</p>
+        </div>
 
+        <div class="section" data-aos="fade-up" data-aos-delay="200">
+            <h2>Why I Joined the Community</h2>
+            <ul>
+                <li><i class="fas fa-code"></i> To deepen my programming knowledge through real-world projects.</li>
+                <li><i class="fas fa-users"></i> To learn from experienced developers and gain practical insights.</li>
+                <li><i class="fas fa-comment-dots"></i> To receive feedback and support on programming challenges.</li>
+                <li><i class="fas fa-fire"></i> To stay motivated within a like-minded community.</li>
+                <li><i class="fas fa-briefcase"></i> To explore career and academic opportunities in tech.</li>
+            </ul>
+        </div>
 
+        <div class="section" data-aos="fade-up" data-aos-delay="300">
+            <h2>What I’ve Learned</h2>
+            <p><strong>Languages & Frameworks:</strong></p>
+            <div class="skills-grid">
+                <div class="skill-item" data-aos="zoom-in" data-aos-delay="400">
+                    <i class="fab fa-python"></i>
+                    <p>Python</p>
+                </div>
+                <div class="skill-item" data-aos="zoom-in" data-aos-delay="500">
+                    <i class="fab fa-git-alt"></i>
+                    <p>Git</p>
+                </div>
+                <div class="skill-item" data-aos="zoom-in" data-aos-delay="600">
+                    <i class="fab fa-cuttlefish"></i>
+                    <p>C++</p>
+                </div>
+                <div class="skill-item" data-aos="zoom-in" data-aos-delay="700">
+                    <i class="fab fa-java"></i>
+                    <p>Java</p>
+                </div>
+            </div>
+            <p><strong>Soft Skills:</strong> Teamwork, communication, asking the right questions</p>
+        </div>
+
+        <div class="section" data-aos="fade-up" data-aos-delay="400">
+            <h2>Contributions & Tasks</h2>
+            <ul>
+                <li><i class="fas fa-calendar-check"></i> Attended weekly basher meetings and real-time evening gatherings.</li>
+                <li><i class="fas fa-tasks"></i> Completed small tasks assigned by mentors.</Li>
+                <li><i class="fas fa-certificate"></i> Earned certificates through Microsoft LinkedIn Learning.</li>
+            </ul>
+        </div>
+
+        <div class="section" data-aos="fade-up" data-aos-delay="450">
+            <h2>My Certificates</h2>
+            <div class="certificates-grid">
+                <div class="certificate-item" data-aos="zoom-in" data-aos-delay="500">
+                    <img src="c1.jpg" alt=" Certificate">
+                    <p>Microsoft Security Essentials Professional Certificate </p>
+                </div>
+                <div class="certificate-item" data-aos="zoom-in" data-aos-delay="600">
+                    <img src="c2/c2.jpg" alt="Certificate">
+                    <p>Career Essentials in Generative AI</p>
+                </div>
+                <div class="certificate-item" data-aos="zoom-in" data-aos-delay="700">
+                    <img src="c3/c3.jpg" alt=" Certificate">
+                    <p>Career Essentials in Software Development</p>
+                </div>
+                <div class="certificate-item" data-aos="zoom-in" data-aos-delay="800">
+                    <img src="c4.jpg" alt="Certificate">
+                    <p>Microsoft Azure AI Essentials Profeesional Certificate</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" data-aos="fade-up" data-aos-delay="500">
+            <h2>My Experience</h2>
+            <p>As a rookie, I’ve gained valuable experience. Every basher and rookie inspired me uniquely, pushing me to grow and stay committed. The community’s energy and support have been transformative.</p>
+        </div>
+
+        <div class="section" data-aos="fade-up" data-aos-delay="600">
+            <h2>Challenges Faced</h2>
+            <ul>
+                <li>
+                    <i class="fas fa-balance-scale"></i>
+                    <span><strong>Balancing academics and community work:</strong> Initially tough, but I’ve learned to manage both effectively.</span>
+                </li>
+                <li>
+                    <i class="fas fa-brain"></i>
+                    <span><strong>Understanding complex concepts:</strong> New languages and techniques were challenging, but mentors clarified my doubts.</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section" data-aos="fade-up" data-aos-delay="700">
+            <h2>Acknowledgement</h2>
+            <p>I’m grateful to every basher and rookie who supported me. I’m committed to achieving more and honoring this community through my efforts.</p>
+        </div>
+
+        <footer data-aos="fade-up" data-aos-delay="800">
+            <p>© 2025 J Geo Nithin | Built with <i class="fas fa-heart"></i></p>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: true
+        });
+    </script>
 </body>
 </html>
