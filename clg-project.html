@@ -5,10 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Class Management System - Geo Nithin J</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="liquid-glass.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-gray-900 text-gray-200 smooth-scroll">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full navbar z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <!-- Theme Toggle Button -->
+                <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                    <div class="theme-toggle-slider">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </div>
+                </div>
+                <span class="text-base sm:text-lg md:text-xl font-bold text-white">Geo Nithin J</span>
+            </div>
+            <div class="hidden sm:flex space-x-3 sm:space-x-6 text-xs sm:text-sm md:text-base">
+                <a href="index.html#projects" class="text-gray-300 hover:text-violet-400 transition">← Back to My Projects</a>
+            </div>
+            <a href="index.html#projects" class="sm:hidden text-gray-300 hover:text-violet-400 transition text-xs">Back</a>
+        </div>
+    </nav>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -83,20 +104,363 @@
             border: 1px solid #374151;
             overflow-x: auto;
         }
+        
+        /* Universal Icon Glow Effects */
+        i.fas, i.fab, i.far, i.fa {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 2px rgba(139, 92, 246, 0.2));
+        }
+        
+        i.fas:hover, i.fab:hover, i.far:hover, i.fa:hover {
+            filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.8)) drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+            transform: scale(1.1);
+        }
+        
+        /* Theme Variables */
+        :root {
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+        }
+        
+        /* Dark Mode Default Styles */
+        body {
+            background-color: #111827 !important;
+            color: #e5e7eb !important;
+        }
+        
+        body.light-theme {
+            background-color: #e9d5ff !important;
+            color: #4c1d95 !important;
+        }
+        body.light-theme .navbar { background-color: rgba(221, 214, 254, 0.95) !important; }
+        body.light-theme .navbar.scrolled { background-color: rgba(196, 181, 253, 0.98) !important; }
+        body.light-theme .text-white { color: #5b21b6 !important; }
+        body.light-theme .text-gray-200, body.light-theme .text-gray-300 { color: #6d28d9 !important; }
+        body.light-theme .text-gray-400 { color: #7c3aed !important; }
+        body.light-theme .bg-gray-900 { background-color: #e9d5ff !important; }
+        body.light-theme .bg-gray-800 { background-color: #c4b5fd !important; }
+        body.light-theme .section-container { background-color: #ddd6fe !important; }
+        body.light-theme .feature-card { background-color: #c4b5fd !important; }
+        body.light-theme .code-block { background-color: #ddd6fe !important; border-color: rgba(109, 40, 217, 0.5) !important; }
+        body.light-theme .text-violet-300, body.light-theme .text-violet-400 { color: #7c3aed !important; }
+        body.light-theme .glow-button { box-shadow: 0 0 15px rgba(167, 139, 250, 0.4) !important; }
+        body.light-theme .glow-button:hover { box-shadow: 0 0 25px rgba(167, 139, 250, 0.6) !important; }
+        body.light-theme .bg-violet-500 { background-color: #a78bfa !important; }
+        body.light-theme .bg-purple-600 { background-color: #9333ea !important; }
+        body.light-theme .hover\:bg-purple-700:hover { background-color: #7e22ce !important; }
+        body.light-theme .hamburger span { background-color: #5b21b6 !important; }
+        body.light-theme i.fas, body.light-theme i.fab { filter: drop-shadow(0 0 3px rgba(167, 139, 250, 0.3)) !important; }
+        body.light-theme i.fas:hover, body.light-theme i.fab:hover { filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.6)) !important; }
+        
+        /* Gradient Overrides */
+        body.light-theme .from-blue-900 {
+            --tw-gradient-from: #c4b5fd !important;
+            --tw-gradient-to: rgb(196 181 253 / 0) !important;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+        }
+        body.light-theme .to-violet-900 {
+            --tw-gradient-to: #ddd6fe !important;
+        }
+        body.light-theme .via-violet-900 {
+            --tw-gradient-to: rgb(221 214 254 / 0) !important;
+            --tw-gradient-stops: var(--tw-gradient-from), #ddd6fe, var(--tw-gradient-to) !important;
+        }
+        body.light-theme .from-purple-900 {
+            --tw-gradient-from: #c4b5fd !important;
+            --tw-gradient-to: rgb(196 181 253 / 0) !important;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+        }
+        body.light-theme .to-purple-900 {
+            --tw-gradient-to: #fae8ff !important;
+        }
+        body.light-theme .text-gray-500, body.light-theme .text-gray-600 { color: #7c3aed !important; }
+        body.light-theme .text-gray-700 { color: #6d28d9 !important; }
+        
+        /* Glass Elements Default (Dark Mode) */
+        .glass-container {
+            background: rgba(31, 41, 55, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(139, 92, 246, 0.2);
+        }
+        
+        .glass-navbar {
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .glass-btn {
+            background: rgba(139, 92, 246, 0.2);
+            color: white;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .glass-btn:hover {
+            background: rgba(139, 92, 246, 0.4);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
+        
+        /* Glass Elements Light Theme */
+        body.light-theme .glass-container {
+            background: rgba(221, 214, 254, 0.7) !important;
+            backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(139, 92, 246, 0.3) !important;
+        }
+        body.light-theme .glass-navbar {
+            background: rgba(221, 214, 254, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+        }
+        body.light-theme .glass-btn {
+            background: rgba(196, 181, 253, 0.4) !important;
+            color: #5b21b6 !important;
+            border: 1px solid rgba(139, 92, 246, 0.4) !important;
+        }
+        body.light-theme .glass-btn:hover {
+            background: rgba(167, 139, 250, 0.6) !important;
+        }
+        
+        .theme-toggle {
+            width: 60px;
+            height: 30px;
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+        }
+        .theme-toggle:hover { background: rgba(139, 92, 246, 0.4); box-shadow: 0 0 15px rgba(139, 92, 246, 0.6); }
+        .theme-toggle-slider {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            left: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .theme-toggle-slider i { font-size: 12px; color: white; }
+        body.light-theme .theme-toggle-slider { left: 32px; }
+        body.light-theme .theme-toggle { background: rgba(124, 58, 237, 0.3); border-color: rgba(124, 58, 237, 0.5); }
+        
+        i.text-violet-400, i.text-violet-300 {
+            animation: subtleGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes subtleGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 3px rgba(139, 92, 246, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.7));
+            }
+        }
+        
+        i.text-4xl, i.text-5xl, i.text-6xl, i.text-8xl {
+            filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.4));
+        }
+        
+        i.text-4xl:hover, i.text-5xl:hover, i.text-6xl:hover, i.text-8xl:hover {
+            filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.9)) drop-shadow(0 0 25px rgba(139, 92, 246, 0.6));
+        }
+        
+        /* Page Loader Styles */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e1b4b);
+            background-size: 400% 400%;
+            animation: gradientFlow 8s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .loader-content {
+            text-align: center;
+        }
+        
+        .loader-logo {
+            width: 10em;
+            height: 10em;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        .loader-diamond {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .loader-diamond:before,
+        .loader-diamond:after {
+            box-sizing: border-box;
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10em;
+            height: 10em;
+            transform-style: preserve-3d;
+            transform-origin: 50% 50%;
+            perspective-origin: 50% 50%;
+            perspective: 340px;
+            background-size: 10em 10em;
+            background-image: url("data:image/svg+xml,%3Csvg width='266' height='297' viewBox='0 0 266 297' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M171.507813,3.25000038 C226.208183,12.8577111 297.112722,71.4912823 250.895599,108.410155 C216.582024,135.82031 186.528405,97.0624964 156.800774,85.7734346 C127.073143,74.4843721 76.8884632,84.2161462 60.1289065,108.410153 C-15.9804685,218.281247 145.277344,296.667968 145.277344,296.667968 C145.277344,296.667968 -25.4492187,257.242198 3.3984375,108.410155 C16.3070661,41.8114174 84.7275829,-11.9922985 171.507813,3.25000038 Z' fill='%238b5cf6'/%3E%3C/svg%3E");
+        }
+        
+        .loader-diamond:before {
+            transform: rotateX(60deg) rotateY(45deg) rotateZ(45deg);
+            animation: rotateBefore 1200ms infinite linear reverse;
+        }
+        
+        .loader-diamond:after {
+            transform: rotateX(240deg) rotateY(45deg) rotateZ(45deg);
+            animation: rotateAfter 1200ms infinite linear;
+        }
+        
+        @keyframes rotateBefore {
+            from { transform: rotateX(60deg) rotateY(45deg) rotateZ(45deg); }
+            to { transform: rotateX(60deg) rotateY(45deg) rotateZ(405deg); }
+        }
+        
+        @keyframes rotateAfter {
+            from { transform: rotateX(240deg) rotateY(45deg) rotateZ(45deg); }
+            to { transform: rotateX(240deg) rotateY(45deg) rotateZ(405deg); }
+        }
+        
+        .loader-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 640px) {
+            .section-container {
+                border-radius: 12px;
+                padding: 1rem;
+                margin: 0.75rem 0;
+            }
+            
+            h1, .text-5xl {
+                font-size: 1.875rem !important;
+            }
+            
+            h2, .text-3xl {
+                font-size: 1.5rem !important;
+            }
+            
+            .feature-card, .metric-card {
+                padding: 1rem;
+                margin: 0.5rem 0;
+            }
+
+            .grid {
+                gap: 0.75rem !important;
+            }
+
+            .tech-badge {
+                font-size: 0.75rem;
+                padding: 0.2rem 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-container {
+                padding: 1.25rem;
+            }
+
+            .feature-card {
+                padding: 1.25rem;
+            }
+
+            .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-cols-3 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .grid-cols-4 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .feature-card, .metric-card {
+                cursor: pointer;
+            }
+
+            button, a {
+                min-height: 44px;
+                padding: 0.75rem 1rem;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-200 smooth-scroll">
+<body class="smooth-scroll">
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <div class="loader-diamond"></div>
+            </div>
+            <div class="loader-text">Loading Class Management System...</div>
+        </div>
+    </div>
+    
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full navbar z-50" id="navbar">
+    <nav class="glass-navbar" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <svg class="w-8 sm:w-10 h-8 sm:h-10 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l9 9-9 9-9-9 9-9z"></path>
-                </svg>
+                <!-- Theme Toggle Button -->
+                <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                    <div class="theme-toggle-slider">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </div>
+                </div>
                 <span class="text-lg sm:text-xl font-bold text-white">Geo Nithin J</span>
             </div>
             <div class="flex space-x-6">
-                <a href="index.html" class="text-gray-300 hover:text-violet-400 transition">← Back to Portfolio</a>
+                <a href="index.html#projects" class="text-gray-300 hover:text-violet-400 transition">← Back to My Projects</a>
             </div>
         </div>
     </nav>
@@ -108,16 +472,16 @@
             <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Class Management System</h1>
             <p class="text-base sm:text-lg md:text-xl mb-6">A comprehensive Class management platform built with modern web technologies</p>
             <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
-                <a href="#overview" class="bg-violet-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition">Project Overview</a>
-                <a href="#features" class="bg-violet-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition">Features</a>
-                <a href="#tech-stack" class="bg-violet-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition">Tech Stack</a>
+                <a href="#overview" class="glass-btn liquid-ripple">Project Overview</a>
+                <a href="#features" class="glass-btn liquid-ripple">Features</a>
+                <a href="#tech-stack" class="glass-btn liquid-ripple">Tech Stack</a>
             </div>
         </div>
     </header>
 
     <!-- Project Overview -->
     <section id="overview" class="py-12 sm:py-20">
-        <div class="section-container">
+        <div class="glass-container p-8 md:p-12">
             <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">Project Overview</h2>
             <div class="text-base sm:text-lg text-gray-300 leading-relaxed space-y-4 sm:space-y-6" data-aos="fade-up" data-aos-delay="200">
                 <p>The Class Management System is a full-stack web application designed to streamline college administration and enhance the educational experience for both students and administrators.</p>
@@ -157,7 +521,7 @@
 
     <!-- Features Section -->
     <section id="features" class="py-12 sm:py-20">
-        <div class="section-container">
+        <div class="glass-container p-8 md:p-12">
             <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">Key Features</h2>
             <div class="space-y-6" data-aos="fade-up" data-aos-delay="200">
                 
@@ -218,7 +582,7 @@
 
     <!-- Technology Stack -->
     <section id="tech-stack" class="py-12 sm:py-20">
-        <div class="section-container">
+        <div class="glass-container p-8 md:p-12">
             <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">Technology Stack</h2>
             <div class="space-y-8" data-aos="fade-up" data-aos-delay="200">
                 
@@ -260,7 +624,7 @@
 
     <!-- Project Screenshots -->
     <section id="screenshots" class="py-12 sm:py-20">
-        <div class="section-container">
+        <div class="glass-container p-8 md:p-12">
             <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">Project Screenshots</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-aos="fade-up" data-aos-delay="200">
                 
@@ -292,7 +656,7 @@
                         <i class="fas fa-chart mr-2 text-violet-400"></i>Progress Management
                     </h3>
                     <div class="bg-gray-800 p-4 rounded-lg mb-3">
-                        <img src="clg-images/Screenshot 2025-08-23 192733.png" alt="Event Management" class="w-full rounded-lg hover-scale" style="border: 2px solid #8b5cf6;">
+                        <img src="images/projects/class-management/class-mgmt-192733.png" alt="Event Management" class="w-full rounded-lg hover-scale" style="border: 2px solid #8b5cf6;">
                     </div>
                     <p class="text-gray-300 text-sm">Interactive calendar and event scheduling system</p>
                 </div>
@@ -303,7 +667,7 @@
                         <i class="fas fa-id-card mr-2 text-violet-400"></i>Student Profile
                     </h3>
                     <div class="bg-gray-800 p-4 rounded-lg mb-3">
-                        <img src="clg-images/Screenshot 2025-08-23 193146.png" alt="Student profile" class="w-full rounded-lg hover-scale" style="border: 2px solid #8b5cf6;">
+                        <img src="images/projects/class-management/class-mgmt-193146.png" alt="Student profile" class="w-full rounded-lg hover-scale" style="border: 2px solid #8b5cf6;">
                     </div>
                     <p class="text-gray-300 text-sm">An updatable profile for students</p>
                 </div>
@@ -313,7 +677,7 @@
 
     <!-- Project Structure -->
     <section id="structure" class="py-12 sm:py-20">
-        <div class="section-container">
+        <div class="glass-container p-8 md:p-12">
             <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">Project Structure</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" data-aos="fade-up" data-aos-delay="200">
                 
@@ -350,7 +714,7 @@ CLG/
 
     <!-- Development Highlights -->
     <section id="highlights" class="py-12 sm:py-20">
-        <div class="section-container">
+        <div class="glass-container p-8 md:p-12">
             <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">Development Highlights</h2>
             <div class="space-y-6" data-aos="fade-up" data-aos-delay="200">
                 
@@ -390,13 +754,27 @@ CLG/
         <div class="max-w-4xl mx-auto px-4">
             <p class="text-sm sm:text-base mb-4">© 2025 Geo Nithin J. All rights reserved.</p>
             <div class="flex justify-center space-x-6">
-                <a href="index.html" class="text-violet-400 hover:text-violet-300 transition">← Back to Portfolio</a>
+                <a href="index.html#projects" class="text-violet-400 hover:text-violet-300 transition">← Back to My Projects</a>
                 <a href="mailto:geonithincr7@gmail.com" class="text-violet-400 hover:text-violet-300 transition">Contact Me</a>
             </div>
         </div>
     </footer>
 
     <script>
+        // Hide page loader
+        function hideLoader() {
+            const loader = document.getElementById('pageLoader');
+            if (loader) {
+                loader.classList.add('hidden');
+            }
+        }
+        
+        // Hide loader when page fully loads
+        window.addEventListener('load', hideLoader);
+        
+        // Failsafe: Hide loader after maximum 2 seconds
+        setTimeout(hideLoader, 2000);
+        
         // Initialize AOS
         AOS.init();
 
@@ -407,6 +785,42 @@ CLG/
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const currentTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
+            
+            if (currentTheme === 'dark') {
+                body.classList.add('light-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'light') {
+                body.classList.add('light-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                body.classList.remove('light-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
             }
         });
     </script>

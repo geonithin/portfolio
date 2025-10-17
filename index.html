@@ -10,9 +10,481 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* Theme Variables */
+        :root {
+            /* Dark Theme (Default) */
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --text-primary: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #a78bfa;
+            --border-color: rgba(139, 92, 246, 0.3);
+            --glow-color: rgba(139, 92, 246, 0.5);
+        }
+        
+        /* Light Theme - Lavender Based */
+        body.light-theme {
+            --bg-primary: #e9d5ff;
+            --bg-secondary: #ddd6fe;
+            --text-primary: #4c1d95;
+            --text-secondary: #6d28d9;
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #a78bfa;
+            --border-color: rgba(139, 92, 246, 0.3);
+            --glow-color: rgba(167, 139, 250, 0.6);
+            background-color: #e9d5ff !important;
+            color: #4c1d95 !important;
+        }
+        
+        /* Light Theme Overrides - All Lavender/Light Purple Tones */
+        body.light-theme #home {
+            background: linear-gradient(135deg, #c4b5fd 0%, #ddd6fe 100%) !important;
+        }
+        
+        body.light-theme .navbar {
+            background-color: rgba(221, 214, 254, 0.95) !important;
+            box-shadow: 0 2px 10px rgba(139, 92, 246, 0.3) !important;
+        }
+        
+        body.light-theme .navbar.scrolled {
+            background-color: rgba(196, 181, 253, 0.98) !important;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5) !important;
+        }
+        
+        body.light-theme .navbar .text-gray-300 {
+            color: #4c1d95 !important;
+        }
+        
+        body.light-theme .navbar .text-gray-300:hover {
+            color: #6b21a8 !important;
+        }
+        
+        body.light-theme .text-white {
+            color: #5b21b6 !important;
+        }
+        
+        body.light-theme .text-gray-200,
+        body.light-theme .text-gray-300 {
+            color: #6d28d9 !important;
+        }
+        
+        body.light-theme .text-gray-400 {
+            color: #7c3aed !important;
+        }
+        
+        body.light-theme .bg-gray-900 {
+            background-color: #e9d5ff !important;
+        }
+        
+        body.light-theme .bg-gray-800 {
+            background-color: #c4b5fd !important;
+        }
+        
+        body.light-theme .bg-gray-800\/50 {
+            background-color: rgba(196, 181, 253, 0.6) !important;
+        }
+        
+        body.light-theme .bg-gray-800\/70 {
+            background-color: rgba(196, 181, 253, 0.8) !important;
+        }
+        
+        body.light-theme .bg-violet-500\/10 {
+            background-color: rgba(139, 92, 246, 0.15) !important;
+        }
+        
+        body.light-theme .bg-violet-500\/20 {
+            background-color: rgba(139, 92, 246, 0.25) !important;
+        }
+        
+        body.light-theme .border-violet-500\/30 {
+            border-color: rgba(109, 40, 217, 0.5) !important;
+        }
+        
+        body.light-theme .border-violet-500\/60 {
+            border-color: rgba(109, 40, 217, 0.7) !important;
+        }
+        
+        body.light-theme .text-violet-300,
+        body.light-theme .text-violet-400 {
+            color: #7c3aed !important;
+        }
+        
+        body.light-theme .text-violet-200 {
+            color: #6d28d9 !important;
+        }
+        
+        body.light-theme .text-violet-300\/70 {
+            color: rgba(124, 58, 237, 0.9) !important;
+        }
+        
+        body.light-theme .bg-violet-900 {
+            background-color: rgba(139, 92, 246, 0.3) !important;
+        }
+        
+        body.light-theme .bg-violet-500 {
+            background-color: #a78bfa !important;
+        }
+        
+        body.light-theme .bg-violet-600 {
+            background-color: #8b5cf6 !important;
+        }
+        
+        body.light-theme .bg-violet-300\/20 {
+            background-color: rgba(167, 139, 250, 0.3) !important;
+        }
+        
+        body.light-theme .border-violet-300,
+        body.light-theme .border-violet-400 {
+            border-color: #8b5cf6 !important;
+        }
+        
+        body.light-theme .section-container {
+            background-color: #ddd6fe !important;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.25), 0 0 25px rgba(139, 92, 246, 0.15) !important;
+        }
+        
+        body.light-theme .portfolio-section {
+            background-color: #e9d5ff !important;
+        }
+        
+        body.light-theme footer {
+            background-color: #c4b5fd !important;
+            color: #5b21b6 !important;
+        }
+        
+        /* Additional card differentiation */
+        body.light-theme .bg-gradient-to-br.from-gray-800 {
+            background: linear-gradient(135deg, #c4b5fd, #a78bfa) !important;
+        }
+        
+        body.light-theme .from-purple-900\/40,
+        body.light-theme .from-violet-900\/30 {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.4), rgba(196, 181, 253, 0.4)) !important;
+        }
+        
+        /* Light Theme Glow Effects - Softer, Lavender-based */
+        body.light-theme .glow-button {
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.4) !important;
+        }
+        
+        body.light-theme .glow-button:hover {
+            box-shadow: 0 0 25px rgba(167, 139, 250, 0.6), 0 0 40px rgba(167, 139, 250, 0.4) !important;
+        }
+        
+        body.light-theme .hover-scale:hover {
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.5) !important;
+        }
+        
+        body.light-theme .glow-logo {
+            filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.4)) !important;
+        }
+        
+        body.light-theme .glow-logo-bottom {
+            filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.5)) !important;
+        }
+        
+        body.light-theme .overview-card {
+            background: linear-gradient(135deg, rgba(196, 181, 253, 0.2) 0%, transparent 50%, rgba(196, 181, 253, 0.2) 100%) !important;
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.25), 0 0 40px rgba(167, 139, 250, 0.1) !important;
+        }
+        
+        body.light-theme .overview-card:hover {
+            box-shadow: 0 0 40px rgba(167, 139, 250, 0.4), 0 0 60px rgba(167, 139, 250, 0.2) !important;
+        }
+        
+        body.light-theme i.fas,
+        body.light-theme i.fab {
+            filter: drop-shadow(0 0 3px rgba(167, 139, 250, 0.3)) !important;
+        }
+        
+        body.light-theme i.fas:hover,
+        body.light-theme i.fab:hover {
+            filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.6)) !important;
+        }
+        
+        /* Light Theme Gradient Overrides */
+        body.light-theme .bg-gradient-to-r,
+        body.light-theme .bg-gradient-to-br {
+            background: linear-gradient(135deg, rgba(221, 214, 254, 0.5), rgba(233, 213, 255, 0.5)) !important;
+        }
+        
+        body.light-theme .from-violet-600\/20,
+        body.light-theme .from-purple-600\/20 {
+            --tw-gradient-from: rgba(196, 181, 253, 0.3) !important;
+        }
+        
+        body.light-theme .to-violet-600\/20 {
+            --tw-gradient-to: rgba(221, 214, 254, 0.3) !important;
+        }
+        
+        body.light-theme .from-blue-900,
+        body.light-theme .to-violet-900 {
+            background: linear-gradient(135deg, #ddd6fe, #fae8ff) !important;
+        }
+        
+        body.light-theme .border-violet-400\/30 {
+            border-color: rgba(167, 139, 250, 0.4) !important;
+        }
+        
+        /* Light Theme - Progress Bar Fix */
+        body.light-theme .progress-bar {
+            background-color: rgba(196, 181, 253, 0.3) !important;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.2) !important;
+        }
+        
+        body.light-theme .progress-fill {
+            background: linear-gradient(to right, #8b5cf6, #a78bfa) !important;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4) !important;
+        }
+        
+        /* Light Theme - Button Fixes */
+        body.light-theme .bg-purple-600,
+        body.light-theme .bg-purple-700 {
+            background-color: #9333ea !important;
+        }
+        
+        body.light-theme .hover\:bg-purple-700:hover {
+            background-color: #7e22ce !important;
+        }
+        
+        body.light-theme .hover\:bg-violet-600:hover {
+            background-color: #7c3aed !important;
+        }
+        
+        body.light-theme .hover\:bg-violet-700:hover {
+            background-color: #6d28d9 !important;
+        }
+        
+        /* Light Theme - White/Gray Backgrounds Override */
+        body.light-theme .bg-white\/20,
+        body.light-theme .bg-white\/30 {
+            background-color: rgba(196, 181, 253, 0.3) !important;
+        }
+        
+        body.light-theme .backdrop-blur-sm {
+            backdrop-filter: blur(4px) !important;
+        }
+        
+        /* Light Theme - Transparent Backgrounds */
+        body.light-theme .from-purple-900\/30,
+        body.light-theme .to-purple-900\/30 {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.35), rgba(196, 181, 253, 0.35)) !important;
+        }
+        
+        /* Light Theme - Additional Card Styles */
+        body.light-theme .rounded-3xl.bg-violet-500 {
+            background-color: rgba(167, 139, 250, 0.5) !important;
+        }
+        
+        body.light-theme .text-white\/90 {
+            color: #5b21b6 !important;
+        }
+        
+        /* Light Theme - Border Overrides */
+        body.light-theme .border-2 {
+            border-width: 2px !important;
+        }
+        
+        body.light-theme .border-l-4 {
+            border-left-width: 4px !important;
+        }
+        
+        /* Light Theme - Hamburger Menu */
+        body.light-theme .hamburger span {
+            background-color: #5b21b6 !important;
+        }
+        
+        body.light-theme .text-gray-300:hover {
+            color: #8b5cf6 !important;
+        }
+        
+        /* Light Theme - Additional Gradient Overrides */
+        body.light-theme .from-blue-900 {
+            --tw-gradient-from: #c4b5fd !important;
+            --tw-gradient-to: rgb(196 181 253 / 0) !important;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+        }
+        
+        body.light-theme .to-violet-900 {
+            --tw-gradient-to: #ddd6fe !important;
+        }
+        
+        body.light-theme .via-violet-900 {
+            --tw-gradient-to: rgb(221 214 254 / 0) !important;
+            --tw-gradient-stops: var(--tw-gradient-from), #ddd6fe, var(--tw-gradient-to) !important;
+        }
+        
+        body.light-theme .from-purple-900 {
+            --tw-gradient-from: #c4b5fd !important;
+            --tw-gradient-to: rgb(196 181 253 / 0) !important;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+        }
+        
+        body.light-theme .to-purple-900 {
+            --tw-gradient-to: #fae8ff !important;
+        }
+        
+        body.light-theme .from-indigo-900 {
+            --tw-gradient-from: #ddd6fe !important;
+            --tw-gradient-to: rgb(221 214 254 / 0) !important;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+        }
+        
+        body.light-theme .to-indigo-900 {
+            --tw-gradient-to: #fae8ff !important;
+        }
+        
+        /* Light Theme - Additional Text Colors */
+        body.light-theme .text-gray-500 {
+            color: #8b5cf6 !important;
+        }
+        
+        body.light-theme .text-gray-600 {
+            color: #7c3aed !important;
+        }
+        
+        body.light-theme .text-gray-700 {
+            color: #6d28d9 !important;
+        }
+        
+        /* Light Theme - Contact Page Enhancements */
+        body.light-theme .text-gray-200 {
+            color: #6d28d9 !important;
+        }
+        
+        body.light-theme .text-gray-400 {
+            color: #7c3aed !important;
+        }
+        
+        body.light-theme .text-purple-400 {
+            color: #9333ea !important;
+        }
+        
+        body.light-theme .border-violet-500 {
+            border-color: #8b5cf6 !important;
+        }
+        
+        body.light-theme .border-purple-500 {
+            border-color: #9333ea !important;
+        }
+        
+        body.light-theme .hover\:bg-gray-700:hover {
+            background-color: #c4b5fd !important;
+        }
+        
+        body.light-theme .from-violet-500 {
+            --tw-gradient-from: #8b5cf6 !important;
+            --tw-gradient-to: rgb(139 92 246 / 0) !important;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+        }
+        
+        body.light-theme .to-purple-500 {
+            --tw-gradient-to: #a855f7 !important;
+        }
+        
+        /* Contact Section - Enhanced Container Visibility with Edge Glow */
+        .bg-gray-800 {
+            border: 2px solid rgba(139, 92, 246, 0.4);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.3), 
+                        0 0 20px rgba(139, 92, 246, 0.15),
+                        inset 0 0 15px rgba(139, 92, 246, 0.05);
+            transition: all 0.3s ease;
+            animation: containerGlow 3s ease-in-out infinite;
+        }
+        
+        .bg-gray-800:hover {
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), 
+                        0 0 30px rgba(139, 92, 246, 0.3),
+                        0 0 45px rgba(139, 92, 246, 0.15),
+                        inset 0 0 20px rgba(139, 92, 246, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        body.light-theme .bg-gray-800 {
+            background-color: #c4b5fd !important;
+            border: 2px solid rgba(109, 40, 217, 0.4) !important;
+            box-shadow: 0 0 10px rgba(109, 40, 217, 0.35), 
+                        0 0 20px rgba(109, 40, 217, 0.2),
+                        inset 0 0 15px rgba(139, 92, 246, 0.08) !important;
+        }
+        
+        body.light-theme .bg-gray-800:hover {
+            border-color: rgba(109, 40, 217, 0.7) !important;
+            box-shadow: 0 0 20px rgba(109, 40, 217, 0.55), 
+                        0 0 30px rgba(109, 40, 217, 0.35),
+                        0 0 45px rgba(109, 40, 217, 0.2),
+                        inset 0 0 20px rgba(139, 92, 246, 0.12) !important;
+            transform: translateY(-2px);
+        }
+        
+        @keyframes containerGlow {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(139, 92, 246, 0.3), 
+                            0 0 20px rgba(139, 92, 246, 0.15),
+                            inset 0 0 15px rgba(139, 92, 246, 0.05);
+            }
+            50% {
+                box-shadow: 0 0 15px rgba(139, 92, 246, 0.45), 
+                            0 0 25px rgba(139, 92, 246, 0.25),
+                            inset 0 0 18px rgba(139, 92, 246, 0.08);
+            }
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            width: 60px;
+            height: 30px;
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
+        }
+        
+        .theme-toggle-slider {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            left: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .theme-toggle-slider i {
+            font-size: 12px;
+            color: white;
+        }
+        
+        body.light-theme .theme-toggle-slider {
+            left: 32px;
+        }
+        
+        body.light-theme .theme-toggle {
+            background: rgba(124, 58, 237, 0.3);
+            border-color: rgba(124, 58, 237, 0.5);
+        }
+        
         .smooth-scroll {
             scroll-behavior: smooth;
         }
@@ -34,7 +506,75 @@
             box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
         }
         .glow-button:hover {
-            box-shadow: 0 0 25px rgba(139, 92, 246, 0.8);
+            box-shadow: 0 0 35px rgba(139, 92, 246, 1), 0 0 60px rgba(139, 92, 246, 0.6), 0 0 90px rgba(139, 92, 246, 0.3);
+        }
+        .overview-card {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, transparent 50%, rgba(139, 92, 246, 0.1) 100%);
+            background-size: 200% 200%;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1);
+            filter: brightness(1);
+        }
+        
+        .overview-card:hover {
+            animation: bloom 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            background-position: 100% 50%;
+        }
+        
+        .overview-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.1) 30%, transparent 70%);
+            pointer-events: none;
+            opacity: 0;
+            transform: rotate(0deg) scale(0.8);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .overview-card:hover::before {
+            animation: rotateGlow 2.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0.9;
+            transform: rotate(180deg) scale(1.2);
+        }
+        
+        .overview-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .overview-card:hover::after {
+            animation: shimmerCard 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 1;
+        }
+        
+        @keyframes rotateGlow {
+            0% { 
+                transform: rotate(0deg) scale(0.8); 
+                opacity: 0; 
+            }
+            50% { 
+                opacity: 0.9; 
+                transform: rotate(180deg) scale(1.1);
+            }
+            100% { 
+                transform: rotate(360deg) scale(1.2); 
+                opacity: 0.8; 
+            }
         }
         .profile-img, .certificate-img {
             border: 4px solid transparent;
@@ -53,11 +593,57 @@
             }
         }
         .social-icon, .skill-icon, .navbar-logo {
-            transition: color 0.3s ease, transform 0.3s ease;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 3px rgba(139, 92, 246, 0.3));
         }
         .social-icon:hover, .skill-icon:hover, .navbar-logo:hover {
             color: #8b5cf6;
             transform: scale(1.2);
+            filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.8)) drop-shadow(0 0 20px rgba(139, 92, 246, 0.5));
+            animation: iconGlow 0.6s ease-in-out;
+        }
+        
+        /* Universal Icon Glow Effects */
+        i.fas, i.fab, i.far, i.fa {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 2px rgba(139, 92, 246, 0.2));
+        }
+        
+        i.fas:hover, i.fab:hover, i.far:hover, i.fa:hover {
+            filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.8)) drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+            transform: scale(1.1);
+        }
+        
+        /* Specific icon type glow animations */
+        i.text-violet-400, i.text-violet-300 {
+            animation: subtleGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes subtleGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 3px rgba(139, 92, 246, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.7));
+            }
+        }
+        
+        @keyframes iconGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6));
+            }
+            50% {
+                filter: drop-shadow(0 0 15px rgba(139, 92, 246, 1)) drop-shadow(0 0 25px rgba(139, 92, 246, 0.7));
+            }
+        }
+        
+        /* Large icons extra glow */
+        i.text-4xl, i.text-5xl, i.text-6xl {
+            filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.4));
+        }
+        
+        i.text-4xl:hover, i.text-5xl:hover, i.text-6xl:hover {
+            filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.9)) drop-shadow(0 0 25px rgba(139, 92, 246, 0.6));
         }
         .progress-bar {
             height: 20px;
@@ -113,6 +699,252 @@
                 box-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.5);
             }
         }
+        
+        /* Creative Loader Styles */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e1b4b);
+            background-size: 400% 400%;
+            animation: gradientFlow 8s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+            overflow: hidden;
+        }
+        
+        body.light-theme .page-loader {
+            background: linear-gradient(-45deg, #e9d5ff, #ddd6fe, #c4b5fd, #ddd6fe);
+            background-size: 400% 400%;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            display: none;
+        }
+        
+        /* Enhanced Radial Glow Background */
+        .loader-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
+            animation: gentleGlow 4s ease-in-out infinite;
+        }
+        
+        body.light-theme .loader-glow {
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%);
+        }
+        @keyframes gentleGlow {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+                filter: blur(40px);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.8;
+                filter: blur(60px);
+            }
+        }
+        
+        .loader-content {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        .loader-logo {
+            width: 10em;
+            height: 10em;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        /* 3D Spinner Container */
+        .loader-diamond {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .loader-diamond:before,
+        .loader-diamond:after {
+            box-sizing: border-box;
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10em;
+            height: 10em;
+            transform-style: preserve-3d;
+            transform-origin: 50% 50%;
+            perspective-origin: 50% 50%;
+            perspective: 340px;
+            background-size: 10em 10em;
+            background-image: url("data:image/svg+xml,%3Csvg width='266' height='297' viewBox='0 0 266 297' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M171.507813,3.25000038 C226.208183,12.8577111 297.112722,71.4912823 250.895599,108.410155 C216.582024,135.82031 186.528405,97.0624964 156.800774,85.7734346 C127.073143,74.4843721 76.8884632,84.2161462 60.1289065,108.410153 C-15.9804685,218.281247 145.277344,296.667968 145.277344,296.667968 C145.277344,296.667968 -25.4492187,257.242198 3.3984375,108.410155 C16.3070661,41.8114174 84.7275829,-11.9922985 171.507813,3.25000038 Z' fill='%238b5cf6'/%3E%3C/svg%3E");
+        }
+        
+        .loader-diamond:before {
+            transform: rotateX(60deg) rotateY(45deg) rotateZ(45deg);
+            animation: rotateBefore 1200ms infinite linear reverse;
+        }
+        
+        .loader-diamond:after {
+            transform: rotateX(240deg) rotateY(45deg) rotateZ(45deg);
+            animation: rotateAfter 1200ms infinite linear;
+        }
+        
+        @keyframes rotateBefore {
+            from {
+                transform: rotateX(60deg) rotateY(45deg) rotateZ(0deg);
+            }
+            to {
+                transform: rotateX(60deg) rotateY(45deg) rotateZ(-360deg);
+            }
+        }
+        
+        @keyframes rotateAfter {
+            from {
+                transform: rotateX(240deg) rotateY(45deg) rotateZ(0deg);
+            }
+            to {
+                transform: rotateX(240deg) rotateY(45deg) rotateZ(360deg);
+            }
+        }
+        
+        /* Hide the facet divs since we're using :before and :after */
+        .diamond-facet {
+            display: none;
+        }
+        .loader-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 40px rgba(139, 92, 246, 0.5);
+            animation: textGlowPulse 3s ease-in-out infinite;
+        }
+        
+        body.light-theme .loader-text {
+            color: #7c3aed;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 0 40px rgba(139, 92, 246, 0.2);
+        }
+        @keyframes textGlowPulse {
+            0%, 100% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                text-shadow: 0 0 25px rgba(139, 92, 246, 1), 0 0 50px rgba(139, 92, 246, 0.8), 0 0 75px rgba(139, 92, 246, 0.5);
+                transform: scale(1.02);
+            }
+        }
+        .loader-subtext {
+            font-size: 0.95rem;
+            color: #a78bfa;
+            margin-top: 0.5rem;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            animation: typewriter 4s steps(40) infinite, fadeInOut 2s ease-in-out infinite;
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        
+        body.light-theme .loader-subtext {
+            color: #8b5cf6;
+        }
+        @keyframes typewriter {
+            0%, 100% { width: 0; }
+            50% { width: 100%; }
+        }
+        @keyframes fadeInOut {
+            0%, 100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        .loader-percentage {
+            font-size: 0.75rem;
+            color: #8b5cf6;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            animation: fadeInOut 2s ease-in-out infinite;
+        }
+        
+        body.light-theme .loader-percentage {
+            color: #9333ea;
+        }
+        
+        .loader-progress {
+            width: 250px;
+            height: 6px;
+            background: rgba(139, 92, 246, 0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 1rem auto 0;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .loader-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #6b21a8, #8b5cf6, #a78bfa, #8b5cf6, #6b21a8);
+            background-size: 300% 100%;
+            animation: progressShimmer 2s ease-in-out infinite, progressFill 3s ease-out forwards;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 1), 0 0 30px rgba(139, 92, 246, 0.6);
+            position: relative;
+        }
+        .loader-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmerMove 1.5s infinite;
+        }
+        @keyframes progressShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes progressFill {
+            0% { width: 0%; }
+            30% { width: 45%; }
+            60% { width: 78%; }
+            90% { width: 95%; }
+            100% { width: 100%; }
+        }
+        @keyframes shimmerMove {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
         /* Hamburger Menu Styles */
         .hamburger {
             display: none;
@@ -202,16 +1034,281 @@
                 font-size: 0.9rem;
             }
         }
+        /* Smooth Blooming Animation for Cards on Hover */
+        @keyframes bloom {
+            0% {
+                transform: scale(1) translateY(0);
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1);
+                filter: brightness(1);
+            }
+            30% {
+                transform: scale(1.03) translateY(-2px);
+                box-shadow: 0 0 35px rgba(139, 92, 246, 0.6), 0 0 60px rgba(139, 92, 246, 0.4), 0 0 80px rgba(139, 92, 246, 0.2);
+                filter: brightness(1.1);
+            }
+            60% {
+                transform: scale(1.08) translateY(-5px);
+                box-shadow: 0 0 50px rgba(139, 92, 246, 1), 0 0 90px rgba(139, 92, 246, 0.8), 0 0 120px rgba(139, 92, 246, 0.5), 0 0 150px rgba(139, 92, 246, 0.3);
+                filter: brightness(1.15);
+            }
+            100% {
+                transform: scale(1.06) translateY(-3px);
+                box-shadow: 0 0 45px rgba(139, 92, 246, 0.9), 0 0 75px rgba(139, 92, 246, 0.7), 0 0 110px rgba(139, 92, 246, 0.4);
+                filter: brightness(1.12);
+            }
+        }
+        
+        .animate-bloom {
+            transform-origin: center center;
+            /* Bloom animation now only triggers on hover via .overview-card:hover */
+        }
+        
+        /* Smooth Shimmer Effect */
+        @keyframes shimmerCard {
+            0% {
+                left: -100%;
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.6;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                left: 100%;
+                opacity: 0;
+            }
+        }
+        
+        /* Scroll-triggered card animations */
+        .card-hidden {
+            opacity: 0;
+            transform: translateY(60px) scale(0.9);
+            filter: blur(5px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .card-visible {
+            opacity: 1 !important;
+            transform: translateY(0) scale(1) !important;
+            filter: blur(0) !important;
+            animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+                       subtlePulse 2s ease-in-out 0.8s;
+        }
+        
+        @keyframes popIn {
+            0% {
+                transform: translateY(60px) scale(0.9) rotate(-2deg);
+                opacity: 0;
+                filter: blur(5px);
+            }
+            50% {
+                transform: translateY(-10px) scale(1.05) rotate(1deg);
+                filter: blur(0);
+            }
+            100% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+        
+        @keyframes subtlePulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(139, 92, 246, 0.5), 0 0 60px rgba(139, 92, 246, 0.3);
+            }
+        }
+        
+        /* Enhanced hover effect when card is visible */
+        .card-visible:hover {
+            animation: bloom 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+        }
+        
+        /* Sparkle effect on card appearance */
+        .card-visible::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.6), transparent);
+            border-radius: 1.5rem;
+            opacity: 0;
+            animation: sparkleSwipe 1.2s ease-out 0.3s;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes sparkleSwipe {
+            0% {
+                opacity: 0;
+                transform: translateX(-100%) rotate(45deg);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+        
+        /* Fix quote section - no glowing edges, clean border */
+        .max-w-5xl .relative {
+            box-shadow: none !important;
+            animation: none !important;
+        }
+        
+        .max-w-5xl.card-visible::before {
+            display: none !important;
+        }
+        
+        .max-w-5xl .relative {
+            transition: all 0.3s ease;
+        }
+        
+        .max-w-5xl .relative:hover {
+            border-color: rgba(167, 139, 250, 0.5);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 640px) {
+            .section-container {
+                border-radius: 12px;
+                padding: 1rem;
+                margin: 0.75rem 0;
+            }
+            
+            .portfolio-section {
+                padding: 1rem;
+            }
+            
+            h1, .text-5xl {
+                font-size: 1.875rem !important;
+            }
+            
+            h2, .text-3xl {
+                font-size: 1.5rem !important;
+            }
+            
+            h3, .text-2xl {
+                font-size: 1.25rem !important;
+            }
+            
+            .navbar {
+                padding: 0.5rem 0.25rem;
+            }
+            
+            .feature-card, .project-card {
+                padding: 1rem;
+                margin: 0.5rem 0;
+            }
+
+            .grid {
+                gap: 0.75rem !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-container {
+                padding: 1.25rem;
+                margin: 1rem auto;
+            }
+
+            .portfolio-section {
+                padding: 2rem 1rem;
+            }
+
+            .feature-card {
+                margin: 0.75rem 0;
+                padding: 1.25rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .section-container {
+                max-width: 100%;
+                margin: 1rem;
+            }
+
+            .grid-cols-3 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .grid-cols-4 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .hover-scale,
+            .feature-card,
+            .project-card,
+            .personal-card {
+                cursor: pointer;
+            }
+
+            button, a {
+                padding: 0.75rem 1rem;
+                min-height: 44px;
+            }
+        }
+
+        /* Landscape orientation */
+        @media (orientation: landscape) and (max-height: 500px) {
+            .min-h-screen {
+                min-height: auto;
+                padding: 1rem 0;
+            }
+
+            h1, .text-4xl, .text-5xl {
+                font-size: 1.5rem !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-200 smooth-scroll">
+    <!-- Creative Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <!-- Subtle Radial Glow Effect -->
+        <div class="loader-glow"></div>
+        
+        <!-- Main Loader Content -->
+        <div class="loader-content">
+            <div class="loader-logo">
+                <div class="loader-diamond">
+                    <div class="diamond-facet"></div>
+                    <div class="diamond-facet"></div>
+                    <div class="diamond-facet"></div>
+                    <div class="diamond-facet"></div>
+                </div>
+            </div>
+            <div class="loader-text">Geo’s Odyssey</div>
+            <div class="loader-subtext" id="loaderSubtext">Crafting brilliance...</div>
+            <div class="loader-progress">
+                <div class="loader-progress-bar"></div>
+            </div>
+            <div class="loader-percentage" id="loaderPercentage">Initializing... 0%</div>
+        </div>
+    </div>
+
     <!-- Navbar -->
     <nav class="fixed top-0 w-full navbar z-50" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <svg class="w-8 sm:w-10 h-8 sm:h-10 text-violet-500 navbar-logo glow-logo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l9 9-9 9-9-9 9-9z"></path>
-                </svg>
+                <!-- Theme Toggle Button -->
+                <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                    <div class="theme-toggle-slider">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </div>
+                </div>
                 <span class="text-lg sm:text-xl font-bold text-white">Geo Nithin J</span>
             </div>
             <div class="hamburger" id="hamburger">
@@ -220,177 +1317,926 @@
                 <span></span>
             </div>
             <div class="nav-menu space-y-4 sm:space-y-0 sm:space-x-6 sm:flex sm:items-center" id="nav-menu">
-                <a href="#home" class="text-gray-300 hover:text-violet-400 transition">Home</a>
-                <a href="#about" class="text-gray-300 hover:text-violet-400 transition">About</a>
-                <a href="#skills" class="text-gray-300 hover:text-violet-400 transition">Skills</a>
-                <a href="#projects" class="text-gray-300 hover:text-violet-400 transition">Projects</a>
-                <a href="#certificates" class="text-gray-300 hover:text-violet-400 transition">Certificates</a>
-                <a href="#contact" class="text-gray-300 hover:text-violet-400 transition">Contact</a>
+                <button onclick="showSection('home')" class="text-gray-300 hover:text-violet-400 transition">Home</button>
+                <button onclick="showSection('about')" class="text-gray-300 hover:text-violet-400 transition">About</button>
+                <button onclick="showSection('skills')" class="text-gray-300 hover:text-violet-400 transition">Skills</button>
+                <button onclick="showSection('projects')" class="text-gray-300 hover:text-violet-400 transition">Projects</button>
+                <a href="personal.html" class="text-gray-300 hover:text-violet-400 transition">Personal Hub</a>
+                <button onclick="showSection('contact')" class="text-gray-300 hover:text-violet-400 transition">Contact</button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-<header id="home" class="min-h-screen bg-gradient-to-br from-blue-900 to-violet-900 flex items-center justify-center text-white">
-  <div class="text-center px-6 sm:px-8 max-w-4xl mx-auto" data-aos="zoom-in" data-aos-duration="1000">
-      <img src="geo/geo pro pic.jpg" alt="Geo Nithin J" class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full mx-auto mb-4 object-cover profile-img">
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Geo Nithin J</h1>
-      <p class="text-base sm:text-lg md:text-xl mb-6">A student who's more curious about his passion</p>
-      <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
-          <a href="#about" class="bg-violet-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition text-xs sm:text-sm md:text-base">About Me</a>
-          <a href="#skills" class="bg-violet-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition text-xs sm:text-sm md:text-base">My Skills</a>
-          <a href="#projects" class="bg-violet-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition text-xs sm:text-sm md:text-base">My Projects</a>
-          <a href="#contact" class="bg-violet-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition text-xs sm:text-sm md:text-base">Let's Connect</a>
-      </div>
+<header id="home" class="min-h-screen bg-gradient-to-br from-blue-900 to-violet-900 text-white py-20">
+  <div class="max-w-7xl mx-auto px-6 sm:px-8">
+    <!-- Profile Header -->
+    <div class="text-center mb-16" data-aos="zoom-in" data-aos-duration="1000">
+    <img src="images/profile/geo-profile.jpg" alt="Geo Nithin J" class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full mx-auto mb-4 object-cover profile-img" style="object-position:50% 22%;">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Geo Nithin J</h1>
+        <p class="text-base sm:text-lg md:text-xl mb-6">"A student driven by curiosity and guided by an unshakable passion."
+</p>
+        <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
+            <button onclick="showSection('about')" class="bg-violet-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition text-xs sm:text-sm md:text-base">About Me</button>
+            <button onclick="showSection('skills')" class="bg-violet-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition text-xs sm:text-sm md:text-base">My Skills</button>
+            <button onclick="showSection('projects')" class="bg-violet-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition text-xs sm:text-sm md:text-base">My Projects</button>
+            <a href="personal.html" class="bg-violet-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition text-xs sm:text-sm md:text-base">Personal Hub</a>
+            <button onclick="showSection('contact')" class="bg-violet-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition text-xs sm:text-sm md:text-base">Let's Connect</button>
+        </div>
+    </div>
+
+    <!-- Overview Containers -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+        
+        <!-- About Me Preview -->
+        <div class="bg-violet-500 rounded-3xl p-6 transition-all duration-500 cursor-pointer overview-card animate-bloom" 
+             onclick="showSection('about')" 
+             data-aos="fade-up" 
+             data-aos-delay="100"
+             style="animation-delay: 0s;">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-user text-white text-4xl mr-4 transition-transform duration-300 hover:scale-110 hover:rotate-6"></i>
+                <h3 class="text-2xl font-bold text-white">About Me</h3>
+            </div>
+            <p class="text-white/90 text-base mb-4 leading-relaxed">A CSE student and aspiring software engineer, journeying through the world of full-stack web development and ready to embrace the frontier of data science</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">🎮 Hobbies</span>
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">🚀 Ambition</span>
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">❤️ Passion</span>
+            </div>
+            <div class="text-white text-sm font-semibold hover:translate-x-2 transition-transform flex items-center">
+                Learn More <i class="fas fa-arrow-right ml-2"></i>
+            </div>
+        </div>
+
+        <!-- Skills Preview -->
+        <div class="bg-violet-500 rounded-3xl p-6 transition-all duration-500 cursor-pointer overview-card animate-bloom" 
+             onclick="showSection('skills')" 
+             data-aos="fade-up" 
+             data-aos-delay="200"
+             style="animation-delay: 0.5s;">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-code text-white text-4xl mr-4 transition-transform duration-300 hover:scale-110 hover:rotate-6"></i>
+                <h3 class="text-2xl font-bold text-white">My Skills</h3>
+            </div>
+            <p class="text-white/90 text-base mb-4 leading-relaxed">Technical expertise in programming, web development, and system administration</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">Python</span>
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">HTML/CSS</span>
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">JavaScript</span>
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">Azure</span>
+            </div>
+            <div class="text-white text-sm font-semibold hover:translate-x-2 transition-transform flex items-center">
+                View All Skills <i class="fas fa-arrow-right ml-2"></i>
+            </div>
+        </div>
+
+        <!-- Projects Preview -->
+        <div class="bg-violet-500 rounded-3xl p-6 transition-all duration-500 cursor-pointer overview-card animate-bloom" 
+             onclick="showSection('projects')" 
+             data-aos="fade-up" 
+             data-aos-delay="300"
+             style="animation-delay: 1s;">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-laptop-code text-white text-4xl mr-4 transition-transform duration-300 hover:scale-110 hover:rotate-6"></i>
+                <h3 class="text-2xl font-bold text-white">My Projects</h3>
+            </div>
+            <p class="text-white/90 text-base mb-4 leading-relaxed">Real-world applications including LMS, GuardianTrack, and Class Management systems</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">📚 LMS</span>
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">🛡️ GuardianTrack</span>
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">🎓 Class Mgmt</span>
+            </div>
+            <div class="text-white text-sm font-semibold hover:translate-x-2 transition-transform flex items-center">
+                Explore Projects <i class="fas fa-arrow-right ml-2"></i>
+            </div>
+        </div>
+
+        <!-- Personal Hub Preview -->
+        <div class="bg-violet-500 rounded-3xl p-6 transition-all duration-500 cursor-pointer overview-card animate-bloom" 
+             onclick="window.location.href='personal.html'" 
+             data-aos="fade-up" 
+             data-aos-delay="400"
+             style="animation-delay: 1.5s;">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-heart text-white text-4xl mr-4 transition-transform duration-300 hover:scale-110 hover:rotate-6"></i>
+                <h3 class="text-2xl font-bold text-white">Personal Hub</h3>
+            </div>
+            <p class="text-white/90 text-base mb-4 leading-relaxed">Campus journey, certifications, reading list, and personal dreams & aspirations</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">🎓 Campus</span>
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">📜 Certs</span>
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">📚 Books</span>
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">✨ Dreams</span>
+            </div>
+            <div class="text-white text-sm font-semibold hover:translate-x-2 transition-transform flex items-center">
+                Enter Hub <i class="fas fa-arrow-right ml-2"></i>
+            </div>
+        </div>
+
+        <!-- Contact Preview -->
+        <div class="bg-violet-500 rounded-3xl p-6 transition-all duration-500 cursor-pointer overview-card animate-bloom" 
+             onclick="showSection('contact')" 
+             data-aos="fade-up" 
+             data-aos-delay="500"
+             style="animation-delay: 2s;">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-paper-plane text-white text-4xl mr-4 transition-transform duration-300 hover:scale-110 hover:rotate-6"></i>
+                <h3 class="text-2xl font-bold text-white">Let's Connect</h3>
+            </div>
+            <p class="text-white/90 text-base mb-4 leading-relaxed">Get in touch via email, LinkedIn, GitHub, and other social platforms</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">📧 Email</span>
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">💼 LinkedIn</span>
+                <span class="text-sm bg-white/20 text-white px-3 py-1 rounded-full backdrop-blur-sm hover:bg-white/30 transition-all">💻 GitHub</span>
+            </div>
+            <div class="text-white text-sm font-semibold hover:translate-x-2 transition-transform flex items-center">
+                Contact Me <i class="fas fa-arrow-right ml-2"></i>
+            </div>
+        </div>
+
+        <!-- Stats Overview -->
+        <div class="bg-violet-500 rounded-3xl p-6 transition-all duration-500 overview-card animate-bloom" 
+             data-aos="fade-up" 
+             data-aos-delay="600"
+             style="animation-delay: 2.5s;">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-chart-line text-white text-4xl mr-4 transition-transform duration-300 hover:scale-110 hover:rotate-6"></i>
+                <h3 class="text-2xl font-bold text-white">Quick Stats</h3>
+            </div>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center hover:translate-x-1 transition-transform">
+                    <span class="text-white/90 text-base">Projects Completed</span>
+                    <span class="text-white font-bold text-xl">3+</span>
+                </div>
+                <div class="flex justify-between items-center hover:translate-x-1 transition-transform">
+                    <span class="text-white/90 text-base">Skills Mastered</span>
+                    <span class="text-white font-bold text-xl">10+</span>
+                </div>
+                <div class="flex justify-between items-center hover:translate-x-1 transition-transform">
+                    <span class="text-white/90 text-base">Certifications</span>
+                    <span class="text-white font-bold text-xl">7</span>
+                </div>
+                <div class="flex justify-between items-center hover:translate-x-1 transition-transform">
+                    <span class="text-white/90 text-base">Campus Milestones</span>
+                    <span class="text-white font-bold text-xl">19+</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Inspirational Quote Section -->
+    <div class="relative bg-gradient-to-r from-purple-900/40 via-violet-900/40 to-purple-900/40 backdrop-blur-sm rounded-3xl p-8 overflow-hidden max-w-5xl mx-auto mt-16 mb-8 border border-violet-500/30" data-aos="fade-up" data-aos-delay="700" style="box-shadow: 0 0 20px rgba(167, 139, 250, 0.4), 0 0 40px rgba(139, 92, 246, 0.3);">
+        <!-- Decorative elements -->
+        <div class="absolute top-0 left-0 w-32 h-32 bg-violet-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl"></div>
+        
+        <!-- Quote content -->
+        <div class="relative z-10 text-center">
+            <i class="fas fa-quote-left text-violet-300 text-3xl mb-4 inline-block opacity-50"></i>
+            <blockquote class="text-white text-xl md:text-2xl font-semibold italic mb-4 leading-relaxed">
+                "The only way to do great work is to love what you do. Stay curious, stay passionate, and keep building."
+            </blockquote>
+            <div class="flex items-center justify-center space-x-2 text-violet-300">
+                <i class="fas fa-code text-sm"></i>
+                <p class="text-sm font-medium">— Passionate about crafting digital experiences</p>
+                <i class="fas fa-heart text-sm"></i>
+            </div>
+        </div>
+    </div>
+
   </div>
 </header>
 
     <!-- About Me Section -->
-    <section id="about" class="py-12 sm:py-20">
+    <section id="about" class="py-12 sm:py-20 portfolio-section hidden">
         <div class="section-container">
+            <div class="text-center mb-6">
+                <button onclick="showSection('home')" class="bg-violet-500 text-white px-4 py-2 rounded-full font-semibold glow-button transition inline-flex items-center space-x-2">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Home</span>
+                </button>
+            </div>
             <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">About Me</h2>
-            <div class="text-base sm:text-lg text-gray-300 leading-relaxed space-y-4 sm:space-y-6" data-aos="fade-up" data-aos-delay="200">
-                <p>A CSE Student & Aspiring software engineer | | On a Journey Through Systems & Network Administration | | Curious about learning, growing and crafting the world with tech.</p>
-                <p class="flex items-center space-x-3">
-                    <i class="fas fa-gamepad text-violet-400 text-2xl sm:text-3xl glow-logo-bottom"></i>
-                    <span><strong>Hobbies:</strong> Playing football,reading books,watchic classic movies, Photography</span>
-                </p>
-                <p class="flex items-center space-x-3">
-                    <i class="fas fa-rocket text-violet-400 text-2xl sm:text-3xl glow-logo-bottom"></i>
-                    <span><strong>Ambition:</strong> To become a leading software developer, contributing to innovative projects in software development.</span>
-                </p>
-                <p class="flex items-center space-x-3">
-                    <i class="fas fa-heart text-violet-400 text-2xl sm:text-3xl glow-logo-bottom"></i>
-                    <span><strong>Passion:</strong> Building seamless web applications and exploring cutting-edge technologies to solve real-world problems.</span>
-                </p>
+            
+            <!-- Introduction -->
+            <div class="text-base sm:text-lg text-gray-300 leading-relaxed space-y-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30">
+                    <p class="text-lg text-gray-200">
+                        A CSE Student and <span class="text-violet-400 font-semibold">Aspiring Software Engineer</span>, journeying through the world of full-stack web development and ready to embrace the frontier of data science.
+                        <span class="text-violet-300 italic">"Jack of all trades, master at nothing"</span> - but working hard to master each skill, one step at a time.
+                    </p>
+                </div>
+
+                <!-- Education Background -->
+                <div class="bg-gradient-to-br from-violet-500/10 to-purple-500/10 rounded-xl p-6 sm:p-8 border-2 border-violet-500/30 hover:border-violet-500/50 transition-all duration-300" data-aos="fade-up" data-aos-delay="250">
+                    <div class="flex items-start space-x-4 mb-6">
+                        <i class="fas fa-graduation-cap text-violet-400 text-4xl"></i>
+                        <div>
+                            <h3 class="text-2xl font-bold text-violet-300 mb-2">Education Journey</h3>
+                            <p class="text-gray-400 text-sm">Building a strong foundation for tomorrow's innovations</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Current Education -->
+                        <div class="bg-violet-500/20 rounded-lg p-5 border-l-4 border-violet-400 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-violet-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                                Current
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-violet-500/30 rounded-full p-3 flex-shrink-0">
+                                    <i class="fas fa-university text-violet-300 text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-xl font-bold text-white mb-1">Bachelor of Engineering - Computer Science</h4>
+                                    <p class="text-violet-300 font-semibold mb-2">Stella Mary's College of Engineering, Nagercoil</p>
+                                    <div class="flex flex-wrap items-center gap-3 text-sm text-gray-300">
+                                        <span class="flex items-center">
+                                            <i class="fas fa-calendar-alt text-violet-400 mr-2"></i>
+                                            2025 - Present
+                                        </span>
+                                        <span class="flex items-center bg-violet-500/30 px-3 py-1 rounded-full">
+                                            <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                            <strong class="text-white">CGPA: 8.5</strong>
+                                        </span>
+                                    </div>
+                                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                                        Pursuing comprehensive education in software engineering, algorithms, data structures, and modern web technologies. Actively building projects and developing practical skills in full-stack development.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Schooling -->
+                        <div class="bg-violet-500/10 rounded-lg p-5 border-l-4 border-violet-400">
+                            <div class="flex items-start space-x-4">
+                                <div class="bg-violet-500/30 rounded-full p-3 flex-shrink-0">
+                                    <i class="fas fa-school text-violet-300 text-2xl"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-xl font-bold text-white mb-1">Higher Secondary Education - Computer Science</h4>
+                                    <p class="text-violet-300 font-semibold mb-2">Carmel Higher Secondary School, Nagercoil</p>
+                                    <div class="flex flex-wrap items-center gap-3 text-sm text-gray-300">
+                                        <span class="flex items-center">
+                                            <i class="fas fa-calendar-alt text-violet-400 mr-2"></i>
+                                            Completed 2024
+                                        </span>
+                                    </div>
+                                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">
+                                        Completed my foundational education with specialization in Computer Science, with a strong focus on mathematics, programming fundamentals, and science, laying the groundwork for my journey into computer science and engineering.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Career Vision -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-rocket text-violet-400 text-3xl mt-1"></i>
+                            <div>
+                                <h3 class="text-xl font-bold text-violet-300 mb-3">Career Vision</h3>
+                                <p class="text-gray-300 leading-relaxed">
+                                    My journey begins with mastering <strong class="text-violet-400">Full-Stack Development</strong>, building robust web applications from front to back. 
+                                    Then, I aim to dive deep into <strong class="text-violet-400">Data Science</strong>, leveraging data to create intelligent solutions. 
+                                    My ultimate goal? To join global giants like <span class="iewtext-violet-300 font-semibold">Google, Apple, or Microsoft</span>, contributing to innovations that impact millions.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-heart text-violet-400 text-3xl mt-1"></i>
+                            <div>
+                                <h3 class="text-xl font-bold text-violet-300 mb-3">Philosophy & Drive</h3>
+                                <p class="text-gray-300 leading-relaxed mb-3">
+                                    Driven by passion for building seamless web applications and exploring cutting-edge technologies to solve real-world problems. 
+                                    Inspired by Cristiano Ronaldo's relentless dedication and discipline.
+                                </p>
+                                <div class="bg-violet-300/20 rounded-lg p-3 border-l-2 border-violet-300">
+                                    <p class="text-sm italic text-gray-100">
+                                        <i class="fas fa-quote-left text-violet-300 mr-2"></i>
+                                       "The greatest victory is to conquer yourself." — Plato
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hobbies & Interests - Separated Cards -->
+                <div class="space-y-6">
+                    <!-- Section Header -->
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold text-violet-300 mb-2 flex items-center justify-center">
+                            <i class="fas fa-palette text-violet-400 mr-3"></i>
+                            Beyond the Code
+                        </h3>
+                        <p class="text-gray-400 text-sm">The passions and interests that shape who I am</p>
+                    </div>
+
+                    <!-- Football Enthusiast Card -->
+                    <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30 hover:border-violet-500/60 transition-all hover:transform hover:scale-[1.02]">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-violet-500/20 p-3 rounded-lg">
+                                <i class="fas fa-futbol text-violet-400 text-3xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-lg font-bold text-violet-300 mb-2">Football Enthusiast</h4>
+                                <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                                    Huge fan and follower of <span class="text-violet-400 font-semibold">Cristiano Ronaldo</span> - his discipline, work ethic, and never-give-up attitude inspire my coding journey every day.
+                                </p>
+                                <div class="inline-flex items-center gap-2 bg-violet-500/20 px-3 py-2 rounded-lg mb-3 border-l-4 border-violet-400">
+                                    <i class="fas fa-quote-left text-violet-300 text-xs"></i>
+                                    <span class="text-violet-200 italic text-xs">"Talent without working hard is nothing"</span>
+                                    <span class="text-violet-300/70 text-xs">- CR7</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Avid Reader Card -->
+                    <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30 hover:border-violet-500/60 transition-all hover:transform hover:scale-[1.02]">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-violet-500/20 p-3 rounded-lg">
+                                <i class="fas fa-book text-violet-400 text-3xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-lg font-bold text-violet-300 mb-2">Avid Reader</h4>
+                                <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                                    <em class="text-violet-400 font-semibold">"It Starts With Us"</em> holds a special place in my heart as I got that book from someone special.
+                                </p>
+                                <div class="inline-flex items-center gap-2 bg-violet-500/20 px-3 py-2 rounded-lg mb-3 border-l-4 border-violet-400">
+                                    <i class="fas fa-quote-left text-violet-300 text-xs"></i>
+                                    <span class="text-violet-200 italic text-xs">"It's possible to love someone and still not be able to be with them."</span>
+                                    <span class="text-violet-300/70 text-xs">- It Starts With Us</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cinema Lover Card -->
+                    <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30 hover:border-violet-500/60 transition-all hover:transform hover:scale-[1.02]">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-violet-500/20 p-3 rounded-lg">
+                                <i class="fas fa-film text-violet-400 text-3xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-lg font-bold text-violet-300 mb-2">Cinema Lover</h4>
+                                
+                                <!-- Fight Club Section -->
+                                <p class="text-gray-300 text-sm leading-relaxed mb-2">
+                                    <em class="text-violet-400 font-semibold">Fight Club</em> by David Fincher is my all-time favorite movie.
+                                </p>
+                                <div class="inline-flex items-center gap-2 bg-violet-500/20 px-3 py-2 rounded-lg mb-2 border-l-4 border-violet-400">
+                                    <i class="fas fa-quote-left text-violet-300 text-xs"></i>
+                                    <span class="text-violet-200 italic text-xs">"You met me at a very strange time in my life"</span>
+                                    <span class="text-violet-300/70 text-xs">- Fight Club</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 text-xs mb-4">
+                                    <span class="bg-violet-500/20 px-2 py-1 rounded-full text-violet-300">Classic Cinema</span>
+                                    <span class="bg-violet-500/20 px-2 py-1 rounded-full text-violet-300">Psychological Thriller</span>
+                                    <span class="bg-violet-500/20 px-2 py-1 rounded-full text-violet-300">Retro Themes</span>
+                                </div>
+                                
+                                <!-- Peaky Blinders Section -->
+                                <p class="text-gray-300 text-sm leading-relaxed mb-2">
+                                    <em class="text-violet-400 font-semibold">Peaky Blinders</em> is my all-time favorite web series.
+                                </p>
+                                <div class="inline-flex items-center gap-2 bg-violet-500/20 px-3 py-2 rounded-lg mb-2 border-l-4 border-violet-400">
+                                    <i class="fas fa-quote-left text-violet-300 text-xs"></i>
+                                    <span class="text-violet-200 italic text-xs">"You can change what you do, but you can't change what you want."</span>
+                                    <span class="text-violet-300/70 text-xs">- Peaky Blinders</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 text-xs">
+                                    <span class="bg-violet-500/20 px-2 py-1 rounded-full text-violet-300">Period Drama</span>
+                                    <span class="bg-violet-500/20 px-2 py-1 rounded-full text-violet-300">Crime Saga</span>
+                                    <span class="bg-violet-500/20 px-2 py-1 rounded-full text-violet-300">British Classic</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Favorite Fictional Character Card -->
+                    <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30 hover:border-violet-500/60 transition-all hover:transform hover:scale-[1.02]">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-violet-500/20 p-3 rounded-lg flex items-center justify-center">
+                                <div style="width: 56px; height: 28px; background: #a78bfa; clip-path: polygon(50% 15%, 48% 12%, 46% 8%, 44% 5%, 42% 3%, 38% 0%, 34% 2%, 30% 8%, 26% 12%, 22% 18%, 18% 22%, 14% 28%, 10% 35%, 6% 45%, 2% 55%, 0% 65%, 3% 72%, 8% 78%, 15% 82%, 22% 88%, 28% 95%, 35% 100%, 42% 95%, 46% 88%, 48% 82%, 50% 75%, 52% 82%, 54% 88%, 58% 95%, 65% 100%, 72% 95%, 78% 88%, 85% 82%, 92% 78%, 97% 72%, 100% 65%, 98% 55%, 94% 45%, 90% 35%, 86% 28%, 82% 22%, 78% 18%, 74% 12%, 70% 8%, 66% 2%, 62% 0%, 58% 3%, 56% 5%, 54% 8%, 52% 12%);"></div>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-lg font-bold text-violet-300 mb-2">Favorite Fictional Character</h4>
+                                
+                                <!-- Batman Section -->
+                                <p class="text-gray-300 text-sm leading-relaxed mb-2">
+                                    <em class="text-violet-400 font-semibold">Batman</em> - The Dark Knight represents resilience, determination, and the power of willpower over circumstance.
+                                </p>
+                                <div class="inline-flex items-center gap-2 bg-violet-500/20 px-3 py-2 rounded-lg mb-2 border-l-4 border-violet-400">
+                                    <i class="fas fa-quote-left text-violet-300 text-xs"></i>
+                                    <span class="text-violet-200 italic text-xs">"We all wear masks. Mine is just more literal."</span>
+                                    <span class="text-violet-300/70 text-xs">- Batman</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 text-xs">
+                                    <span class="bg-violet-500/20 px-2 py-1 rounded-full text-violet-300">Strategic Thinker</span>
+                                    <span class="bg-violet-500/20 px-2 py-1 rounded-full text-violet-300">Resilient</span>
+                                    <span class="bg-violet-500/20 px-2 py-1 rounded-full text-violet-300">Justice-Driven</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nature Photography Card -->
+                    <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30 hover:border-violet-500/60 transition-all hover:transform hover:scale-[1.02]">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-violet-500/20 p-3 rounded-lg">
+                                <i class="fas fa-camera text-violet-400 text-3xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-lg font-bold text-violet-300 mb-2">Nature Photography</h4>
+                                <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                                    Capturing the beauty of nature through my lens - finding peace and inspiration in landscapes, sunsets, and natural moments.
+                                </p>
+                                <div class="flex items-center text-xs text-gray-400">
+                                    <i class="fas fa-mountain mr-2 text-violet-400"></i>
+                                    <span>Freezing moments of tranquility and natural beauty</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Creative Artist Card -->
+                    <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30 hover:border-violet-500/60 transition-all hover:transform hover:scale-[1.02]">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-violet-500/20 p-3 rounded-lg">
+                                <i class="fas fa-paint-brush text-violet-400 text-3xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-lg font-bold text-violet-300 mb-2">Creative Artist</h4>
+                                <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                                    Drawing as a form of expression and relaxation - bringing imagination to life on paper, one sketch at a time.
+                                </p>
+                                <div class="flex items-center text-xs text-gray-400">
+                                    <i class="fas fa-palette mr-2 text-violet-400"></i>
+                                    <span>Visual storytelling through sketches and illustrations</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Retro Music Card -->
+                    <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30 hover:border-violet-500/60 transition-all hover:transform hover:scale-[1.02]">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-violet-500/20 p-3 rounded-lg">
+                                <i class="fas fa-music text-violet-400 text-3xl"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-lg font-bold text-violet-300 mb-2">Retro Music Vibes</h4>
+                                <p class="text-gray-300 text-sm leading-relaxed mb-3">
+                                    Lost in the nostalgic melodies of retro songs - there's something timeless about the classics that resonates with my soul.
+                                </p>
+                                <div class="flex items-center text-xs text-gray-400 mb-2">
+                                    <i class="fas fa-compact-disc mr-2 text-violet-400"></i>
+                                    <span>Classic melodies from golden eras of music</span>
+                                </div>
+                                <a href="https://open.spotify.com/playlist/1P98DutYI9bZGNr2vUTnVp?si=QMX1TQzvQvSxX-eTN4YUSg" target="_blank" class="inline-flex items-center text-xs text-violet-400 hover:text-violet-300 transition-all mt-2 bg-violet-500/20 px-3 py-2 rounded-lg border border-violet-500/40 hover:border-violet-400 hover:bg-violet-500/30 hover:shadow-lg hover:shadow-violet-500/30">
+                                    <i class="fab fa-spotify mr-2"></i>
+                                    <span>My All-Time Favorite Songs in One Playlist</span>
+                                    <i class="fas fa-external-link-alt ml-1 text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fun Facts -->
+                <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30">
+                    <h3 class="text-xl font-bold text-violet-300 mb-4 flex items-center">
+                        <i class="fas fa-star text-violet-400 mr-3"></i>
+                        What Drives Me
+                    </h3>
+                    <div class="space-y-3 text-gray-300">
+                        <p class="flex items-start">
+                            <i class="fas fa-check-circle text-violet-400 mr-3 mt-1"></i>
+                            <span>Started my web development journey with a simple portfolio, now building complex full-stack applications</span>
+                        </p>
+                        <p class="flex items-start">
+                            <i class="fas fa-check-circle text-violet-400 mr-3 mt-1"></i>
+                            <span>Created my first Class Management System and Library Management System - learning database integration and user authentication</span>
+                        </p>
+                        <p class="flex items-start">
+                            <i class="fas fa-check-circle text-violet-400 mr-3 mt-1"></i>
+                            <span>Completed 7 professional certifications in Microsoft Security, Generative AI, and Software Development</span>
+                        </p>
+                        <p class="flex items-start">
+                            <i class="fas fa-check-circle text-violet-400 mr-3 mt-1"></i>
+                            <span>Achieved 19+ major milestones in my campus journey - from orientation to leadership roles</span>
+                        </p>
+                        <p class="flex items-start">
+                            <i class="fas fa-check-circle text-violet-400 mr-3 mt-1"></i>
+                            <span>Balancing academics, coding projects, and personal passions - believing that discipline and self-control lead to success</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="text-center bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30">
+                    <p class="text-lg text-gray-200 mb-4">
+                        <strong class="text-violet-300">Currently:</strong> Mastering full-stack development, exploring data science, and building projects that make a difference. 
+                        <br><span class="text-violet-400">Always open to collaborations and learning opportunities!</span>
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-3 mt-4">
+                        <span class="bg-violet-900 text-violet-200 px-4 py-2 rounded-full text-sm font-semibold">🎯 Goal-Oriented</span>
+                        <span class="bg-violet-900 text-violet-200 px-4 py-2 rounded-full text-sm font-semibold">💪 Self-Disciplined</span>
+                        <span class="bg-violet-900 text-violet-200 px-4 py-2 rounded-full text-sm font-semibold">🚀 Tech Enthusiast</span>
+                        <span class="bg-violet-900 text-violet-200 px-4 py-2 rounded-full text-sm font-semibold">🎨 Creative Mind</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-12 sm:py-20">
+    <section id="skills" class="py-12 sm:py-20 portfolio-section hidden">
         <div class="section-container">
+            <div class="text-center mb-6">
+                <button onclick="showSection('home')" class="bg-violet-500 text-white px-4 py-2 rounded-full font-semibold glow-button transition inline-flex items-center space-x-2">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Home</span>
+                </button>
+            </div>
             <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">My Skills</h2>
-            <div class="space-y-4 sm:space-y-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <i class="fab fa-python text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
-                    <div class="w-full">
-                        <div class="flex justify-between mb-1">
-                            <span>Python</span>
-                            <span>60%</span>
+            
+            <div class="space-y-6" data-aos="fade-up" data-aos-delay="200">
+                <!-- Programming Languages -->
+                <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30">
+                    <h3 class="text-xl font-bold text-violet-300 mb-5 flex items-center">
+                        <i class="fas fa-code text-violet-400 mr-3"></i>
+                        Programming Languages
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fab fa-python text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Python</span>
+                                    <span class="text-violet-300">60%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="60%"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0;" data-width="60%"></div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fab fa-java text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Java</span>
+                                    <span class="text-violet-300">55%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="55%"></div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <i class="fas fa-microchip text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
-                    <div class="w-full">
-                        <div class="flex justify-between mb-1">
-                            <span>C</span>
-                            <span>50%</span>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-microchip text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">C</span>
+                                    <span class="text-violet-300">50%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="50%"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0;" data-width="50%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <i class="fab fa-java text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
-                    <div class="w-full">
-                        <div class="flex justify-between mb-1">
-                            <span>Java</span>
-                            <span>55%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0;" data-width="55%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <i class="fab fa-git-alt text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
-                    <div class="w-full">
-                        <div class="flex justify-between mb-1">
-                            <span>Git</span>
-                            <span>30%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0;" data-width="30%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <i class="fab fa-html5 text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
-                    <div class="w-full">
-                        <div class="flex justify-between mb-1">
-                            <span>HTML</span>
-                            <span>45%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0;" data-width="40%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <i class="fab fa-css3-alt text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
-                    <div class="w-full">
-                        <div class="flex justify-between mb-1">
-                            <span>CSS</span>
-                            <span>50%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0;" data-width="50%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <i class="fab fa-js text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
-                    <div class="w-full">
-                        <div class="flex justify-between mb-1">
-                            <span>JavaScript</span>
-                            <span>35%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0;" data-width="35%"></div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fab fa-js text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">JavaScript</span>
+                                    <span class="text-violet-300">75%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="75%"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <i class="fas fa-crown text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
-                    <div class="w-full">
-                        <div class="flex justify-between mb-1">
-                            <span>Leadership</span>
-                            <span>80%</span>
+                <!-- Web Technologies & Frontend -->
+                <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30">
+                    <h3 class="text-xl font-bold text-violet-300 mb-5 flex items-center">
+                        <i class="fas fa-globe text-violet-400 mr-3"></i>
+                        Web Technologies & Frontend
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fab fa-html5 text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">HTML</span>
+                                    <span class="text-violet-300">70%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="70%"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0;" data-width="80%"></div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fab fa-css3-alt text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">CSS & Tailwind CSS</span>
+                                    <span class="text-violet-300">75%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fab fa-react text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">React & React Router</span>
+                                    <span class="text-violet-300">70%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-code text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Responsive Design</span>
+                                    <span class="text-violet-300">80%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="80%"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <i class="fas fa-users text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
-                    <div class="w-full">
-                        <div class="flex justify-between mb-1">
-                            <span>Teamwork</span>
-                            <span>95%</span>
+                <!-- Tools & Technologies -->
+                <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30">
+                    <h3 class="text-xl font-bold text-violet-300 mb-5 flex items-center">
+                        <i class="fas fa-tools text-violet-400 mr-3"></i>
+                        Backend & Database Technologies
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fab fa-node-js text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Node.js & Express.js</span>
+                                    <span class="text-violet-300">65%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="65%"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0;" data-width="95%"></div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-database text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">PostgreSQL & Supabase</span>
+                                    <span class="text-violet-300">70%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-leaf text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">MongoDB & Firebase</span>
+                                    <span class="text-violet-300">60%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-code-branch text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Git & Version Control</span>
+                                    <span class="text-violet-300">65%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="65%"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="flex items-center space-x-3 sm:space-x-4">
-                    <i class="fas fa-comments text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
-                    <div class="w-full">
-                        <div class="flex justify-between mb-1">
-                            <span>Communication</span>
-                            <span>90%</span>
+
+                <!-- APIs & Integration Services -->
+                <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30">
+                    <h3 class="text-xl font-bold text-violet-300 mb-5 flex items-center">
+                        <i class="fas fa-plug text-violet-400 mr-3"></i>
+                        APIs & Integration Services
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fab fa-google text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Google APIs (Calendar, Maps)</span>
+                                    <span class="text-violet-300">70%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="70%"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 0;" data-width="90%"></div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-bell text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">REST APIs & Real-Time Integration</span>
+                                    <span class="text-violet-300">75%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-map-marker-alt text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Location & Mapping Services</span>
+                                    <span class="text-violet-300">60%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Development Tools & Frameworks -->
+                <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30">
+                    <h3 class="text-xl font-bold text-violet-300 mb-5 flex items-center">
+                        <i class="fas fa-hammer text-violet-400 mr-3"></i>
+                        Development Tools & Frameworks
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fab fa-js-square text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">TypeScript</span>
+                                    <span class="text-violet-300">72%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="72%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-rocket text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Vite & Build Tools</span>
+                                    <span class="text-violet-300">68%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="68%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-check-circle text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">ESLint & Code Quality</span>
+                                    <span class="text-violet-300">60%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="60%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advanced Concepts & Architecture -->
+                <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30">
+                    <h3 class="text-xl font-bold text-violet-300 mb-5 flex items-center">
+                        <i class="fas fa-brain text-violet-400 mr-3"></i>
+                        Advanced Concepts & Architecture
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-sync-alt text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Real-Time Applications</span>
+                                    <span class="text-violet-300">72%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="72%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-shield-alt text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Authentication & Security</span>
+                                    <span class="text-violet-300">70%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-layer-group text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Full-Stack Development</span>
+                                    <span class="text-violet-300">68%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="68%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-code text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">State Management & Component Design</span>
+                                    <span class="text-violet-300">72%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="72%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soft Skills -->
+                <div class="bg-violet-500/10 rounded-xl p-6 border-2 border-violet-500/30">
+                    <h3 class="text-xl font-bold text-violet-300 mb-5 flex items-center">
+                        <i class="fas fa-lightbulb text-violet-400 mr-3"></i>
+                        Soft Skills
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-users text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Teamwork</span>
+                                    <span class="text-violet-300">95%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="95%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-comments text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Communication</span>
+                                    <span class="text-violet-300">90%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 sm:space-x-4">
+                            <i class="fas fa-crown text-violet-400 text-xl sm:text-2xl skill-icon glow-logo"></i>
+                            <div class="w-full">
+                                <div class="flex justify-between mb-1">
+                                    <span class="text-gray-200">Leadership</span>
+                                    <span class="text-violet-300">80%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0;" data-width="80%"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -399,105 +2245,383 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-12 sm:py-20">
+    <section id="projects" class="py-12 sm:py-20 portfolio-section hidden">
         <div class="section-container">
+            <div class="text-center mb-6">
+                <button onclick="showSection('home')" class="bg-violet-500 text-white px-4 py-2 rounded-full font-semibold glow-button transition inline-flex items-center space-x-2">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Home</span>
+                </button>
+            </div>
             <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">My Projects</h2>
-                <div class="projects-container">
-                    <div class="project-card bg-gray-700 rounded-lg shadow-lg overflow-hidden hover-scale">
-                        <img src="clg-images/Screenshot 2025-08-23 192954.png" alt="CLG Project" class="w-full h-40 sm:h-48 object-cover">
-                        <div class="p-4 sm:p-6">
-                            <h3 class="text-lg sm:text-xl font-semibold mb-2 text-white">A Class Management System</h3>
-                            <p class="text-gray-400 text-sm sm:text-base mb-4">A comprehensive class management system built with modern web technologies including React, TypeScript, and Supabase.</p>
-                            <p><a href="clg-project.html" class="text-violet-400 font-semibold hover:underline text-sm sm:text-base">View Project Overview</a></p>
-                            <p><a href="https://smce-cseb.vercel.app/" class="text-violet-400 font-semibold hover:underline text-sm sm:text-base">View Project</a></p>
+                
+                <div class="space-y-8 max-w-5xl mx-auto">
+                    <!-- Library Management System -->
+                    <div class="bg-violet-500/10 rounded-xl border-2 border-violet-500/30 overflow-hidden hover-scale" data-aos="fade-up">
+                        <div class="grid md:grid-cols-2 gap-0 items-stretch">
+                            <div class="relative min-h-64">
+                                <img src="images/projects/lms/cover.jpg" alt="Library Management System" class="w-full h-full object-cover object-center block" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%231f2937%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%238b5cf6%22 font-family=%22Arial%22 font-size=%2220%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22%3ELibrary Management System%3C/text%3E%3C/svg%3E'">
+                                <div class="absolute top-4 right-4">
+                                    <span class="bg-violet-500 text-white text-xs px-3 py-1 rounded-full flex items-center gap-1">
+                                        <i class="fas fa-check"></i>Completed
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold text-white mb-3">Library Management System</h3>
+                                <p class="text-gray-300 mb-4 leading-relaxed">
+                                    Full-stack library platform with real-time messaging, Google Calendar integration, and role-based access control.
+                                </p>
+                                <div class="mb-4">
+                                    <h4 class="text-sm font-semibold text-violet-300 mb-2">Key Features:</h4>
+                                    <ul class="text-sm text-gray-300 space-y-1">
+                                        <li class="flex items-start"><i class="fas fa-check-circle text-violet-400 mr-2 mt-1"></i><span>Real-time messaging system for library communication</span></li>
+                                        <li class="flex items-start"><i class="fas fa-check-circle text-violet-400 mr-2 mt-1"></i><span>Google Calendar integration for event scheduling</span></li>
+                                        <li class="flex items-start"><i class="fas fa-check-circle text-violet-400 mr-2 mt-1"></i><span>Role-based access control (Student, Librarian, Admin)</span></li>
+                                    </ul>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">React Router v7</span>
+                                    <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">TypeScript</span>
+                                    <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Supabase</span>
+                                </div>
+                                <div class="flex flex-wrap gap-3">
+                                    <a href="lms-project.html" class="bg-violet-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-violet-700 transition text-sm flex items-center">
+                                        <i class="fas fa-info-circle mr-2"></i>View Details
+                                    </a>
+                                    <a href="https://lms-geo-nithin-js-projects.vercel.app/" target="_blank" class="bg-purple-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-purple-700 transition text-sm flex items-center">
+                                        <i class="fas fa-external-link-alt mr-2"></i>Live Demo
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Class Management System -->
+                    <div class="bg-violet-500/10 rounded-xl border-2 border-violet-500/30 overflow-hidden hover-scale" data-aos="fade-up" data-aos-delay="100">
+                        <div class="grid md:grid-cols-2 gap-0 items-stretch">
+                            <div class="relative min-h-64">
+                                <img src="images/projects/class-management/cover.jpg" alt="Class Management System" class="w-full h-full object-cover object-center block">
+                                <div class="absolute top-4 right-4">
+                                    <span class="bg-violet-500 text-white text-xs px-3 py-1 rounded-full flex items-center gap-1">
+                                        <i class="fas fa-check"></i>Completed
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold text-white mb-3">Class Management System</h3>
+                                <p class="text-gray-300 mb-4 leading-relaxed">
+                                    Comprehensive class management system with React, TypeScript, and Supabase for streamlined academic administration.
+                                </p>
+                                <div class="mb-4">
+                                    <h4 class="text-sm font-semibold text-violet-300 mb-2">Key Features:</h4>
+                                    <ul class="text-sm text-gray-300 space-y-1">
+                                        <li class="flex items-start"><i class="fas fa-check-circle text-violet-400 mr-2 mt-1"></i><span>Student and attendance management</span></li>
+                                        <li class="flex items-start"><i class="fas fa-check-circle text-violet-400 mr-2 mt-1"></i><span>Assignment tracking and submissions</span></li>
+                                        <li class="flex items-start"><i class="fas fa-check-circle text-violet-400 mr-2 mt-1"></i><span>Real-time notifications and updates</span></li>
+                                    </ul>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">React</span>
+                                    <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">TypeScript</span>
+                                    <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Supabase</span>
+                                </div>
+                                <div class="flex flex-wrap gap-3">
+                                    <a href="clg-project.html" class="bg-violet-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-violet-700 transition text-sm flex items-center">
+                                        <i class="fas fa-info-circle mr-2"></i>View Details
+                                    </a>
+                                    <a href="https://smce-cseb.vercel.app/" target="_blank" class="bg-purple-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-purple-700 transition text-sm flex items-center">
+                                        <i class="fas fa-external-link-alt mr-2"></i>Live Demo
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- GuardianTrack -->
+                    <div class="bg-violet-500/10 rounded-xl border-2 border-violet-500/30 overflow-hidden hover-scale relative" data-aos="fade-up" data-aos-delay="200">
+                        <div class="grid md:grid-cols-2 gap-0 items-stretch">
+                            <div class="relative min-h-64">
+                                <img src="images/projects/guardiantrack/cover.jpg" alt="GuardianTrack" class="w-full h-full object-cover object-center block" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%231f2937%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%238b5cf6%22 font-family=%22Arial%22 font-size=%2222%22 x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22%3EGuardianTrack%3C/text%3E%3Ctext fill=%22%23a78bfa%22 font-family=%22Arial%22 font-size=%2216%22 x=%2250%25%22 y=%2265%25%22 text-anchor=%22middle%22%3ESmart Safety System%3C/text%3E%3C/svg%3E'">
+                                <div class="absolute top-4 right-4">
+                                    <span class="bg-violet-500 text-white text-xs px-3 py-1 rounded-full font-bold animate-pulse flex items-center gap-1">
+                                        <i class="fas fa-hard-hat"></i>In Development - 85%
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold text-white mb-3">GuardianTrack</h3>
+                                <p class="text-gray-300 mb-4 leading-relaxed">
+                                    Smart safety & tracking system with tamper-proof location sharing, AI movement prediction, and emergency escalation.
+                                </p>
+                                <div class="mb-4">
+                                    <h4 class="text-sm font-semibold text-violet-300 mb-2">Key Features:</h4>
+                                    <ul class="text-sm text-gray-300 space-y-1">
+                                        <li class="flex items-start"><i class="fas fa-check-circle text-violet-400 mr-2 mt-1"></i><span>Tamper-proof real-time location tracking</span></li>
+                                        <li class="flex items-start"><i class="fas fa-check-circle text-violet-400 mr-2 mt-1"></i><span>AI-powered movement prediction</span></li>
+                                        <li class="flex items-start"><i class="fas fa-check-circle text-violet-400 mr-2 mt-1"></i><span>Emergency escalation & SOS alerts</span></li>
+                                    </ul>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Node.js</span>
+                                    <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">React</span>
+                                    <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Firebase</span>
+                                    <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">AI/ML</span>
+                                </div>
+                                <div class="flex flex-wrap gap-3 items-center">
+                                    <a href="guardiantrack-project.html" class="bg-violet-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-violet-700 transition text-sm flex items-center">
+                                        <i class="fas fa-info-circle mr-2"></i>View Details
+                                    </a>
+                                    <span class="text-xs text-gray-400">Backend: 95% • Frontend: 80%</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
         </div>
     </section>
 
-    <!-- Certificates Section -->
-    <section id="certificates" class="py-12 sm:py-20">
+    <!-- Let's Connect Section -->
+    <section id="contact" class="py-12 sm:py-20 portfolio-section hidden">
         <div class="section-container">
-            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">My Certificates</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8" data-aos="fade-up" data-aos-delay="200">
-                <div class="text-center">
-                    <img src="c1.jpg" alt="Certificate 1" class="certificate-img mx-auto w-full max-w-[200px] sm:max-w-[300px]">
-                    <h3 class="text-lg sm:text-xl font-semibold mt-4 text-white">Certificate One</h3>
-                    <p class="text-gray-400 text-sm sm:text-base">Microsoft Security Essentials Professional Certificate</p>
-                </div>
-                <div class="text-center">
-                    <img src="c2/c2.jpg" alt="Certificate 2" class="certificate-img mx-auto w-full max-w-[200px] sm:max-w-[300px]">
-                    <h3 class="text-lg sm:text-xl font-semibold mt-4 text-white">Certificate Two</h3>
-                    <p class="text-gray-400 text-sm sm:text-base">Career Essentials in Generative AI</p>
-                </div>
-                <div class="text-center">
-                    <img src="c3/c3.jpg" alt="Certificate 3" class="certificate-img mx-auto w-full max-w-[200px] sm:max-w-[300px]">
-                    <h3 class="text-lg sm:text-xl font-semibold mt-4 text-white">Certificate Three</h3>
-                    <p class="text-gray-400 text-sm sm:text-base">Career Essentials in Software Development</p>
-                </div>
-                <div class="text-center">
-                    <img src="c4.jpg" alt="Certificate 4" class="certificate-img mx-auto w-full max-w-[200px] sm:max-w-[300px]">
-                    <h3 class="text-lg sm:text-xl font-semibold mt-4 text-white">Certificate Four</h3>
-                    <p class="text-gray-400 text-sm sm:text-base">Microsoft Azure AI Essentials Profeesional Certificate</p>
+            <div class="text-center mb-6">
+                <button onclick="showSection('home')" class="bg-violet-500 text-white px-4 py-2 rounded-full font-semibold glow-button transition inline-flex items-center space-x-2">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Home</span>
+                </button>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-4 text-violet-400" data-aos="fade-up">Let's Connect</h2>
+            <p class="text-center text-gray-300 mb-8 text-base sm:text-lg" data-aos="fade-up" data-aos-delay="100">
+                Interested in collaborating? I'm always open to discussing new projects, creative ideas, or opportunities!
+            </p>
+
+            <!-- Availability Status -->
+            <div class="max-w-2xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="150">
+                <div class="bg-gradient-to-r from-violet-900 to-purple-900 rounded-xl p-4 sm:p-6 text-center">
+                    <div class="flex items-center justify-center space-x-3 mb-2">
+                        <span class="relative flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-violet-500"></span>
+                        </span>
+                        <h3 class="text-xl font-bold text-white">Currently Available</h3>
+                    </div>
+                    <p class="text-gray-200 text-sm sm:text-base">
+                        Open to freelance projects, internships, and collaboration opportunities
+                    </p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Let's Connect Section -->
-    <section id="contact" class="py-12 sm:py-20">
-        <div class="section-container">
-            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">Let's Connect</h2>
-            <div class="text-base sm:text-lg text-gray-300 space-y-4 sm:space-y-6" data-aos="fade-up" data-aos-delay="200">
-                <p class="text-center">Interested in collaborating? Reach out to me!</p>
-                <div class="flex flex-wrap justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
-                    <a href="mailto:geonithincr7@gmail.com" class="flex items-center space-x-2 text-gray-300 social-icon">
-                        <i class="fas fa-envelope text-2xl sm:text-3xl glow-logo-bottom"></i>
-                        <span class="text-sm sm:text-base">geonithincr7@gmail.com</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/geo-nithin-046a05331?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="flex items-center space-x-2 text-gray-300 social-icon">
-                        <i class="fab fa-linkedin text-2xl sm:text-3xl glow-logo-bottom"></i>
-                        <span class="text-sm sm:text-base">LinkedIn</span>
-                    </a>
-                    <a href="https://www.instagram.com/geonithin_?igsh=MWt2aW9rbHNlOHUzOQ%3D%3D&utm_source=qr" target="_blank" class="flex items-center space-x-2 text-gray-300 social-icon">
-                        <i class="fab fa-instagram text-2xl sm:text-3xl glow-logo-bottom"></i>
-                        <span class="text-sm sm:text-base">Instagram</span>
-                    </a>
-                    <a href="https://github.com/geonithin" target="_blank" class="flex items-center space-x-2 text-gray-300 social-icon">
-                        <i class="fab fa-github text-2xl sm:text-3xl glow-logo-bottom"></i>
-                        <span class="text-sm sm:text-base">GitHub</span>
-                    </a>
-                    <a href="https://discord.com/users/geonithin_" target="_blank" class="flex items-center space-x-2 text-gray-300 social-icon">
-                        <i class="fab fa-discord text-2xl sm:text-3xl glow-logo-bottom"></i>
-                        <span class="text-sm sm:text-base">Discord</span>
-                    </a>
-                   <a href="https://duolingo.com/profile/GEONITHIN" target="_blank" 
-   class="flex items-center space-x-2 text-gray-300 social-icon">
-  
-  <!-- Inline SVG with same classes -->
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-       class="w-6 h-6 sm:w-8 sm:h-8 text-2xl sm:text-3xl glow-logo-bottom fill-current">
-    <path d="M437 45c-15-7-36-4-63 9-12-7-25-11-38-11-16 0-30 6-41 15-11-9-25-15-41-15-13 0-26 4-38 11-27-13-48-16-63-9-21 10-30 35-27 71-21 9-39 25-53 45-25 36-34 88-22 134 8 29 24 54 46 70 18 13 40 20 62 20 27 0 51-10 70-29 19 19 43 29 70 29 22 0 44-7 62-20 22-16 38-41 46-70 12-46 3-98-22-134-14-20-32-36-53-45 3-36-6-61-27-71zM186 285c-17 0-31-14-31-31s14-31 31-31 31 14 31 31-14 31-31 31zm140 0c-17 0-31-14-31-31s14-31 31-31 31 14 31 31-14 31-31 31z"/>
-  </svg>
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 max-w-4xl mx-auto" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-gray-800 rounded-lg p-4 text-center">
+                    <i class="fas fa-clock text-violet-400 text-2xl mb-2"></i>
+                    <p class="text-white font-bold text-lg">24-48h</p>
+                    <p class="text-gray-400 text-xs sm:text-sm">Response Time</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-4 text-center">
+                    <i class="fas fa-project-diagram text-violet-400 text-2xl mb-2"></i>
+                    <p class="text-white font-bold text-lg">3+</p>
+                    <p class="text-gray-400 text-xs sm:text-sm">Projects Done</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-4 text-center">
+                    <i class="fas fa-code text-violet-400 text-2xl mb-2"></i>
+                    <p class="text-white font-bold text-lg">Full-Stack</p>
+                    <p class="text-gray-400 text-xs sm:text-sm">Development</p>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-4 text-center">
+                    <i class="fas fa-globe text-violet-400 text-2xl mb-2"></i>
+                    <p class="text-white font-bold text-lg">Remote</p>
+                    <p class="text-gray-400 text-xs sm:text-sm">Work Ready</p>
+                </div>
+            </div>
 
-  <span class="text-sm sm:text-base">Duolingo</span>
-</a>
+            <!-- Collaboration Areas -->
+            <div class="max-w-4xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="250">
+                <h3 class="text-xl font-bold text-center text-violet-400 mb-4">
+                    <i class="fas fa-handshake mr-2"></i>Open to Collaborate On
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-gray-800 rounded-lg p-4 border-l-4 border-violet-500">
+                        <i class="fas fa-laptop-code text-violet-400 text-xl mb-2"></i>
+                        <h4 class="text-white font-semibold mb-1">Web Development</h4>
+                        <p class="text-gray-400 text-sm">Full-stack applications, responsive websites</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4 border-l-4 border-violet-500">
+                        <i class="fas fa-mobile-alt text-violet-400 text-xl mb-2"></i>
+                        <h4 class="text-white font-semibold mb-1">Mobile Apps</h4>
+                        <p class="text-gray-400 text-sm">Cross-platform mobile solutions</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4 border-l-4 border-violet-500">
+                        <i class="fas fa-database text-violet-400 text-xl mb-2"></i>
+                        <h4 class="text-white font-semibold mb-1">Data Projects</h4>
+                        <p class="text-gray-400 text-sm">Data analysis, visualization, ML models</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4 border-l-4 border-purple-500">
+                        <i class="fas fa-users text-purple-400 text-xl mb-2"></i>
+                        <h4 class="text-white font-semibold mb-1">Open Source</h4>
+                        <p class="text-gray-400 text-sm">Contributing to meaningful projects</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4 border-l-4 border-purple-500">
+                        <i class="fas fa-lightbulb text-purple-400 text-xl mb-2"></i>
+                        <h4 class="text-white font-semibold mb-1">Startup Ideas</h4>
+                        <p class="text-gray-400 text-sm">Innovative tech solutions</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-lg p-4 border-l-4 border-purple-500">
+                        <i class="fas fa-graduation-cap text-purple-400 text-xl mb-2"></i>
+                        <h4 class="text-white font-semibold mb-1">Learning Together</h4>
+                        <p class="text-gray-400 text-sm">Tech discussions, mentorship</p>
+                    </div>
+                </div>
+            </div>
 
-                </div>
-                <div class="flex items-center justify-center space-x-3">
-                    <i class="fas fa-map-marker-alt text-violet-400 text-2xl sm:text-3xl glow-logo-bottom"></i>
-                    <p class="text-sm sm:text-base"><strong>Location:</strong> Nagercoil, Tamil Nadu, India</p>
-                </div>
-                <div class="flex items-center justify-center space-x-3">
-                    <i class="fas fa-home text-violet-400 text-2xl sm:text-3xl glow-logo-bottom"></i>
-                    <p class="text-sm sm:text-base"><strong>Address:</strong> 8248566027,pincode 629002,Nagercoil, Tamil Nadu, India</p>
-                </div>
-                <div class="text-center">
-                    <a href="tel:+91 8248566027" class="inline-block bg-violet-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold glow-button transition text-sm sm:text-base">
-                        <i class="fas fa-phone mr-2 text-xl sm:-bottom"></i>Contact Me
+            <!-- Social Links Section - Circular Glowing Design -->
+            <div class="max-w-5xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="text-xl font-bold text-center text-violet-400 mb-8">
+                    <i class="fas fa-share-alt mr-2"></i>Connect With Me
+                </h3>
+                
+                <!-- Circular Icons Grid -->
+                <div class="flex flex-wrap justify-center items-center gap-3 sm:gap-4 md:gap-5">
+                    <!-- Email -->
+                    <a href="mailto:geonithincr7@gmail.com" class="group relative flex flex-col items-center" title="Email">
+                        <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
+                            <!-- Glow circles -->
+                            <div class="absolute inset-0 bg-violet-500/30 rounded-full blur-xl group-hover:bg-violet-500/50 transition-all duration-300"></div>
+                            <div class="absolute inset-2 bg-violet-500/20 rounded-full blur-lg group-hover:bg-violet-500/40 transition-all duration-300"></div>
+                            <!-- Main circle -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-violet-600/40 to-violet-800/40 rounded-full border-2 border-violet-500/60 group-hover:border-violet-400/80 transition-all duration-300 flex items-center justify-center">
+                                <i class="fas fa-envelope text-white text-xl sm:text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-white font-semibold text-xs sm:text-sm mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Email</p>
+                    </a>
+
+                    <!-- LinkedIn -->
+                    <a href="https://www.linkedin.com/in/geo-nithin-046a05331" target="_blank" class="group relative flex flex-col items-center" title="LinkedIn">
+                        <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-violet-500/30 rounded-full blur-xl group-hover:bg-violet-500/50 transition-all duration-300"></div>
+                            <div class="absolute inset-2 bg-violet-500/20 rounded-full blur-lg group-hover:bg-violet-500/40 transition-all duration-300"></div>
+                            <div class="absolute inset-0 bg-gradient-to-br from-violet-600/40 to-violet-800/40 rounded-full border-2 border-violet-500/60 group-hover:border-violet-400/80 transition-all duration-300 flex items-center justify-center">
+                                <i class="fab fa-linkedin text-white text-xl sm:text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-white font-semibold text-xs sm:text-sm mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">LinkedIn</p>
+                    </a>
+
+                    <!-- GitHub -->
+                    <a href="https://github.com/geonithin" target="_blank" class="group relative flex flex-col items-center" title="GitHub">
+                        <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-violet-500/30 rounded-full blur-xl group-hover:bg-violet-500/50 transition-all duration-300"></div>
+                            <div class="absolute inset-2 bg-violet-500/20 rounded-full blur-lg group-hover:bg-violet-500/40 transition-all duration-300"></div>
+                            <div class="absolute inset-0 bg-gradient-to-br from-violet-600/40 to-violet-800/40 rounded-full border-2 border-violet-500/60 group-hover:border-violet-400/80 transition-all duration-300 flex items-center justify-center">
+                                <i class="fab fa-github text-white text-xl sm:text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-white font-semibold text-xs sm:text-sm mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">GitHub</p>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/geonithin_" target="_blank" class="group relative flex flex-col items-center" title="Instagram">
+                        <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-violet-500/30 rounded-full blur-xl group-hover:bg-violet-500/50 transition-all duration-300"></div>
+                            <div class="absolute inset-2 bg-violet-500/20 rounded-full blur-lg group-hover:bg-violet-500/40 transition-all duration-300"></div>
+                            <div class="absolute inset-0 bg-gradient-to-br from-violet-600/40 to-violet-800/40 rounded-full border-2 border-violet-500/60 group-hover:border-violet-400/80 transition-all duration-300 flex items-center justify-center">
+                                <i class="fab fa-instagram text-white text-xl sm:text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-white font-semibold text-xs sm:text-sm mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Instagram</p>
+                    </a>
+
+                    <!-- Discord -->
+                    <a href="https://discord.com/profiles/geonithin_" target="_blank" class="group relative flex flex-col items-center" title="Discord">
+                        <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-violet-500/30 rounded-full blur-xl group-hover:bg-violet-500/50 transition-all duration-300"></div>
+                            <div class="absolute inset-2 bg-violet-500/20 rounded-full blur-lg group-hover:bg-violet-500/40 transition-all duration-300"></div>
+                            <div class="absolute inset-0 bg-gradient-to-br from-violet-600/40 to-violet-800/40 rounded-full border-2 border-violet-500/60 group-hover:border-violet-400/80 transition-all duration-300 flex items-center justify-center">
+                                <i class="fab fa-discord text-white text-xl sm:text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-white font-semibold text-xs sm:text-sm mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Discord</p>
+                    </a>
+
+                    <!-- Duolingo -->
+                    <a href="https://duolingo.com/profile/GEONITHIN" target="_blank" class="group relative flex flex-col items-center" title="Duolingo">
+                        <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-violet-500/30 rounded-full blur-xl group-hover:bg-violet-500/50 transition-all duration-300"></div>
+                            <div class="absolute inset-2 bg-violet-500/20 rounded-full blur-lg group-hover:bg-violet-500/40 transition-all duration-300"></div>
+                            <div class="absolute inset-0 bg-gradient-to-br from-violet-600/40 to-violet-800/40 rounded-full border-2 border-violet-500/60 group-hover:border-violet-400/80 transition-all duration-300 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-5 h-5 sm:w-6 sm:h-6 text-white fill-current">
+                                    <path d="M437 45c-15-7-36-4-63 9-12-7-25-11-38-11-16 0-30 6-41 15-11-9-25-15-41-15-13 0-26 4-38 11-27-13-48-16-63-9-21 10-30 35-27 71-21 9-39 25-53 45-25 36-34 88-22 134 8 29 24 54 46 70 18 13 40 20 62 20 27 0 51-10 70-29 19 19 43 29 70 29 22 0 44-7 62-20 22-16 38-41 46-70 12-46 3-98-22-134-14-20-32-36-53-45 3-36-6-61-27-71zM186 285c-17 0-31-14-31-31s14-31 31-31 31 14 31 31-14 31-31 31zm140 0c-17 0-31-14-31-31s14-31 31-31 31 14 31 31-14 31-31 31z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <p class="text-white font-semibold text-xs sm:text-sm mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Duolingo</p>
+                    </a>
+
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/918248566027" target="_blank" class="group relative flex flex-col items-center" title="WhatsApp">
+                        <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-violet-500/30 rounded-full blur-xl group-hover:bg-violet-500/50 transition-all duration-300"></div>
+                            <div class="absolute inset-2 bg-violet-500/20 rounded-full blur-lg group-hover:bg-violet-500/40 transition-all duration-300"></div>
+                            <div class="absolute inset-0 bg-gradient-to-br from-violet-600/40 to-violet-800/40 rounded-full border-2 border-violet-500/60 group-hover:border-violet-400/80 transition-all duration-300 flex items-center justify-center">
+                                <i class="fab fa-whatsapp text-white text-xl sm:text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-white font-semibold text-xs sm:text-sm mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">WhatsApp</p>
+                    </a>
+
+                    <!-- LeetCode -->
+                    <a href="https://leetcode.com/u/geonithin" target="_blank" class="group relative flex flex-col items-center" title="LeetCode">
+                        <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-violet-500/30 rounded-full blur-xl group-hover:bg-violet-500/50 transition-all duration-300"></div>
+                            <div class="absolute inset-2 bg-violet-500/20 rounded-full blur-lg group-hover:bg-violet-500/40 transition-all duration-300"></div>
+                            <div class="absolute inset-0 bg-gradient-to-br from-violet-600/40 to-violet-800/40 rounded-full border-2 border-violet-500/60 group-hover:border-violet-400/80 transition-all duration-300 flex items-center justify-center">
+                                <i class="fas fa-code text-white text-xl sm:text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-white font-semibold text-xs sm:text-sm mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">LeetCode</p>
+                    </a>
+
+                    <!-- Microsoft Learn -->
+                    <a href="https://learn.microsoft.com/en-us/users/geonithin-3229/" target="_blank" class="group relative flex flex-col items-center" title="Microsoft Learn">
+                        <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center">
+                            <div class="absolute inset-0 bg-violet-500/30 rounded-full blur-xl group-hover:bg-violet-500/50 transition-all duration-300"></div>
+                            <div class="absolute inset-2 bg-violet-500/20 rounded-full blur-lg group-hover:bg-violet-500/40 transition-all duration-300"></div>
+                            <div class="absolute inset-0 bg-gradient-to-br from-violet-600/40 to-violet-800/40 rounded-full border-2 border-violet-500/60 group-hover:border-violet-400/80 transition-all duration-300 flex items-center justify-center">
+                                <i class="fab fa-microsoft text-white text-xl sm:text-2xl"></i>
+                            </div>
+                        </div>
+                        <p class="text-white font-semibold text-xs sm:text-sm mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Microsoft</p>
                     </a>
                 </div>
+            </div>
+
+            <!-- Location & Contact Info -->
+            <div class="max-w-2xl mx-auto space-y-4" data-aos="fade-up" data-aos-delay="350">
+                <div class="bg-gray-800 rounded-lg p-4 flex items-start space-x-4">
+                    <i class="fas fa-map-marker-alt text-violet-400 text-2xl mt-1"></i>
+                    <div>
+                        <p class="text-white font-semibold mb-1">Location</p>
+                        <p class="text-gray-300 text-sm sm:text-base">Nagercoil, Tamil Nadu, India</p>
+                        <p class="text-gray-400 text-xs mt-1">Available for remote work worldwide</p>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-4 flex items-start space-x-4">
+                    <i class="fas fa-home text-violet-400 text-2xl mt-1"></i>
+                    <div>
+                        <p class="text-white font-semibold mb-1">Address</p>
+                        <p class="text-gray-300 text-sm sm:text-base">Pincode 629002, Nagercoil, Tamil Nadu, India</p>
+                        <p class="text-gray-400 text-xs mt-1">Phone: +91 8248566027</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="text-center mt-8" data-aos="fade-up" data-aos-delay="400">
+                <a href="tel:+918248566027" class="inline-block bg-gradient-to-r from-violet-500 to-purple-500 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold glow-button transition text-base sm:text-lg hover:scale-105">
+                    <i class="fas fa-phone mr-2"></i>Call Now
+                </a>
+                <p class="text-gray-400 text-sm mt-3">Or drop me an email - I usually respond within 24-48 hours!</p>
             </div>
         </div>
     </section>
@@ -508,8 +2632,118 @@
     </footer>
 
     <script>
+        // Dynamic Loader Messages
+        const loaderMessages = [
+            "Crafting brilliance...",
+            "Initializing digital identity...",
+            "Warming up creativity engines...",
+            "Deploying innovation...",
+            "Fetching imagination...",
+            "Compiling experiences...",
+            "Optimizing creativity modules..."
+        ];
+        
+        let messageIndex = 0;
+        let percentage = 0;
+        let messageInterval;
+        let percentageInterval;
+        
+        function hideLoader() {
+            const loader = document.getElementById('pageLoader');
+            const loaderPercentage = document.getElementById('loaderPercentage');
+            
+            if (loader) {
+                percentage = 100;
+                if (loaderPercentage) {
+                    loaderPercentage.textContent = "Ready! 100%";
+                }
+                
+                setTimeout(function() {
+                    if (messageInterval) clearInterval(messageInterval);
+                    if (percentageInterval) clearInterval(percentageInterval);
+                    loader.classList.add('hidden');
+                }, 800);
+            }
+        }
+        
+        // Start animations when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const loaderSubtext = document.getElementById('loaderSubtext');
+            const loaderPercentage = document.getElementById('loaderPercentage');
+            
+            // Change loader text dynamically
+            messageInterval = setInterval(() => {
+                messageIndex = (messageIndex + 1) % loaderMessages.length;
+                if (loaderSubtext) {
+                    loaderSubtext.textContent = loaderMessages[messageIndex];
+                }
+            }, 600);
+            
+            // Update percentage
+            percentageInterval = setInterval(() => {
+                if (percentage < 100) {
+                    percentage += Math.random() * 15;
+                    if (percentage > 100) percentage = 100;
+                    if (loaderPercentage) {
+                        loaderPercentage.textContent = `${loaderMessages[messageIndex]} ${Math.floor(percentage)}%`;
+                    }
+                }
+            }, 150);
+        });
+        
+        // Hide loader when page fully loads
+        window.addEventListener('load', hideLoader);
+        
+        // Failsafe: Hide loader after maximum 3 seconds
+        setTimeout(hideLoader, 3000);
+
+        // Handle hash navigation on page load (for back to projects links)
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.substring(1); // Remove the # symbol
+            if (hash) {
+                // Wait for loader to finish, then show the section
+                setTimeout(() => {
+                    showSection(hash);
+                }, 500);
+            }
+        });
+
         // Initialize AOS
         AOS.init();
+
+        // Scroll-triggered card animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Add staggered delay based on card position
+                    setTimeout(() => {
+                        entry.target.classList.add('card-visible');
+                    }, index * 100);
+                    cardObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all overview cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.overview-card');
+            cards.forEach(card => {
+                card.classList.add('card-hidden');
+                cardObserver.observe(card);
+            });
+            
+            // Also observe the quote section
+            const quoteSection = document.querySelector('.max-w-5xl');
+            if (quoteSection) {
+                quoteSection.classList.add('card-hidden');
+                cardObserver.observe(quoteSection);
+            }
+        });
 
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
@@ -530,7 +2764,7 @@
         });
 
         // Close mobile menu when a link is clicked
-        navMenu.querySelectorAll('a').forEach(link => {
+        navMenu.querySelectorAll('a, button').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
@@ -545,6 +2779,115 @@
                     bar.style.width = width;
                 }, 500);
             });
+        });
+
+        // Section Navigation System with Loader
+        function showSection(sectionId) {
+            const allSections = document.querySelectorAll('.portfolio-section');
+            const homeSection = document.getElementById('home');
+            const targetSection = document.getElementById(sectionId);
+            const loader = document.getElementById('pageLoader');
+            const loaderSubtext = document.getElementById('loaderSubtext');
+            const loaderPercentage = document.getElementById('loaderPercentage');
+            
+            // Show loader
+            if (loader) {
+                loader.classList.remove('hidden');
+                percentage = 0;
+                if (loaderPercentage) {
+                    loaderPercentage.textContent = "Loading... 0%";
+                }
+                if (loaderSubtext) {
+                    loaderSubtext.textContent = "Loading content...";
+                }
+            }
+            
+            // Simulate loading with progress
+            let loadProgress = 0;
+            const loadInterval = setInterval(() => {
+                loadProgress += Math.random() * 30;
+                if (loadProgress > 100) loadProgress = 100;
+                if (loaderPercentage) {
+                    loaderPercentage.textContent = `Loading... ${Math.floor(loadProgress)}%`;
+                }
+                if (loadProgress >= 100) {
+                    clearInterval(loadInterval);
+                }
+            }, 100);
+            
+            // Delay the section switch slightly for loader visibility
+            setTimeout(() => {
+                if (sectionId === 'home') {
+                    // Show home, hide all others
+                    homeSection.classList.remove('hidden');
+                    allSections.forEach(section => section.classList.add('hidden'));
+                } else {
+                    // Hide home, show target section, hide others
+                    homeSection.classList.add('hidden');
+                    allSections.forEach(section => {
+                        if (section.id === sectionId) {
+                            section.classList.remove('hidden');
+                            // Scroll to top smoothly
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        } else {
+                            section.classList.add('hidden');
+                        }
+                    });
+                }
+                
+                // Hide loader after content is switched
+                setTimeout(() => {
+                    clearInterval(loadInterval);
+                    if (loader) {
+                        if (loaderPercentage) {
+                            loaderPercentage.textContent = "Ready! 100%";
+                        }
+                        setTimeout(() => {
+                            loader.classList.add('hidden');
+                        }, 300);
+                    }
+                }, 600);
+            }, 400);
+        }
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const currentTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
+            
+            if (currentTheme === 'dark') {
+                // Switch to light theme
+                body.classList.add('light-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                // Switch to dark theme
+                body.classList.remove('light-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            // Default is dark theme, only apply light if saved
+            if (savedTheme === 'light') {
+                body.classList.add('light-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                // Ensure dark theme is set (default)
+                body.classList.remove('light-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
         });
     </script>
 </body>

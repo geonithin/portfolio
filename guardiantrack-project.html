@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuardianTrack - Geo Nithin J</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        .navbar {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .navbar.scrolled {
+            background-color: rgba(30, 41, 59, 0.95);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.7);
+        }
+        .glow-button {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.8);
+        }
+        .section-container {
+            background-color: #1f2937;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 1200px;
+            animation: glowEdge 2s infinite ease-in-out;
+            position: relative;
+        }
+        @keyframes glowEdge {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(139, 92, 246, 0.4), 0 0 20px rgba(139, 92, 246, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.5);
+            }
+        }
+        .tech-badge {
+            background: linear-gradient(135deg, #6b21a8, #8b5cf6);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-block;
+            margin: 0.25rem;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+        }
+        .feature-card {
+            background-color: #374151;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+        }
+        .progress-badge {
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .progress-bar-container {
+            background-color: #1f2937;
+            border-radius: 10px;
+            height: 30px;
+            overflow: hidden;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6b21a8, #8b5cf6);
+            transition: width 2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+        .under-construction-banner {
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 1rem 0;
+            animation: glow-warning 2s infinite;
+        }
+        @keyframes glow-warning {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+            }
+        }
+        
+        /* Theme System */
+        body.light-theme {
+            background-color: #e9d5ff !important;
+            color: #4c1d95 !important;
+        }
+        body.light-theme .navbar { background-color: rgba(221, 214, 254, 0.95) !important; }
+        body.light-theme .navbar.scrolled { background-color: rgba(196, 181, 253, 0.98) !important; }
+        body.light-theme .text-white { color: #5b21b6 !important; }
+        body.light-theme .text-gray-200, body.light-theme .text-gray-300 { color: #6d28d9 !important; }
+        body.light-theme .text-gray-400 { color: #7c3aed !important; }
+        body.light-theme .bg-gray-900 { background-color: #e9d5ff !important; }
+        body.light-theme .bg-gray-800 { background-color: #c4b5fd !important; }
+        body.light-theme .section-container { background-color: #ddd6fe !important; }
+        body.light-theme .feature-card { background-color: #c4b5fd !important; }
+        body.light-theme .metric-card { background: linear-gradient(135deg, #ddd6fe, #c4b5fd) !important; }
+        body.light-theme .text-violet-300, body.light-theme .text-violet-400 { color: #7c3aed !important; }
+        body.light-theme .glow-button { box-shadow: 0 0 15px rgba(167, 139, 250, 0.4) !important; }
+        body.light-theme .glow-button:hover { box-shadow: 0 0 25px rgba(167, 139, 250, 0.6) !important; }
+        body.light-theme .bg-violet-500 { background-color: #a78bfa !important; }
+        body.light-theme .bg-purple-600 { background-color: #9333ea !important; }
+        body.light-theme .hover\:bg-purple-700:hover { background-color: #7e22ce !important; }
+        body.light-theme .hamburger span { background-color: #5b21b6 !important; }
+        body.light-theme i.fas, body.light-theme i.fab { filter: drop-shadow(0 0 3px rgba(167, 139, 250, 0.3)) !important; }
+        body.light-theme i.fas:hover, body.light-theme i.fab:hover { filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.6)) !important; }
+        .theme-toggle {
+            width: 60px;
+            height: 30px;
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+        }
+        .theme-toggle:hover { background: rgba(139, 92, 246, 0.4); box-shadow: 0 0 15px rgba(139, 92, 246, 0.6); }
+        .theme-toggle-slider {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            left: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .theme-toggle-slider i { font-size: 12px; color: white; }
+        body.light-theme .theme-toggle-slider { left: 32px; }
+        body.light-theme .theme-toggle { background: rgba(124, 58, 237, 0.3); border-color: rgba(124, 58, 237, 0.5); }
+        
+        /* Gradient & Text Color Overrides */
+        body.light-theme .from-blue-900, body.light-theme .from-purple-900 {
+            --tw-gradient-from: #c4b5fd !important;
+            --tw-gradient-to: rgb(196 181 253 / 0) !important;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+        }
+        body.light-theme .to-violet-900, body.light-theme .to-indigo-900 {
+            --tw-gradient-to: #ddd6fe !important;
+        }
+        body.light-theme .via-violet-900 {
+            --tw-gradient-stops: var(--tw-gradient-from), #ddd6fe, var(--tw-gradient-to) !important;
+        }
+        body.light-theme .text-gray-500, body.light-theme .text-gray-600 { color: #7c3aed !important; }
+        body.light-theme .text-gray-700 { color: #6d28d9 !important; }
+        
+        /* Progress Bars Light Theme */
+        body.light-theme .progress-bar-container {
+            background-color: rgba(196, 181, 253, 0.3) !important;
+            border: 1px solid rgba(139, 92, 246, 0.3) !important;
+        }
+        body.light-theme .progress-bar-fill {
+            background: linear-gradient(to right, #8b5cf6, #a78bfa) !important;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4) !important;
+        }
+        body.light-theme .under-construction-banner {
+            background: rgba(196, 181, 253, 0.4) !important;
+            border-color: rgba(139, 92, 246, 0.5) !important;
+        }
+        
+        /* Universal Icon Glow Effects */
+        i.fas, i.fab, i.far, i.fa {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 2px rgba(139, 92, 246, 0.2));
+        }
+        
+        i.fas:hover, i.fab:hover, i.far:hover, i.fa:hover {
+            filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.8)) drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+            transform: scale(1.1);
+        }
+        
+        i.text-violet-400, i.text-violet-300 {
+            animation: subtleGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes subtleGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 3px rgba(139, 92, 246, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.7));
+            }
+        }
+        
+        i.text-4xl, i.text-5xl, i.text-6xl, i.text-8xl {
+            filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.4));
+        }
+        
+        i.text-4xl:hover, i.text-5xl:hover, i.text-6xl:hover, i.text-8xl:hover {
+            filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.9)) drop-shadow(0 0 25px rgba(139, 92, 246, 0.6));
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 640px) {
+            .section-container {
+                border-radius: 12px;
+                padding: 1rem;
+                margin: 0.75rem 0;
+            }
+            
+            h1, .text-5xl {
+                font-size: 1.875rem !important;
+            }
+            
+            h2, .text-3xl {
+                font-size: 1.5rem !important;
+            }
+            
+            .feature-card, .metric-card {
+                padding: 1rem;
+                margin: 0.5rem 0;
+            }
+
+            .grid {
+                gap: 0.75rem !important;
+            }
+
+            .tech-badge {
+                font-size: 0.75rem;
+                padding: 0.2rem 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-container {
+                padding: 1.25rem;
+            }
+
+            .feature-card {
+                padding: 1.25rem;
+            }
+
+            .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-cols-3 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .grid-cols-4 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .feature-card, .metric-card {
+                cursor: pointer;
+            }
+
+            button, a {
+                min-height: 44px;
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 smooth-scroll">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full navbar z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <!-- Theme Toggle Button -->
+                <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                    <div class="theme-toggle-slider">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </div>
+                </div>
+                <span class="text-base sm:text-lg md:text-xl font-bold text-white">Geo Nithin J</span>
+            </div>
+            <div class="hidden sm:flex space-x-3 sm:space-x-6 text-xs sm:text-sm md:text-base">
+                <a href="index.html#projects" class="text-gray-300 hover:text-violet-400 transition">← Back to My Projects</a>
+            </div>
+            <a href="index.html#projects" class="sm:hidden text-gray-300 hover:text-violet-400 transition text-xs">Back</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="min-h-screen bg-gradient-to-br from-blue-900 via-violet-900 to-purple-900 flex items-center justify-center text-white pt-20">
+        <div class="text-center px-6 sm:px-8 max-w-4xl mx-auto" data-aos="zoom-in" data-aos-duration="1000">
+            <i class="fas fa-satellite-dish text-6xl sm:text-8xl text-violet-400 mb-6"></i>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">🛰️ GuardianTrack</h1>
+            <p class="text-base sm:text-lg md:text-xl mb-4">Smart Safety & Tracking System for Child Protection</p>
+            <div class="under-construction-banner inline-block">
+                <p class="text-white font-bold text-lg flex items-center justify-center">
+                    <i class="fas fa-hard-hat mr-2"></i>
+                    Under Active Development
+                    <i class="fas fa-tools ml-2"></i>
+                </p>
+            </div>
+            <div class="my-6">
+                <div class="max-w-md mx-auto">
+                    <div class="flex justify-between text-sm mb-2">
+                        <span>Backend Progress</span>
+                        <span class="font-bold">95%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 95%;">95%</div>
+                    </div>
+                    <div class="flex justify-between text-sm mt-4 mb-2">
+                        <span>Frontend Progress</span>
+                        <span class="font-bold">80%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 80%;">80%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
+                <a href="#overview" class="bg-violet-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition">Overview</a>
+                <a href="#features" class="bg-violet-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition">Features</a>
+                <a href="#tech-stack" class="bg-violet-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-semibold glow-button transition">Tech Stack</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Problem Statement -->
+    <section id="overview" class="py-12 sm:py-20">
+        <div class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">
+                <i class="fas fa-exclamation-triangle mr-2"></i>Problem Statement
+            </h2>
+            <div class="text-base sm:text-lg text-gray-300 leading-relaxed space-y-4 sm:space-y-6" data-aos="fade-up" data-aos-delay="200">
+                <p class="text-xl text-center font-semibold text-violet-300">In today's world, ensuring the safety of children and dependents is a rising concern.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                    <div class="feature-card border-l-4 border-violet-500">
+                        <h3 class="text-lg font-semibold text-violet-400 mb-2">❌ Current Problems</h3>
+                        <ul class="text-gray-300 space-y-2 text-sm">
+                            <li>• Traditional apps allow users to disable tracking</li>
+                            <li>• Connectivity gaps leave parents helpless</li>
+                            <li>• No direct emergency escalation system</li>
+                            <li>• Lack of tamper-proof solutions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card border-l-4 border-violet-500">
+                        <h3 class="text-lg font-semibold text-violet-400 mb-2">✅ Our Solution</h3>
+                        <ul class="text-gray-300 space-y-2 text-sm">
+                            <li>• Non-bypassable location sharing</li>
+                            <li>• Instant alerts during signal loss</li>
+                            <li>• Direct police notification system</li>
+                            <li>• Tamper-proof, secure tracking</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-violet-900 to-purple-900 p-6 rounded-lg mt-8">
+                    <h3 class="text-xl font-bold text-violet-300 mb-3 text-center">💡 Proposed Solution</h3>
+                    <p class="text-center text-gray-200">
+                        <strong>GuardianTrack</strong> is a real-time child safety and tracking platform where parents can track their children using GPS with <strong>non-bypassable location sharing</strong>, intelligent safety features, and <strong>direct emergency escalation</strong> to authorities in case of suspicious activity.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section id="features" class="py-12 sm:py-20">
+        <div class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">
+                <i class="fas fa-star mr-2"></i>Key Features
+            </h2>
+            
+            <!-- Core Features -->
+            <div class="mb-12" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-xl sm:text-2xl font-bold text-violet-300 mb-6 flex items-center">
+                    <i class="fas fa-shield-alt mr-3"></i>🔐 Core Features
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="feature-card">
+                        <h4 class="text-lg font-semibold text-violet-400 mb-3">
+                            <i class="fas fa-map-marker-alt mr-2"></i>Unstoppable Tracking
+                        </h4>
+                        <p class="text-gray-300 text-sm">Children cannot disable their location unless the parent explicitly allows. Ensures continuous monitoring for maximum safety.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4 class="text-lg font-semibold text-violet-400 mb-3">
+                            <i class="fas fa-signal mr-2"></i>Signal/Device Loss Alert
+                        </h4>
+                        <p class="text-gray-300 text-sm">If GPS or internet signal is cut, an instant alert is sent to parents and local police with the last known location.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safety Enhancements -->
+            <div class="mb-12" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="text-xl sm:text-2xl font-bold text-violet-300 mb-6 flex items-center">
+                    <i class="fas fa-globe mr-3"></i>🌍 Safety Enhancements
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="feature-card">
+                        <h4 class="text-lg font-semibold text-violet-400 mb-3">
+                            <i class="fas fa-draw-polygon mr-2"></i>Geo-Fencing Zones
+                        </h4>
+                        <p class="text-gray-300 text-sm">Parents define safe zones (home, school, playground). Leaving or entering unexpectedly triggers instant alerts.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4 class="text-lg font-semibold text-violet-400 mb-3">
+                            <i class="fas fa-battery-half mr-2"></i>Battery & Signal Monitor
+                        </h4>
+                        <p class="text-gray-300 text-sm">Alerts parents if device battery drops below 10% or enters a weak-signal area for proactive monitoring.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Features -->
+            <div class="mb-12" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="text-xl sm:text-2xl font-bold text-violet-300 mb-6 flex items-center">
+                    <i class="fas fa-exclamation-circle mr-3"></i>🚨 Emergency Features
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="feature-card border-2 border-violet-500">
+                        <h4 class="text-lg font-semibold text-violet-400 mb-3">
+                            <i class="fas fa-hand-paper mr-2"></i>SOS Panic Button
+                        </h4>
+                        <p class="text-gray-300 text-sm">Child can press one button to alert parents & emergency responders with live GPS, and optionally activate microphone/video stream.</p>
+                    </div>
+                    
+                    <div class="feature-card border-2 border-violet-500">
+                        <h4 class="text-lg font-semibold text-violet-400 mb-3">
+                            <i class="fas fa-bell mr-2"></i>Emergency Escalation Mode
+                        </h4>
+                        <p class="text-gray-300 text-sm">If the phone is turned off or forcibly disabled, the system sends last location + timestamp to parents and authorities immediately.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Smart Technology -->
+            <div class="mb-12" data-aos="fade-up" data-aos-delay="500">
+                <h3 class="text-xl sm:text-2xl font-bold text-violet-300 mb-6 flex items-center">
+                    <i class="fas fa-robot mr-3"></i>🤖 Smart Technology
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="feature-card">
+                        <h4 class="text-lg font-semibold text-violet-400 mb-3">
+                            <i class="fas fa-brain mr-2"></i>AI Movement Prediction
+                        </h4>
+                        <p class="text-gray-300 text-sm">If updates stop, AI predicts possible movement routes based on last direction & speed using machine learning algorithms.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4 class="text-lg font-semibold text-violet-400 mb-3">
+                            <i class="fas fa-wifi mr-2"></i>Offline Logging
+                        </h4>
+                        <p class="text-gray-300 text-sm">Stores location data offline when connectivity is lost and syncs automatically once back online.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Privacy & Access Control -->
+            <div data-aos="fade-up" data-aos-delay="600">
+                <h3 class="text-xl sm:text-2xl font-bold text-violet-300 mb-6 flex items-center">
+                    <i class="fas fa-user-lock mr-3"></i>👥 Role Management & Privacy
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="feature-card">
+                        <h4 class="text-lg font-semibold text-violet-400 mb-3">
+                            <i class="fas fa-users-cog mr-2"></i>Role-Based Access
+                        </h4>
+                        <p class="text-gray-300 text-sm">Only verified guardians can control permissions. Multi-level authentication ensures secure access.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4 class="text-lg font-semibold text-violet-400 mb-3">
+                            <i class="fas fa-lock mr-2"></i>Tamper-Proof Control
+                        </h4>
+                        <p class="text-gray-300 text-sm">Children cannot alter or disable tracking features, ensuring continuous protection and monitoring.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section id="tech-stack" class="py-12 sm:py-20">
+        <div class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10 text-violet-400" data-aos="fade-up">
+                <i class="fas fa-code mr-2"></i>Technology Stack & Architecture
+            </h2>
+            
+            <div class="space-y-8" data-aos="fade-up" data-aos-delay="200">
+                <!-- Project Structure -->
+                <div class="bg-gray-800 p-6 rounded-lg mb-8">
+                    <h3 class="text-xl font-bold text-violet-300 mb-4">📁 Project Structure</h3>
+                    <div class="bg-gray-900 p-4 rounded-lg font-mono text-sm">
+                        <pre class="text-green-400">
+guardiantrack/
+├── backend/           # Node.js Express API (95% complete)
+├── frontend/          # React Web App (80% complete)
+├── postman/           # API testing collection
+└── docs/              # Comprehensive documentation</pre>
+                    </div>
+                </div>
+
+                <!-- Frontend -->
+                <div>
+                    <h3 class="text-xl font-bold text-violet-300 mb-4 flex items-center">
+                        <i class="fas fa-laptop-code mr-3"></i>Frontend Technologies
+                    </h3>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-badge">React</span>
+                        <span class="tech-badge">React Native / Flutter</span>
+                        <span class="tech-badge">JavaScript/TypeScript</span>
+                        <span class="tech-badge">Responsive Design</span>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Building a modern, responsive web application with React for parents and guardians. Mobile apps planned with React Native or Flutter for cross-platform compatibility. Currently 80% complete with core UI components and tracking interfaces implemented.
+                    </p>
+                </div>
+
+                <!-- Backend -->
+                <div>
+                    <h3 class="text-xl font-bold text-violet-300 mb-4 flex items-center">
+                        <i class="fas fa-server mr-3"></i>Backend & Database
+                    </h3>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-badge">Node.js</span>
+                        <span class="tech-badge">Express.js</span>
+                        <span class="tech-badge">Firebase / MongoDB</span>
+                        <span class="tech-badge">Real-Time APIs</span>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Robust Node.js backend with Express for real-time APIs. Firebase Realtime Database or MongoDB for scalable data storage. Backend is 95% complete with authentication, tracking, and notification systems fully functional.
+                    </p>
+                </div>
+
+                <!-- Maps & Tracking -->
+                <div>
+                    <h3 class="text-xl font-bold text-violet-300 mb-4 flex items-center">
+                        <i class="fas fa-map mr-3"></i>Maps & Tracking
+                    </h3>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-badge">Google Maps API</span>
+                        <span class="tech-badge">Mapbox</span>
+                        <span class="tech-badge">GPS Tracking</span>
+                        <span class="tech-badge">Geo-Fencing</span>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Integration with Google Maps API or Mapbox for real-time location tracking, route visualization, and geo-fencing capabilities. Precise GPS tracking with offline support.
+                    </p>
+                </div>
+
+                <!-- Notifications -->
+                <div>
+                    <h3 class="text-xl font-bold text-violet-300 mb-4 flex items-center">
+                        <i class="fas fa-bell mr-3"></i>Notification System
+                    </h3>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-badge">Firebase Cloud Messaging</span>
+                        <span class="tech-badge">Twilio</span>
+                        <span class="tech-badge">SMS Alerts</span>
+                        <span class="tech-badge">Push Notifications</span>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Multi-channel notification system using Firebase Cloud Messaging for push notifications and Twilio for SMS/voice calls. Ensures parents receive critical alerts immediately.
+                    </p>
+                </div>
+
+                <!-- Emergency Integration -->
+                <div>
+                    <h3 class="text-xl font-bold text-violet-300 mb-4 flex items-center">
+                        <i class="fas fa-ambulance mr-3"></i>Emergency API Integration
+                    </h3>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="tech-badge">Police/Authority APIs</span>
+                        <span class="tech-badge">Mock Endpoints</span>
+                        <span class="tech-badge">Emergency Services</span>
+                    </div>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        Integration with local police and emergency authority APIs (currently using mock endpoints for demo). Enables direct emergency escalation with location data.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Users & Impact -->
+    <section id="impact" class="py-12 sm:py-20">
+        <div class="section-container">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Target Users -->
+                <div data-aos="fade-up">
+                    <h2 class="text-2xl font-bold mb-6 text-violet-400">
+                        <i class="fas fa-users mr-2"></i>🎯 Target Users
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="feature-card">
+                            <i class="fas fa-child text-violet-400 text-2xl mb-2"></i>
+                            <h3 class="font-semibold text-white">Parents tracking children</h3>
+                            <p class="text-gray-400 text-sm">Primary use case for child safety</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-home text-violet-400 text-2xl mb-2"></i>
+                            <h3 class="font-semibold text-white">Families monitoring elderly</h3>
+                            <p class="text-gray-400 text-sm">Care for senior family members</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-school text-violet-400 text-2xl mb-2"></i>
+                            <h3 class="font-semibold text-white">Schools for student safety</h3>
+                            <p class="text-gray-400 text-sm">Educational institution monitoring</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-truck-medical text-violet-400 text-2xl mb-2"></i>
+                            <h3 class="font-semibold text-white">Emergency response teams</h3>
+                            <p class="text-gray-400 text-sm">Disaster relief coordination</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Impact -->
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <h2 class="text-2xl font-bold mb-6 text-violet-400">
+                        <i class="fas fa-heart mr-2"></i>🌟 Expected Impact
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="feature-card border-l-4 border-violet-500">
+                            <i class="fas fa-shield-alt text-violet-400 text-2xl mb-2"></i>
+                            <h3 class="font-semibold text-white mb-2">Reduces Missing Children Cases</h3>
+                            <p class="text-gray-300 text-sm">Real-time tracking and instant alerts can prevent abductions and help locate missing children faster.</p>
+                        </div>
+                        <div class="feature-card border-l-4 border-violet-500">
+                            <i class="fas fa-smile text-violet-400 text-2xl mb-2"></i>
+                            <h3 class="font-semibold text-white mb-2">Peace of Mind for Parents</h3>
+                            <p class="text-gray-300 text-sm">Parents can monitor their children's safety without constant worry, knowing they'll be alerted immediately if anything is wrong.</p>
+                        </div>
+                        <div class="feature-card border-l-4 border-violet-500">
+                            <i class="fas fa-brain text-violet-400 text-2xl mb-2"></i>
+                            <h3 class="font-semibold text-white mb-2">AI-Enhanced Emergency Response</h3>
+                            <p class="text-gray-300 text-sm">AI movement prediction helps authorities respond faster and more effectively during emergencies.</p>
+                        </div>
+                        <div class="feature-card border-l-4 border-violet-500">
+                            <i class="fas fa-expand-arrows-alt text-violet-400 text-2xl mb-2"></i>
+                            <h3 class="font-semibold text-white mb-2">Scalable Solution</h3>
+                            <p class="text-gray-300 text-sm">Extends to elderly care, patient monitoring, and disaster relief scenarios with minimal modifications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Status -->
+    <section class="py-12 sm:py-20">
+        <div class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 text-violet-400" data-aos="fade-up">
+                <i class="fas fa-tasks mr-2"></i>Development Status
+            </h2>
+            
+            <div class="max-w-3xl mx-auto space-y-6" data-aos="fade-up" data-aos-delay="200">
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-lg font-semibold">Backend API (Node.js + Express)</span>
+                        <span class="text-lg font-bold text-violet-400">95%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 95%;">
+                            <span>95% Complete</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-2">✅ Authentication, tracking APIs, notifications, and emergency systems functional</p>
+                </div>
+
+                <div>
+                    <div class="flex justify-between mb-2">
+                        <span class="text-lg font-semibold">Frontend Web App (React)</span>
+                        <span class="text-lg font-bold text-violet-400">80%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 80%;">
+                            <span>80% Complete</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-2">🔨 Core UI components, dashboards, and tracking interfaces implemented</p>
+                </div>
+
+                <div class="under-construction-banner mt-8">
+                    <h3 class="text-xl font-bold text-white mb-3">
+                        <i class="fas fa-clipboard-list mr-2"></i>Next Steps
+                    </h3>
+                    <ul class="text-white text-left max-w-lg mx-auto space-y-2">
+                        <li>• Finalize frontend UI and user experience</li>
+                        <li>• Integrate emergency authority APIs</li>
+                        <li>• Complete testing and quality assurance</li>
+                        <li>• Polish documentation and deployment</li>
+                        <li>• Prepare for production release</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-12 sm:py-20">
+        <div class="section-container text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-6 text-violet-400" data-aos="fade-up">
+                <i class="fas fa-rocket mr-2"></i>Stay Tuned!
+            </h2>
+            <p class="text-lg text-gray-300 mb-8" data-aos="fade-up" data-aos-delay="200">
+                GuardianTrack is actively under development. Follow the progress and check back soon for the live demo!
+            </p>
+            <div class="flex flex-wrap justify-center gap-4" data-aos="fade-up" data-aos-delay="400">
+                <a href="index.html#projects" class="bg-violet-500 text-white px-6 py-3 rounded-full font-semibold glow-button transition">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to My Projects
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="text-gray-400 mb-4">Built with <span class="text-violet-400">❤️</span> by Geo Nithin J</p>
+            <p class="text-sm text-gray-500">Node.js • Express • React • Firebase • Google Maps • Twilio</p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const currentTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
+            
+            if (currentTheme === 'dark') {
+                body.classList.add('light-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'light') {
+                body.classList.add('light-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                body.classList.remove('light-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+    </script>
+</body>
+</html>

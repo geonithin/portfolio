@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal - Geo Nithin J</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        .navbar {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .navbar.scrolled {
+            background-color: rgba(30, 41, 59, 0.95);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-scale:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.7);
+        }
+        .glow-button {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.8);
+        }
+        .section-container {
+            background-color: #1f2937;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 1200px;
+            animation: glowEdge 2s infinite ease-in-out;
+            position: relative;
+        }
+        @keyframes glowEdge {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(139, 92, 246, 0.4), 0 0 20px rgba(139, 92, 246, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.5);
+            }
+        }
+        .personal-card {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .personal-card:hover {
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+            transform: translateY(-5px);
+        }
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, #6b21a8, #8b5cf6);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(139, 92, 246, 0.8);
+            }
+        }
+        
+        /* Universal Icon Glow Effects */
+        i.fas, i.fab, i.far, i.fa {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 2px rgba(139, 92, 246, 0.2));
+        }
+        
+        i.fas:hover, i.fab:hover, i.far:hover, i.fa:hover {
+            filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.8)) drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+            transform: scale(1.1);
+        }
+        
+        /* Specific icon type glow animations */
+        i.text-violet-400, i.text-violet-300 {
+            animation: subtleGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes subtleGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 3px rgba(139, 92, 246, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.7));
+            }
+        }
+        
+        @keyframes iconGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6));
+            }
+            50% {
+                filter: drop-shadow(0 0 15px rgba(139, 92, 246, 1)) drop-shadow(0 0 25px rgba(139, 92, 246, 0.7));
+            }
+        }
+        
+        /* Large icons extra glow */
+        i.text-4xl, i.text-5xl, i.text-6xl {
+            filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.4));
+        }
+        
+        i.text-4xl:hover, i.text-5xl:hover, i.text-6xl:hover {
+            filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.9)) drop-shadow(0 0 25px rgba(139, 92, 246, 0.6));
+        }
+        
+        /* Theme Variables */
+        :root {
+            /* Dark Theme (Default) */
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --text-primary: #e5e7eb;
+            --text-secondary: #9ca3af;
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #a78bfa;
+            --border-color: rgba(139, 92, 246, 0.3);
+            --glow-color: rgba(139, 92, 246, 0.5);
+        }
+        
+        /* Light Theme - Lavender Based */
+        body.light-theme {
+            --bg-primary: #e9d5ff;
+            --bg-secondary: #ddd6fe;
+            --text-primary: #4c1d95;
+            --text-secondary: #6d28d9;
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #a78bfa;
+            --border-color: rgba(139, 92, 246, 0.3);
+            --glow-color: rgba(167, 139, 250, 0.6);
+            background-color: #e9d5ff !important;
+            color: #4c1d95 !important;
+        }
+        
+        /* Light Theme Overrides */
+        body.light-theme .navbar {
+            background-color: rgba(221, 214, 254, 0.95) !important;
+            box-shadow: 0 2px 10px rgba(139, 92, 246, 0.3) !important;
+        }
+        
+        body.light-theme .navbar.scrolled {
+            background-color: rgba(196, 181, 253, 0.98) !important;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5) !important;
+        }
+        
+        body.light-theme .text-white {
+            color: #5b21b6 !important;
+        }
+        
+        body.light-theme .text-gray-200,
+        body.light-theme .text-gray-300 {
+            color: #6d28d9 !important;
+        }
+        
+        body.light-theme .text-gray-400 {
+            color: #7c3aed !important;
+        }
+        
+        body.light-theme .bg-gray-900 {
+            background-color: #e9d5ff !important;
+        }
+        
+        body.light-theme .bg-gray-800 {
+            background-color: #c4b5fd !important;
+        }
+        
+        body.light-theme .section-container {
+            background-color: #ddd6fe !important;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.25), 0 0 25px rgba(139, 92, 246, 0.15) !important;
+        }
+        
+        body.light-theme .personal-card {
+            background: linear-gradient(135deg, #ddd6fe, #c4b5fd) !important;
+            border-color: rgba(109, 40, 217, 0.5) !important;
+        }
+        
+        body.light-theme .text-violet-300,
+        body.light-theme .text-violet-400 {
+            color: #7c3aed !important;
+        }
+        
+        body.light-theme .icon-circle {
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa) !important;
+        }
+        
+        body.light-theme .glow-button {
+            box-shadow: 0 0 15px rgba(167, 139, 250, 0.4) !important;
+        }
+        
+        body.light-theme .glow-button:hover {
+            box-shadow: 0 0 25px rgba(167, 139, 250, 0.6) !important;
+        }
+        
+        body.light-theme .hover-scale:hover {
+            box-shadow: 0 0 20px rgba(167, 139, 250, 0.5) !important;
+        }
+        
+        body.light-theme .bg-violet-500 {
+            background-color: #a78bfa !important;
+        }
+        
+        body.light-theme i.fas,
+        body.light-theme i.fab {
+            filter: drop-shadow(0 0 3px rgba(167, 139, 250, 0.3)) !important;
+        }
+        
+        body.light-theme i.fas:hover,
+        body.light-theme i.fab:hover {
+            filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.6)) !important;
+        }
+        
+        body.light-theme .hamburger span {
+            background-color: #5b21b6 !important;
+        }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            width: 60px;
+            height: 30px;
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
+        }
+        
+        .theme-toggle-slider {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            left: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .theme-toggle-slider i {
+            font-size: 12px;
+            color: white;
+        }
+        
+        body.light-theme .theme-toggle-slider {
+            left: 32px;
+        }
+        
+        body.light-theme .theme-toggle {
+            background: rgba(124, 58, 237, 0.3);
+            border-color: rgba(124, 58, 237, 0.5);
+        }
+        
+        /* Gradient & Text Color Overrides */
+        body.light-theme .from-blue-900, body.light-theme .from-purple-900 {
+            --tw-gradient-from: #c4b5fd !important;
+            --tw-gradient-to: rgb(196 181 253 / 0) !important;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+        }
+        body.light-theme .to-violet-900, body.light-theme .to-indigo-900, body.light-theme .to-purple-900 {
+            --tw-gradient-to: #ddd6fe !important;
+        }
+        body.light-theme .via-violet-900 {
+            --tw-gradient-stops: var(--tw-gradient-from), #ddd6fe, var(--tw-gradient-to) !important;
+        }
+        body.light-theme .text-gray-500, body.light-theme .text-gray-600 { color: #7c3aed !important; }
+        body.light-theme .text-gray-700 { color: #6d28d9 !important; }
+        
+        /* Creative Loader Styles */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e1b4b);
+            background-size: 400% 400%;
+            animation: gradientFlow 8s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+            overflow: hidden;
+        }
+        
+        body.light-theme .page-loader {
+            background: linear-gradient(-45deg, #e9d5ff, #ddd6fe, #c4b5fd, #ddd6fe);
+            background-size: 400% 400%;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            display: none;
+        }
+        
+        /* Enhanced Radial Glow Background */
+        .loader-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
+            animation: gentleGlow 4s ease-in-out infinite;
+        }
+        @keyframes gentleGlow {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+                filter: blur(40px);
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.8;
+                filter: blur(60px);
+            }
+        }
+        
+        .loader-content {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        .loader-logo {
+            width: 10em;
+            height: 10em;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        /* 3D Spinner Container */
+        .loader-diamond {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .loader-diamond:before,
+        .loader-diamond:after {
+            box-sizing: border-box;
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10em;
+            height: 10em;
+            transform-style: preserve-3d;
+            transform-origin: 50% 50%;
+            perspective-origin: 50% 50%;
+            perspective: 340px;
+            background-size: 10em 10em;
+            background-image: url("data:image/svg+xml,%3Csvg width='266' height='297' viewBox='0 0 266 297' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M171.507813,3.25000038 C226.208183,12.8577111 297.112722,71.4912823 250.895599,108.410155 C216.582024,135.82031 186.528405,97.0624964 156.800774,85.7734346 C127.073143,74.4843721 76.8884632,84.2161462 60.1289065,108.410153 C-15.9804685,218.281247 145.277344,296.667968 145.277344,296.667968 C145.277344,296.667968 -25.4492187,257.242198 3.3984375,108.410155 C16.3070661,41.8114174 84.7275829,-11.9922985 171.507813,3.25000038 Z' fill='%238b5cf6'/%3E%3C/svg%3E");
+        }
+        
+        .loader-diamond:before {
+            transform: rotateX(60deg) rotateY(45deg) rotateZ(45deg);
+            animation: rotateBefore 1200ms infinite linear reverse;
+        }
+        
+        .loader-diamond:after {
+            transform: rotateX(240deg) rotateY(45deg) rotateZ(45deg);
+            animation: rotateAfter 1200ms infinite linear;
+        }
+        
+        @keyframes rotateBefore {
+            from {
+                transform: rotateX(60deg) rotateY(45deg) rotateZ(0deg);
+            }
+            to {
+                transform: rotateX(60deg) rotateY(45deg) rotateZ(-360deg);
+            }
+        }
+        
+        @keyframes rotateAfter {
+            from {
+                transform: rotateX(240deg) rotateY(45deg) rotateZ(0deg);
+            }
+            to {
+                transform: rotateX(240deg) rotateY(45deg) rotateZ(360deg);
+            }
+        }
+        
+        /* Hide the facet divs since we're using :before and :after */
+        .diamond-facet {
+            display: none;
+        }
+        .loader-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 40px rgba(139, 92, 246, 0.5);
+            animation: textGlowPulse 3s ease-in-out infinite;
+        }
+        @keyframes textGlowPulse {
+            0%, 100% {
+                opacity: 1;
+                text-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                text-shadow: 0 0 25px rgba(139, 92, 246, 1), 0 0 50px rgba(139, 92, 246, 0.8), 0 0 75px rgba(139, 92, 246, 0.5);
+                transform: scale(1.02);
+            }
+        }
+        .loader-subtext {
+            font-size: 0.95rem;
+            color: #a78bfa;
+            margin-top: 0.5rem;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            animation: typewriter 4s steps(40) infinite, fadeInOut 2s ease-in-out infinite;
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+        }
+        @keyframes typewriter {
+            0%, 100% { width: 0; }
+            50% { width: 100%; }
+        }
+        @keyframes fadeInOut {
+            0%, 100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+        .loader-percentage {
+            font-size: 0.75rem;
+            color: #8b5cf6;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            animation: fadeInOut 2s ease-in-out infinite;
+        }
+        .loader-progress {
+            width: 250px;
+            height: 6px;
+            background: rgba(139, 92, 246, 0.15);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 1rem auto 0;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .loader-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #6b21a8, #8b5cf6, #a78bfa, #8b5cf6, #6b21a8);
+            background-size: 300% 100%;
+            animation: progressShimmer 2s ease-in-out infinite, progressFill 3s ease-out forwards;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 1), 0 0 30px rgba(139, 92, 246, 0.6);
+            position: relative;
+        }
+        .loader-progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmerMove 1.5s infinite;
+        }
+        @keyframes progressShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes progressFill {
+            0% { width: 0%; }
+            30% { width: 45%; }
+            60% { width: 78%; }
+            90% { width: 95%; }
+            100% { width: 100%; }
+        }
+        @keyframes shimmerMove {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 640px) {
+            .section-container {
+                border-radius: 12px;
+                padding: 1rem;
+                margin: 0.75rem 0;
+            }
+            
+            h1, .text-5xl {
+                font-size: 1.875rem !important;
+            }
+            
+            h2, .text-3xl {
+                font-size: 1.5rem !important;
+            }
+            
+            h3, .text-2xl {
+                font-size: 1.25rem !important;
+            }
+            
+            .personal-card {
+                padding: 1rem;
+                border-radius: 12px;
+            }
+
+            .icon-circle {
+                width: 60px;
+                height: 60px;
+                margin: 0 auto 0.75rem;
+            }
+
+            .grid {
+                gap: 0.75rem !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-container {
+                padding: 1.25rem;
+                margin: 1rem auto;
+            }
+
+            .personal-card {
+                margin: 0.75rem 0;
+                padding: 1.25rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .section-container {
+                max-width: 100%;
+                margin: 1rem;
+            }
+
+            .grid-cols-4 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .personal-card {
+                cursor: pointer;
+            }
+
+            button, a {
+                padding: 0.75rem 1rem;
+                min-height: 44px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 smooth-scroll">
+    <!-- Creative Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <!-- Subtle Radial Glow Effect -->
+        <div class="loader-glow"></div>
+        
+        <!-- Main Loader Content -->
+        <div class="loader-content">
+            <div class="loader-logo">
+                <div class="loader-diamond"></div>
+            </div>
+            <div class="loader-text">Personal Hub</div>
+            <div class="loader-subtext" id="loaderSubtext">Loading Your Journey...</div>
+            <div class="loader-progress">
+                <div class="loader-progress-bar"></div>
+            </div>
+            <div class="loader-percentage" id="loaderPercentage">Exploring... 0%</div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full navbar z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <!-- Theme Toggle Button -->
+                <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                    <div class="theme-toggle-slider">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </div>
+                </div>
+                <span class="text-lg sm:text-xl font-bold text-white">Geo Nithin J</span>
+            </div>
+            <div class="hidden sm:flex space-x-3 sm:space-x-6 text-xs sm:text-sm md:text-base">
+                <a href="index.html" class="text-gray-300 hover:text-violet-400 transition">← Back to Portfolio</a>
+            </div>
+            <a href="index.html" class="sm:hidden text-gray-300 hover:text-violet-400 transition text-sm">Back</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="min-h-screen bg-gradient-to-br from-blue-900 via-violet-900 to-purple-900 flex items-center justify-center text-white pt-16 sm:pt-20 px-4">
+        <div class="text-center px-2 sm:px-6 md:px-8 max-w-4xl mx-auto" data-aos="zoom-in" data-aos-duration="1000">
+            <i class="fas fa-user-circle text-5xl sm:text-6xl md:text-8xl text-violet-400 mb-4 sm:mb-6"></i>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">Personal Journey</h1>
+            <p class="text-sm sm:text-base md:text-lg lg:text-xl mb-4 sm:mb-6">Explore my certificates, reading adventures, dreams, and college life</p>
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4">
+                <a href="#sections" class="bg-violet-500 text-white px-3 sm:px-4 md:px-6 py-2 sm:py-3 rounded-full font-semibold glow-button transition text-xs sm:text-sm md:text-base">
+                    <i class="fas fa-arrow-down mr-2"></i>Explore
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Personal Sections Grid -->
+    <section id="sections" class="py-8 sm:py-12 md:py-20 px-4 sm:px-6 md:px-8">
+        <div class="section-container">
+            <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 sm:mb-8 md:mb-12 text-violet-400 px-4 sm:px-6" data-aos="fade-up">
+                <i class="fas fa-compass mr-2"></i>Discover More About Me
+            </h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto px-4 sm:px-6">
+                <!-- Certificates -->
+                <div class="personal-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="icon-circle">
+                        <i class="fas fa-certificate text-3xl sm:text-4xl text-white"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white text-center mb-2 sm:mb-3">My Certificates</h3>
+                    <p class="text-xs sm:text-sm md:text-base text-gray-300 text-center mb-4 sm:mb-6">Professional certifications and achievements in technology</p>
+                    <div class="text-center">
+                        <a href="certificates.html" class="bg-violet-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold glow-button transition inline-flex items-center text-xs sm:text-sm md:text-base">
+                            <i class="fas fa-award mr-2"></i>View Certificates
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Books I Read -->
+                <div class="personal-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="icon-circle">
+                        <i class="fas fa-book-open text-3xl sm:text-4xl text-white"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white text-center mb-2 sm:mb-3">Books I've Read</h3>
+                    <p class="text-xs sm:text-sm md:text-base text-gray-300 text-center mb-4 sm:mb-6">Literary adventures that expanded my horizons and shaped my thinking</p>
+                    <div class="text-center">
+                        <a href="reading-list.html" class="bg-violet-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold glow-button transition inline-flex items-center text-xs sm:text-sm md:text-base">
+                            <i class="fas fa-book mr-2"></i>Explore Reading List
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Whimsical Dreams -->
+                <div class="personal-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="icon-circle">
+                        <i class="fas fa-star text-3xl sm:text-4xl text-white"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white text-center mb-2 sm:mb-3">Whimsical Dreams</h3>
+                    <p class="text-xs sm:text-sm md:text-base text-gray-300 text-center mb-4 sm:mb-6">Aspirations, visions, and dreams that fuel my passion and drive</p>
+                    <div class="text-center">
+                        <a href="dreams.html" class="bg-violet-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold glow-button transition inline-flex items-center text-xs sm:text-sm md:text-base">
+                            <i class="fas fa-cloud mr-2"></i>Discover Dreams
+                        </a>
+                    </div>
+                </div>
+
+                <!-- College Activities -->
+                <div class="personal-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="icon-circle">
+                        <i class="fas fa-university text-3xl sm:text-4xl text-white"></i>
+                    </div>
+                    <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white text-center mb-2 sm:mb-3">Campus Journey</h3>
+                    <p class="text-xs sm:text-sm md:text-base text-gray-300 text-center mb-4 sm:mb-6">Clubs, events, leadership roles, and memorable campus experiences</p>
+                    <div class="text-center">
+                        <a href="college-activities.html" class="bg-violet-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold glow-button transition inline-flex items-center text-xs sm:text-sm md:text-base">
+                            <i class="fas fa-users mr-2"></i>View Journey
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-8 sm:py-12 md:py-20 px-4 sm:px-6 md:px-8">
+        <div class="section-container text-center">
+            <h2 class="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6 text-violet-400 px-4" data-aos="fade-up">
+                <i class="fas fa-heart mr-2"></i>Get to Know Me Better
+            </h2>
+            <p class="text-lg text-gray-300 mb-8" data-aos="fade-up" data-aos-delay="200">
+                Click on any section above to explore different facets of my personal and professional journey
+            </p>
+            <div class="flex flex-wrap justify-center gap-4" data-aos="fade-up" data-aos-delay="400">
+                <a href="index.html" class="bg-violet-500 text-white px-6 py-3 rounded-full font-semibold glow-button transition">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Portfolio
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-8 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="text-gray-400 mb-4">Built with <span class="text-violet-400">❤️</span> by Geo Nithin J</p>
+            <p class="text-sm text-gray-500">Exploring life, one page at a time</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dynamic Loader Messages for Personal Hub
+        const loaderMessages = [
+            "Loading Your Journey...",
+            "Unveiling experiences...",
+            "Gathering achievements...",
+            "Preparing insights...",
+            "Compiling memories...",
+            "Showcasing milestones..."
+        ];
+        
+        let messageIndex = 0;
+        let percentage = 0;
+        let messageInterval;
+        let percentageInterval;
+        
+        function hideLoader() {
+            const loader = document.getElementById('pageLoader');
+            const loaderPercentage = document.getElementById('loaderPercentage');
+            
+            if (loader) {
+                percentage = 100;
+                if (loaderPercentage) {
+                    loaderPercentage.textContent = "Ready to explore! 100%";
+                }
+                
+                setTimeout(function() {
+                    if (messageInterval) clearInterval(messageInterval);
+                    if (percentageInterval) clearInterval(percentageInterval);
+                    loader.classList.add('hidden');
+                }, 800);
+            }
+        }
+        
+        // Start animations when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const loaderSubtext = document.getElementById('loaderSubtext');
+            const loaderPercentage = document.getElementById('loaderPercentage');
+            
+            // Change loader text dynamically
+            messageInterval = setInterval(() => {
+                messageIndex = (messageIndex + 1) % loaderMessages.length;
+                if (loaderSubtext) {
+                    loaderSubtext.textContent = loaderMessages[messageIndex];
+                }
+            }, 600);
+            
+            // Update percentage
+            percentageInterval = setInterval(() => {
+                if (percentage < 100) {
+                    percentage += Math.random() * 15;
+                    if (percentage > 100) percentage = 100;
+                    if (loaderPercentage) {
+                        loaderPercentage.textContent = `${loaderMessages[messageIndex]} ${Math.floor(percentage)}%`;
+                    }
+                }
+            }, 150);
+        });
+        
+        // Hide loader when page fully loads
+        window.addEventListener('load', hideLoader);
+        
+        // Failsafe: Hide loader after maximum 3 seconds
+        setTimeout(hideLoader, 3000);
+
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const currentTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
+            
+            if (currentTheme === 'dark') {
+                // Switch to light theme
+                body.classList.add('light-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                // Switch to dark theme
+                body.classList.remove('light-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            // Default is dark theme, only apply light if saved
+            if (savedTheme === 'light') {
+                body.classList.add('light-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                // Ensure dark theme is set (default)
+                body.classList.remove('light-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+    </script>
+</body>
+</html>

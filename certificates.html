@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificates - Geo Nithin J</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        .navbar {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .navbar.scrolled {
+            background-color: rgba(30, 41, 59, 0.95);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+        .section-container {
+            background-color: #1f2937;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 1200px;
+            animation: glowEdge 2s infinite ease-in-out;
+        }
+        @keyframes glowEdge {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(139, 92, 246, 0.4), 0 0 20px rgba(139, 92, 246, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.5);
+            }
+        }
+        .certificate-img {
+            border: 4px solid transparent;
+            animation: glowImage 1.5s infinite ease-in-out;
+            transition: transform 0.3s ease;
+            border-radius: 8px;
+        }
+        .certificate-img:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Theme System */
+        body.light-theme {
+            background-color: #e9d5ff !important;
+            color: #4c1d95 !important;
+        }
+        body.light-theme .navbar { background-color: rgba(221, 214, 254, 0.95) !important; }
+        body.light-theme .navbar.scrolled { background-color: rgba(196, 181, 253, 0.98) !important; }
+        body.light-theme .text-white { color: #5b21b6 !important; }
+        body.light-theme .text-gray-200, body.light-theme .text-gray-300 { color: #6d28d9 !important; }
+        body.light-theme .text-gray-400 { color: #7c3aed !important; }
+        body.light-theme .bg-gray-900 { background-color: #e9d5ff !important; }
+        body.light-theme .bg-gray-800 { background-color: #c4b5fd !important; }
+        body.light-theme .section-container { background-color: #ddd6fe !important; }
+        body.light-theme .text-violet-300, body.light-theme .text-violet-400 { color: #7c3aed !important; }
+        body.light-theme .bg-violet-500 { background-color: #a78bfa !important; }
+        body.light-theme .hamburger span { background-color: #5b21b6 !important; }
+        body.light-theme i.fas, body.light-theme i.fab { filter: drop-shadow(0 0 3px rgba(167, 139, 250, 0.3)) !important; }
+        body.light-theme i.fas:hover, body.light-theme i.fab:hover { filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.6)) !important; }
+        body.light-theme .certificate-card { background-color: #c4b5fd !important; border-color: rgba(124, 58, 237, 0.4) !important; }
+        body.light-theme .certificate-card:hover { border-color: rgba(124, 58, 237, 0.7) !important; box-shadow: 0 0 20px rgba(124, 58, 237, 0.5) !important; }
+        body.light-theme .bg-violet-900 { background-color: #a78bfa !important; }
+        body.light-theme .text-violet-200 { color: #5b21b6 !important; }
+        body.light-theme .bg-gray-700 { background-color: #8b5cf6 !important; }
+        body.light-theme .bg-gray-600 { background-color: #a78bfa !important; }
+        body.light-theme .hover\:bg-gray-600:hover { background-color: #9333ea !important; }
+        .theme-toggle {
+            width: 60px;
+            height: 30px;
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+        }
+        .theme-toggle:hover { background: rgba(139, 92, 246, 0.4); box-shadow: 0 0 15px rgba(139, 92, 246, 0.6); }
+        .theme-toggle-slider {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            left: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .theme-toggle-slider i { font-size: 12px; color: white; }
+        body.light-theme .theme-toggle-slider { left: 32px; }
+        body.light-theme .theme-toggle { background: rgba(124, 58, 237, 0.3); border-color: rgba(124, 58, 237, 0.5); }
+        
+        /* Gradient & Text Color Overrides */
+        body.light-theme .from-blue-900, body.light-theme .from-purple-900 {
+            --tw-gradient-from: #c4b5fd !important;
+            --tw-gradient-to: rgb(196 181 253 / 0) !important;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+        }
+        body.light-theme .to-violet-900, body.light-theme .to-indigo-900, body.light-theme .to-purple-900 {
+            --tw-gradient-to: #ddd6fe !important;
+        }
+        body.light-theme .via-violet-900 {
+            --tw-gradient-stops: var(--tw-gradient-from), #ddd6fe, var(--tw-gradient-to) !important;
+        }
+        body.light-theme .text-gray-500, body.light-theme .text-gray-600 { color: #7c3aed !important; }
+        body.light-theme .text-gray-700 { color: #6d28d9 !important; }
+        
+        /* Icon Glow */
+        i.fas, i.fab, i.far, i.fa {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 2px rgba(139, 92, 246, 0.2));
+        }
+        i.fas:hover, i.fab:hover, i.far:hover, i.fa:hover {
+            filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.8)) drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+            transform: scale(1.1);
+        }
+        @keyframes glowImage {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.6), 0 0 30px rgba(139, 92, 246, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(139, 92, 246, 1), 0 0 60px rgba(139, 92, 246, 0.8);
+            }
+        }
+        .certificate-card {
+            background-color: #374151;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+        .certificate-card:hover {
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+            transform: translateY(-5px);
+        }
+        .glow-button {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.8);
+        }
+        
+        /* Page Loader Styles */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e1b4b);
+            background-size: 400% 400%;
+            animation: gradientFlow 8s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        body.light-theme .page-loader {
+            background: linear-gradient(-45deg, #e9d5ff, #ddd6fe, #c4b5fd, #ddd6fe);
+            background-size: 400% 400%;
+        }
+        
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            display: none;
+        }
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .loader-content {
+            text-align: center;
+            z-index: 2;
+        }
+        .loader-logo {
+            width: 10em;
+            height: 10em;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        /* 3D Spinner Container */
+        .loader-diamond {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .loader-diamond:before,
+        .loader-diamond:after {
+            box-sizing: border-box;
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10em;
+            height: 10em;
+            transform-style: preserve-3d;
+            transform-origin: 50% 50%;
+            perspective-origin: 50% 50%;
+            perspective: 340px;
+            background-size: 10em 10em;
+            background-image: url("data:image/svg+xml,%3Csvg width='266' height='297' viewBox='0 0 266 297' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M171.507813,3.25000038 C226.208183,12.8577111 297.112722,71.4912823 250.895599,108.410155 C216.582024,135.82031 186.528405,97.0624964 156.800774,85.7734346 C127.073143,74.4843721 76.8884632,84.2161462 60.1289065,108.410153 C-15.9804685,218.281247 145.277344,296.667968 145.277344,296.667968 C145.277344,296.667968 -25.4492187,257.242198 3.3984375,108.410155 C16.3070661,41.8114174 84.7275829,-11.9922985 171.507813,3.25000038 Z' fill='%238b5cf6'/%3E%3C/svg%3E");
+        }
+        
+        .loader-diamond:before {
+            transform: rotateX(60deg) rotateY(45deg) rotateZ(45deg);
+            animation: rotateBefore 1200ms infinite linear reverse;
+        }
+        
+        .loader-diamond:after {
+            transform: rotateX(240deg) rotateY(45deg) rotateZ(45deg);
+            animation: rotateAfter 1200ms infinite linear;
+        }
+        
+        @keyframes rotateBefore {
+            from {
+                transform: rotateX(60deg) rotateY(45deg) rotateZ(0deg);
+            }
+            to {
+                transform: rotateX(60deg) rotateY(45deg) rotateZ(-360deg);
+            }
+        }
+        
+        @keyframes rotateAfter {
+            from {
+                transform: rotateX(240deg) rotateY(45deg) rotateZ(0deg);
+            }
+            to {
+                transform: rotateX(240deg) rotateY(45deg) rotateZ(360deg);
+            }
+        }
+        
+        /* Hide the facet divs since we're using :before and :after */
+        .diamond-facet {
+            display: none;
+        }
+        .loader-text {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 40px rgba(139, 92, 246, 0.5);
+            animation: textGlowPulse 2s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+        @keyframes textGlowPulse {
+            0%, 100% { text-shadow: 0 0 10px rgba(139, 92, 246, 0.6), 0 0 20px rgba(139, 92, 246, 0.4); }
+            50% { text-shadow: 0 0 30px rgba(139, 92, 246, 1), 0 0 50px rgba(139, 92, 246, 0.8); }
+        }
+        .loader-subtext {
+            font-size: 1rem;
+            color: #c084fc;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typewriter 4s steps(40) infinite;
+        }
+        @keyframes typewriter {
+            0%, 100% { width: 0; }
+            50% { width: 100%; }
+        }
+        .loader-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 10px;
+            margin: 1rem auto;
+            overflow: hidden;
+        }
+        .loader-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #8b5cf6, #c084fc, #8b5cf6);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s ease-in-out infinite, progressFill 3s ease-out forwards;
+            border-radius: 10px;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        @keyframes progressFill {
+            0% { width: 0%; }
+            30% { width: 45%; }
+            60% { width: 78%; }
+            85% { width: 95%; }
+            100% { width: 100%; }
+        }
+        .loader-percentage {
+            font-size: 0.875rem;
+            color: #a78bfa;
+            margin-top: 0.5rem;
+        }
+        
+        /* Universal Icon Glow Effects */
+        i.fas, i.fab, i.far, i.fa {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 2px rgba(139, 92, 246, 0.2));
+        }
+        
+        i.fas:hover, i.fab:hover, i.far:hover, i.fa:hover {
+            filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.8)) drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+            transform: scale(1.1);
+        }
+        
+        i.text-violet-400, i.text-violet-300 {
+            animation: subtleGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes subtleGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 3px rgba(139, 92, 246, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.7));
+            }
+        }
+        
+        i.text-4xl, i.text-5xl, i.text-6xl, i.text-8xl {
+            filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.4));
+        }
+        
+        i.text-4xl:hover, i.text-5xl:hover, i.text-6xl:hover, i.text-8xl:hover {
+            filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.9)) drop-shadow(0 0 25px rgba(139, 92, 246, 0.6));
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 640px) {
+            .section-container {
+                border-radius: 12px;
+                padding: 1rem;
+                margin: 0.75rem 0;
+            }
+            
+            h1, .text-5xl {
+                font-size: 1.875rem !important;
+            }
+            
+            h2, .text-3xl {
+                font-size: 1.5rem !important;
+            }
+            
+            .certificate-card {
+                padding: 1rem;
+                margin: 0.5rem 0;
+            }
+
+            .certificate-img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            .grid {
+                gap: 0.75rem !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-container {
+                padding: 1.25rem;
+            }
+
+            .certificate-card {
+                padding: 1.25rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-cols-3 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .certificate-card {
+                cursor: pointer;
+            }
+
+            button, a {
+                min-height: 44px;
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 smooth-scroll">
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <div class="loader-diamond"></div>
+            </div>
+            <div class="loader-text">Geo Nithin J</div>
+            <div class="loader-subtext" id="loaderSubtext">Loading certificates...</div>
+            <div class="loader-progress">
+                <div class="loader-progress-bar"></div>
+            </div>
+            <div class="loader-percentage" id="loaderPercentage">Initializing... 0%</div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full navbar z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <!-- Theme Toggle Button -->
+                <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                    <div class="theme-toggle-slider">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </div>
+                </div>
+                <span class="text-lg sm:text-xl font-bold text-white">Geo Nithin J</span>
+            </div>
+            <div class="flex space-x-4">
+                <a href="personal.html" class="text-gray-300 hover:text-violet-400 transition">← Back</a>
+                <a href="index.html" class="text-gray-300 hover:text-violet-400 transition">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="min-h-screen bg-gradient-to-br from-blue-900 via-violet-900 to-purple-900 flex items-center justify-center text-white pt-20">
+        <div class="text-center px-6 sm:px-8 max-w-4xl mx-auto" data-aos="zoom-in">
+            <i class="fas fa-certificate text-6xl sm:text-8xl text-violet-400 mb-6"></i>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">My Certificates</h1>
+            <p class="text-lg md:text-xl mb-6">Professional certifications and achievements in technology</p>
+        </div>
+    </header>
+
+    <!-- Certificates Section -->
+    <section class="py-12 sm:py-20">
+        <div class="section-container">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-10 text-violet-400" data-aos="fade-up">
+                <i class="fas fa-award mr-2"></i>Professional Certifications
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" data-aos="fade-up" data-aos-delay="200">
+                <!-- Certificate 1 -->
+                <div class="certificate-card">
+                    <div class="text-center">
+                        <img src="images/certificates/microsoft-security.jpg" alt="Microsoft Security Essentials" class="certificate-img mx-auto w-full max-w-[300px] mb-4">
+                        <div class="flex items-center justify-center mb-2">
+                            <i class="fas fa-shield-alt text-violet-400 text-2xl mr-3"></i>
+                            <h3 class="text-xl font-bold text-white">Microsoft Security Essentials</h3>
+                        </div>
+                        <p class="text-gray-400 mb-3">Professional Certificate</p>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Security</span>
+                            <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Microsoft</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 2 -->
+                <div class="certificate-card">
+                    <div class="text-center">
+                        <img src="images/certificates/generative-ai.jpg" alt="Career Essentials in Generative AI" class="certificate-img mx-auto w-full max-w-[300px] mb-4">
+                        <div class="flex items-center justify-center mb-2">
+                            <i class="fas fa-robot text-violet-400 text-2xl mr-3"></i>
+                            <h3 class="text-xl font-bold text-white">Career Essentials in Generative AI</h3>
+                        </div>
+                        <p class="text-gray-400 mb-3">LinkedIn Learning</p>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">AI</span>
+                            <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">GenAI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 3 -->
+                <div class="certificate-card">
+                    <div class="text-center">
+                        <img src="images/certificates/software-development.jpg" alt="Career Essentials in Software Development" class="certificate-img mx-auto w-full max-w-[300px] mb-4">
+                        <div class="flex items-center justify-center mb-2">
+                            <i class="fas fa-code text-violet-400 text-2xl mr-3"></i>
+                            <h3 class="text-xl font-bold text-white">Career Essentials in Software Development</h3>
+                        </div>
+                        <p class="text-gray-400 mb-3">LinkedIn Learning</p>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Development</span>
+                            <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Career</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Certificate 4 -->
+                <div class="certificate-card">
+                    <div class="text-center">
+                        <img src="images/certificates/azure-ai.jpg" alt="Microsoft Azure AI Essentials" class="certificate-img mx-auto w-full max-w-[300px] mb-4">
+                        <div class="flex items-center justify-center mb-2">
+                            <i class="fas fa-cloud text-violet-400 text-2xl mr-3"></i>
+                            <h3 class="text-xl font-bold text-white">Microsoft Azure AI Essentials</h3>
+                        </div>
+                        <p class="text-gray-400 mb-3">Professional Certificate</p>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Azure</span>
+                            <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">AI</span>
+                            <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Cloud</span>
+                        </div>
+                    </div>
+                </div>
+                    <!-- Certificate 5 (User Added: c7) -->
+                    <div class="certificate-card">
+                        <div class="text-center">
+                            <img src="images/certificates/c7.jpg" alt="Career Essentials in System Administration" class="certificate-img mx-auto w-full max-w-[300px] mb-4">
+                            <div class="flex items-center justify-center mb-2">
+                                <i class="fas fa-server text-violet-400 text-2xl mr-3"></i>
+                                <h3 class="text-xl font-bold text-white">Career Essentials in System Administration</h3>
+                            </div>
+                            <p class="text-gray-400 mb-3">LinkedIn Learning</p>
+                            <div class="flex flex-wrap justify-center gap-2">
+                                <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Systems</span>
+                                <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Administration</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certificate 6 (User Added: c6) -->
+                    <div class="certificate-card">
+                        <div class="text-center">
+                            <img src="images/certificates/c6.jpg" alt="Operating System Basics" class="certificate-img mx-auto w-full max-w-[300px] mb-4">
+                            <div class="flex items-center justify-center mb-2">
+                                <i class="fas fa-cogs text-violet-400 text-2xl mr-3"></i>
+                                <h3 class="text-xl font-bold text-white">Operating System Basics</h3>
+                            </div>
+                            <p class="text-gray-400 mb-3">Cisco Network Academy</p>
+                            <div class="flex flex-wrap justify-center gap-2">
+                                <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">OS</span>
+                                <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Networking</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certificate 7 (User Added: c5) -->
+                    <div class="certificate-card">
+                        <div class="text-center">
+                            <img src="images/certificates/c5.jpg" alt="Career Essentials in Cybersecurity" class="certificate-img mx-auto w-full max-w-[300px] mb-4">
+                            <div class="flex items-center justify-center mb-2">
+                                <i class="fas fa-shield-alt text-violet-400 text-2xl mr-3"></i>
+                                <h3 class="text-xl font-bold text-white">Career Essentials in Cybersecurity</h3>
+                            </div>
+                            <p class="text-gray-400 mb-3">LinkedIn Learning</p>
+                            <div class="flex flex-wrap justify-center gap-2">
+                                <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Cybersecurity</span>
+                                <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Security</span>
+                            </div>
+                        </div>
+                    </div>
+
+                <!-- Removed empty placeholder certificate cards -->
+            </div>
+
+            <!-- Stats Section -->
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up">
+                <div class="bg-violet-900 bg-opacity-30 rounded-lg p-6 text-center">
+                    <i class="fas fa-certificate text-violet-400 text-4xl mb-3"></i>
+                    <h3 class="text-3xl font-bold text-white mb-2">7</h3>
+                    <p class="text-gray-400">Certifications Earned</p>
+                </div>
+                <div class="bg-violet-900 bg-opacity-30 rounded-lg p-6 text-center">
+                    <i class="fas fa-graduation-cap text-violet-400 text-4xl mb-3"></i>
+                    <h3 class="text-3xl font-bold text-white mb-2">Microsoft + LinkedIn</h3>
+                    <p class="text-gray-400">Platforms</p>
+                </div>
+                <div class="bg-violet-900 bg-opacity-30 rounded-lg p-6 text-center">
+                    <i class="fas fa-chart-line text-violet-400 text-4xl mb-3"></i>
+                    <h3 class="text-3xl font-bold text-white mb-2">Growing</h3>
+                    <p class="text-gray-400">Continuous Learning</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-12">
+        <div class="section-container text-center">
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="personal.html" class="bg-violet-500 text-white px-6 py-3 rounded-full font-semibold glow-button transition">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Personal
+                </a>
+                <a href="index.html" class="bg-gray-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-600 transition">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 py-8 text-center">
+        <p class="text-gray-400">Built with <span class="text-violet-400">❤️</span> by Geo Nithin J</p>
+    </footer>
+
+    <script>
+        // Dynamic Loader Messages
+        const loaderMessages = [
+            "Loading certificates...",
+            "Showcasing achievements...",
+            "Unveiling credentials...",
+            "Preparing certifications...",
+            "Gathering proof of mastery..."
+        ];
+        
+        let messageIndex = 0;
+        let percentage = 0;
+        let messageInterval;
+        let percentageInterval;
+        
+        function hideLoader() {
+            const loader = document.getElementById('pageLoader');
+            const loaderPercentage = document.getElementById('loaderPercentage');
+            
+            if (loader) {
+                percentage = 100;
+                if (loaderPercentage) {
+                    loaderPercentage.textContent = "Ready! 100%";
+                }
+                
+                setTimeout(function() {
+                    if (messageInterval) clearInterval(messageInterval);
+                    if (percentageInterval) clearInterval(percentageInterval);
+                    loader.classList.add('hidden');
+                }, 800);
+            }
+        }
+        
+        // Start animations when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const loaderSubtext = document.getElementById('loaderSubtext');
+            const loaderPercentage = document.getElementById('loaderPercentage');
+            
+            // Change loader text dynamically
+            messageInterval = setInterval(() => {
+                messageIndex = (messageIndex + 1) % loaderMessages.length;
+                if (loaderSubtext) {
+                    loaderSubtext.textContent = loaderMessages[messageIndex];
+                }
+            }, 600);
+            
+            // Update percentage
+            percentageInterval = setInterval(() => {
+                if (percentage < 100) {
+                    percentage += Math.random() * 15;
+                    if (percentage > 100) percentage = 100;
+                    if (loaderPercentage) {
+                        loaderPercentage.textContent = `${loaderMessages[messageIndex]} ${Math.floor(percentage)}%`;
+                    }
+                }
+            }, 150);
+        });
+        
+        // Hide loader when page fully loads
+        window.addEventListener('load', hideLoader);
+        
+        // Failsafe: Hide loader after maximum 3 seconds
+        setTimeout(hideLoader, 3000);
+
+        AOS.init({ duration: 1000, once: true });
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const currentTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
+            
+            if (currentTheme === 'dark') {
+                body.classList.add('light-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'light') {
+                body.classList.add('light-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                body.classList.remove('light-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+    </script>
+</body>
+</html>

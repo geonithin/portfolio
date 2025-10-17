@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whimsical Dreams - Geo Nithin J</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        .navbar {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .navbar.scrolled {
+            background-color: rgba(30, 41, 59, 0.95);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+        .section-container {
+            background-color: #1f2937;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 1.5rem auto;
+            max-width: 1200px;
+            animation: glowEdge 2s infinite ease-in-out;
+        }
+        @keyframes glowEdge {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(139, 92, 246, 0.4), 0 0 20px rgba(139, 92, 246, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.5);
+            }
+        }
+        .dream-card {
+            background: linear-gradient(135deg, #374151, #1f2937);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .dream-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+        .dream-card:hover::before {
+            left: 100%;
+        }
+        .dream-card:hover {
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+            transform: scale(1.02);
+        }
+        .glow-button {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.8);
+        }
+        
+        /* Theme System */
+        body.light-theme {
+            background-color: #e9d5ff !important;
+            color: #4c1d95 !important;
+        }
+        body.light-theme .navbar { background-color: rgba(221, 214, 254, 0.95) !important; }
+        body.light-theme .navbar.scrolled { background-color: rgba(196, 181, 253, 0.98) !important; }
+        body.light-theme .text-white { color: #5b21b6 !important; }
+        body.light-theme .text-gray-200, body.light-theme .text-gray-300 { color: #6d28d9 !important; }
+        body.light-theme .text-gray-400 { color: #7c3aed !important; }
+        body.light-theme .bg-gray-900 { background-color: #e9d5ff !important; }
+        body.light-theme .bg-gray-800 { background-color: #c4b5fd !important; }
+        body.light-theme .section-container { background-color: #ddd6fe !important; }
+        body.light-theme .dream-card { background: linear-gradient(135deg, #ddd6fe, #c4b5fd) !important; border-color: rgba(109, 40, 217, 0.5) !important; }
+        body.light-theme .text-violet-300, body.light-theme .text-violet-400 { color: #7c3aed !important; }
+        body.light-theme .glow-button { box-shadow: 0 0 15px rgba(167, 139, 250, 0.4) !important; }
+        body.light-theme .glow-button:hover { box-shadow: 0 0 25px rgba(167, 139, 250, 0.6) !important; }
+        body.light-theme .bg-violet-500 { background-color: #a78bfa !important; }
+        body.light-theme .hamburger span { background-color: #5b21b6 !important; }
+        body.light-theme i.fas, body.light-theme i.fab { filter: drop-shadow(0 0 3px rgba(167, 139, 250, 0.3)) !important; }
+        body.light-theme i.fas:hover, body.light-theme i.fab:hover { filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.6)) !important; }
+        body.light-theme .bg-gradient-to-r { background: linear-gradient(to right, #a78bfa, #c4b5fd) !important; }
+        body.light-theme .from-violet-900 { --tw-gradient-from: #a78bfa !important; }
+        body.light-theme .to-purple-900 { --tw-gradient-to: #c4b5fd !important; }
+        .theme-toggle {
+            width: 60px;
+            height: 30px;
+            background: rgba(139, 92, 246, 0.3);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+        }
+        .theme-toggle:hover { background: rgba(139, 92, 246, 0.4); box-shadow: 0 0 15px rgba(139, 92, 246, 0.6); }
+        .theme-toggle-slider {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+            border-radius: 50%;
+            position: absolute;
+            top: 1px;
+            left: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .theme-toggle-slider i { font-size: 12px; color: white; }
+        body.light-theme .theme-toggle-slider { left: 32px; }
+        body.light-theme .theme-toggle { background: rgba(124, 58, 237, 0.3); border-color: rgba(124, 58, 237, 0.5); }
+        
+        /* Gradient & Text Color Overrides */
+        body.light-theme .from-blue-900, body.light-theme .from-purple-900 {
+            --tw-gradient-from: #c4b5fd !important;
+            --tw-gradient-to: rgb(196 181 253 / 0) !important;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+        }
+        body.light-theme .to-violet-900, body.light-theme .to-indigo-900, body.light-theme .to-purple-900 {
+            --tw-gradient-to: #ddd6fe !important;
+        }
+        body.light-theme .via-violet-900 {
+            --tw-gradient-stops: var(--tw-gradient-from), #ddd6fe, var(--tw-gradient-to) !important;
+        }
+        body.light-theme .text-gray-500, body.light-theme .text-gray-600 { color: #7c3aed !important; }
+        body.light-theme .text-gray-700 { color: #6d28d9 !important; }
+        
+        /* Stars suitable for light theme */
+        body.light-theme .golden-star {
+            color: #7c3aed !important;
+            filter: none !important;
+            text-shadow: none !important;
+            opacity: 1 !important;
+        }
+        
+        body.light-theme .glowing-ball {
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.9) 0%, rgba(124, 58, 237, 0.5) 50%, transparent 100%) !important;
+            filter: blur(1px) drop-shadow(0 0 8px rgba(124, 58, 237, 0.8)) drop-shadow(0 0 15px rgba(124, 58, 237, 0.6)) !important;
+        }
+        
+        body.light-theme .glowing-ball {
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.9), 0 0 30px rgba(124, 58, 237, 0.7) !important;
+        }
+        body.light-theme .bg-gray-700 { background-color: #8b5cf6 !important; }
+        body.light-theme .bg-gray-600 { background-color: #a78bfa !important; }
+        body.light-theme .hover\:bg-gray-600:hover { background-color: #9333ea !important; }
+        
+        /* Icon Glow */
+        i.fas, i.fab, i.far, i.fa {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 2px rgba(139, 92, 246, 0.2));
+        }
+        i.fas:hover, i.fab:hover, i.far:hover, i.fa:hover {
+            filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.8)) drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+            transform: scale(1.1);
+        }
+        
+        .star {
+            animation: twinkle 2s infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* Page Loader Styles */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #1e1b4b);
+            background-size: 400% 400%;
+            animation: gradientFlow 8s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        body.light-theme .page-loader {
+            background: linear-gradient(-45deg, #e9d5ff, #ddd6fe, #c4b5fd, #ddd6fe);
+            background-size: 400% 400%;
+        }
+        
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            display: none;
+        }
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .loader-content {
+            text-align: center;
+            z-index: 2;
+        }
+        .loader-logo {
+            width: 10em;
+            height: 10em;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        /* 3D Spinner Container */
+        .loader-diamond {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .loader-diamond:before,
+        .loader-diamond:after {
+            box-sizing: border-box;
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10em;
+            height: 10em;
+            transform-style: preserve-3d;
+            transform-origin: 50% 50%;
+            perspective-origin: 50% 50%;
+            perspective: 340px;
+            background-size: 10em 10em;
+            background-image: url("data:image/svg+xml,%3Csvg width='266' height='297' viewBox='0 0 266 297' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M171.507813,3.25000038 C226.208183,12.8577111 297.112722,71.4912823 250.895599,108.410155 C216.582024,135.82031 186.528405,97.0624964 156.800774,85.7734346 C127.073143,74.4843721 76.8884632,84.2161462 60.1289065,108.410153 C-15.9804685,218.281247 145.277344,296.667968 145.277344,296.667968 C145.277344,296.667968 -25.4492187,257.242198 3.3984375,108.410155 C16.3070661,41.8114174 84.7275829,-11.9922985 171.507813,3.25000038 Z' fill='%238b5cf6'/%3E%3C/svg%3E");
+        }
+        
+        .loader-diamond:before {
+            transform: rotateX(60deg) rotateY(45deg) rotateZ(45deg);
+            animation: rotateBefore 1200ms infinite linear reverse;
+        }
+        
+        .loader-diamond:after {
+            transform: rotateX(240deg) rotateY(45deg) rotateZ(45deg);
+            animation: rotateAfter 1200ms infinite linear;
+        }
+        
+        @keyframes rotateBefore {
+            from {
+                transform: rotateX(60deg) rotateY(45deg) rotateZ(0deg);
+            }
+            to {
+                transform: rotateX(60deg) rotateY(45deg) rotateZ(-360deg);
+            }
+        }
+        
+        @keyframes rotateAfter {
+            from {
+                transform: rotateX(240deg) rotateY(45deg) rotateZ(0deg);
+            }
+            to {
+                transform: rotateX(240deg) rotateY(45deg) rotateZ(360deg);
+            }
+        }
+        
+        /* Hide the facet divs since we're using :before and :after */
+        .diamond-facet {
+            display: none;
+        }
+        .loader-text {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.8), 0 0 40px rgba(139, 92, 246, 0.5);
+            animation: textGlowPulse 2s ease-in-out infinite;
+            margin-bottom: 1rem;
+        }
+        @keyframes textGlowPulse {
+            0%, 100% { text-shadow: 0 0 10px rgba(139, 92, 246, 0.6), 0 0 20px rgba(139, 92, 246, 0.4); }
+            50% { text-shadow: 0 0 30px rgba(139, 92, 246, 1), 0 0 50px rgba(139, 92, 246, 0.8); }
+        }
+        .loader-subtext {
+            font-size: 1rem;
+            color: #c084fc;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typewriter 4s steps(40) infinite;
+        }
+        @keyframes typewriter {
+            0%, 100% { width: 0; }
+            50% { width: 100%; }
+        }
+        .loader-progress {
+            width: 200px;
+            height: 4px;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 10px;
+            margin: 1rem auto;
+            overflow: hidden;
+        }
+        .loader-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #8b5cf6, #c084fc, #8b5cf6);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s ease-in-out infinite, progressFill 3s ease-out forwards;
+            border-radius: 10px;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        @keyframes progressFill {
+            0% { width: 0%; }
+            30% { width: 45%; }
+            60% { width: 78%; }
+            85% { width: 95%; }
+            100% { width: 100%; }
+        }
+        .loader-percentage {
+            font-size: 0.875rem;
+            color: #a78bfa;
+            margin-top: 0.5rem;
+        }
+        
+        /* Universal Icon Glow Effects */
+        i.fas, i.fab, i.far, i.fa {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 0 2px rgba(139, 92, 246, 0.2));
+        }
+        
+        i.fas:hover, i.fab:hover, i.far:hover, i.fa:hover {
+            filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.8)) drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+            transform: scale(1.1);
+        }
+        
+        i.text-violet-400, i.text-violet-300 {
+            animation: subtleGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes subtleGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 3px rgba(139, 92, 246, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.7));
+            }
+        }
+        
+        i.text-4xl, i.text-5xl, i.text-6xl, i.text-8xl {
+            filter: drop-shadow(0 0 5px rgba(139, 92, 246, 0.4));
+        }
+        
+        i.text-4xl:hover, i.text-5xl:hover, i.text-6xl:hover, i.text-8xl:hover {
+            filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.9)) drop-shadow(0 0 25px rgba(139, 92, 246, 0.6));
+        }
+        
+        /* Golden Glowing Stars and Balls Background */
+        .star-background {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .golden-star {
+            position: absolute;
+            color: #fbbf24;
+            animation: twinkle 3s ease-in-out infinite, floatStar 8s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8)) drop-shadow(0 0 15px rgba(251, 191, 36, 0.5)) !important;
+            opacity: 0.5;
+            text-shadow: none !important;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+        
+        @keyframes floatStar {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .glowing-ball {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.8) 0%, rgba(251, 191, 36, 0.4) 50%, transparent 100%);
+            animation: pulse-glow 4s ease-in-out infinite, drift 10s ease-in-out infinite;
+            filter: blur(1px) drop-shadow(0 0 10px rgba(251, 191, 36, 0.8));
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                opacity: 0.4;
+                box-shadow: 0 0 10px rgba(251, 191, 36, 0.6), 0 0 20px rgba(251, 191, 36, 0.3), 0 0 30px rgba(251, 191, 36, 0.2);
+            }
+            50% {
+                opacity: 0.8;
+                box-shadow: 0 0 20px rgba(251, 191, 36, 1), 0 0 40px rgba(251, 191, 36, 0.6), 0 0 60px rgba(251, 191, 36, 0.3);
+            }
+        }
+        
+        @keyframes drift {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(10px, -15px);
+            }
+            50% {
+                transform: translate(-10px, -25px);
+            }
+            75% {
+                transform: translate(15px, -10px);
+            }
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 640px) {
+            .section-container {
+                border-radius: 12px;
+                padding: 1rem;
+                margin: 0.75rem 0;
+            }
+            
+            h1, .text-5xl {
+                font-size: 1.875rem !important;
+            }
+            
+            h2, .text-3xl {
+                font-size: 1.5rem !important;
+            }
+            
+            .dream-card {
+                padding: 1rem;
+                margin: 0.5rem 0;
+            }
+
+            .grid {
+                gap: 0.75rem !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-container {
+                padding: 1.25rem;
+            }
+
+            .dream-card {
+                padding: 1.25rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-cols-3 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .dream-card {
+                cursor: pointer;
+            }
+
+            button, a {
+                min-height: 44px;
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 smooth-scroll">
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <div class="loader-diamond"></div>
+            </div>
+            <div class="loader-text">Geo Nithin J</div>
+            <div class="loader-subtext" id="loaderSubtext">Loading dreams...</div>
+            <div class="loader-progress">
+                <div class="loader-progress-bar"></div>
+            </div>
+            <div class="loader-percentage" id="loaderPercentage">Initializing... 0%</div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full navbar z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <!-- Theme Toggle Button -->
+                <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                    <div class="theme-toggle-slider">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </div>
+                </div>
+                <span class="text-lg sm:text-xl font-bold text-white">Geo Nithin J</span>
+            </div>
+            <div class="flex space-x-4">
+                <a href="personal.html" class="text-gray-300 hover:text-violet-400 transition">← Back</a>
+                <a href="index.html" class="text-gray-300 hover:text-violet-400 transition">Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="min-h-screen bg-gradient-to-br from-purple-900 via-violet-900 to-indigo-900 flex items-center justify-center text-white pt-20 relative overflow-hidden">
+        <!-- Golden Stars and Glowing Balls Background -->
+        <div class="star-background">
+            <!-- Large Golden Stars -->
+            <i class="fas fa-star golden-star text-3xl" style="top: 8%; left: 12%; animation-delay: 0s;"></i>
+            <i class="fas fa-star golden-star text-2xl" style="top: 15%; right: 15%; animation-delay: 0.5s;"></i>
+            <i class="fas fa-star golden-star text-xl" style="top: 25%; left: 25%; animation-delay: 1s;"></i>
+            <i class="fas fa-star golden-star text-2xl" style="top: 35%; right: 8%; animation-delay: 1.5s;"></i>
+            <i class="fas fa-star golden-star text-lg" style="top: 45%; left: 18%; animation-delay: 2s;"></i>
+            <i class="fas fa-star golden-star text-3xl" style="top: 55%; right: 22%; animation-delay: 2.5s;"></i>
+            <i class="fas fa-star golden-star text-xl" style="top: 65%; left: 30%; animation-delay: 3s;"></i>
+            <i class="fas fa-star golden-star text-2xl" style="top: 75%; right: 12%; animation-delay: 0.8s;"></i>
+            <i class="fas fa-star golden-star text-lg" style="top: 85%; left: 8%; animation-delay: 1.2s;"></i>
+            <i class="fas fa-star golden-star text-xl" style="top: 18%; left: 45%; animation-delay: 1.8s;"></i>
+            <i class="fas fa-star golden-star text-2xl" style="top: 42%; right: 35%; animation-delay: 2.2s;"></i>
+            <i class="fas fa-star golden-star text-lg" style="top: 68%; left: 50%; animation-delay: 2.8s;"></i>
+            <i class="fas fa-star golden-star text-xl" style="top: 10%; right: 40%; animation-delay: 0.3s;"></i>
+            <i class="fas fa-star golden-star text-2xl" style="top: 50%; left: 5%; animation-delay: 1.4s;"></i>
+            <i class="fas fa-star golden-star text-lg" style="top: 80%; right: 45%; animation-delay: 2.6s;"></i>
+            
+            <!-- Small Golden Stars -->
+            <i class="fas fa-star golden-star" style="top: 12%; left: 60%; font-size: 0.6rem; animation-delay: 0.7s;"></i>
+            <i class="fas fa-star golden-star" style="top: 28%; right: 55%; font-size: 0.5rem; animation-delay: 1.3s;"></i>
+            <i class="fas fa-star golden-star" style="top: 38%; left: 72%; font-size: 0.7rem; animation-delay: 1.9s;"></i>
+            <i class="fas fa-star golden-star" style="top: 52%; right: 60%; font-size: 0.6rem; animation-delay: 2.4s;"></i>
+            <i class="fas fa-star golden-star" style="top: 70%; left: 65%; font-size: 0.5rem; animation-delay: 0.9s;"></i>
+            <i class="fas fa-star golden-star" style="top: 22%; left: 88%; font-size: 0.7rem; animation-delay: 1.6s;"></i>
+            <i class="fas fa-star golden-star" style="top: 48%; right: 75%; font-size: 0.6rem; animation-delay: 2.1s;"></i>
+            <i class="fas fa-star golden-star" style="top: 82%; left: 78%; font-size: 0.5rem; animation-delay: 2.7s;"></i>
+            
+            <!-- Tiny Glowing Balls -->
+            <div class="glowing-ball" style="top: 10%; left: 20%; width: 8px; height: 8px; animation-delay: 0s;"></div>
+            <div class="glowing-ball" style="top: 20%; right: 25%; width: 6px; height: 6px; animation-delay: 0.5s;"></div>
+            <div class="glowing-ball" style="top: 30%; left: 35%; width: 10px; height: 10px; animation-delay: 1s;"></div>
+            <div class="glowing-ball" style="top: 40%; right: 18%; width: 7px; height: 7px; animation-delay: 1.5s;"></div>
+            <div class="glowing-ball" style="top: 50%; left: 15%; width: 9px; height: 9px; animation-delay: 2s;"></div>
+            <div class="glowing-ball" style="top: 60%; right: 30%; width: 6px; height: 6px; animation-delay: 2.5s;"></div>
+            <div class="glowing-ball" style="top: 70%; left: 40%; width: 8px; height: 8px; animation-delay: 3s;"></div>
+            <div class="glowing-ball" style="top: 80%; right: 20%; width: 7px; height: 7px; animation-delay: 0.8s;"></div>
+            <div class="glowing-ball" style="top: 15%; left: 55%; width: 5px; height: 5px; animation-delay: 1.2s;"></div>
+            <div class="glowing-ball" style="top: 35%; right: 45%; width: 9px; height: 9px; animation-delay: 1.8s;"></div>
+            <div class="glowing-ball" style="top: 55%; left: 65%; width: 6px; height: 6px; animation-delay: 2.2s;"></div>
+            <div class="glowing-ball" style="top: 75%; right: 55%; width: 8px; height: 8px; animation-delay: 2.8s;"></div>
+            <div class="glowing-ball" style="top: 8%; left: 75%; width: 7px; height: 7px; animation-delay: 0.3s;"></div>
+            <div class="glowing-ball" style="top: 25%; right: 65%; width: 5px; height: 5px; animation-delay: 1.4s;"></div>
+            <div class="glowing-ball" style="top: 45%; left: 80%; width: 9px; height: 9px; animation-delay: 2.6s;"></div>
+            <div class="glowing-ball" style="top: 65%; right: 70%; width: 6px; height: 6px; animation-delay: 0.7s;"></div>
+            <div class="glowing-ball" style="top: 85%; left: 85%; width: 8px; height: 8px; animation-delay: 1.9s;"></div>
+            <div class="glowing-ball" style="top: 18%; left: 48%; width: 7px; height: 7px; animation-delay: 2.4s;"></div>
+            <div class="glowing-ball" style="top: 42%; right: 80%; width: 5px; height: 5px; animation-delay: 0.9s;"></div>
+            <div class="glowing-ball" style="top: 62%; left: 52%; width: 9px; height: 9px; animation-delay: 1.6s;"></div>
+        </div>
+        
+        <div class="text-center px-6 sm:px-8 max-w-4xl mx-auto relative z-10" data-aos="zoom-in">
+            <i class="fas fa-cloud text-6xl sm:text-8xl text-violet-400 mb-6"></i>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Whimsical Dreams</h1>
+            <p class="text-lg md:text-xl mb-6">“Dreams woven from starlight and time — the essence of my endless quest.”</p>
+        </div>
+    </header>
+
+    <!-- Dreams Section -->
+    <section class="py-12 sm:py-20 relative overflow-hidden">
+        <!-- Background Stars and Balls for Content Section -->
+        <div class="star-background">
+            <i class="fas fa-star golden-star text-xl" style="top: 5%; left: 10%; animation-delay: 0.2s;"></i>
+            <i class="fas fa-star golden-star text-lg" style="top: 15%; right: 12%; animation-delay: 0.8s;"></i>
+            <i class="fas fa-star golden-star text-2xl" style="top: 30%; left: 15%; animation-delay: 1.4s;"></i>
+            <i class="fas fa-star golden-star text-xl" style="top: 50%; right: 18%; animation-delay: 2s;"></i>
+            <i class="fas fa-star golden-star text-lg" style="top: 70%; left: 12%; animation-delay: 2.6s;"></i>
+            <i class="fas fa-star golden-star text-2xl" style="top: 85%; right: 15%; animation-delay: 3.2s;"></i>
+            <i class="fas fa-star golden-star" style="top: 20%; left: 5%; font-size: 0.6rem; animation-delay: 1s;"></i>
+            <i class="fas fa-star golden-star" style="top: 40%; right: 8%; font-size: 0.5rem; animation-delay: 1.6s;"></i>
+            <i class="fas fa-star golden-star" style="top: 60%; left: 8%; font-size: 0.7rem; animation-delay: 2.2s;"></i>
+            <i class="fas fa-star golden-star" style="top: 80%; right: 10%; font-size: 0.6rem; animation-delay: 2.8s;"></i>
+            
+            <div class="glowing-ball" style="top: 10%; left: 18%; width: 7px; height: 7px; animation-delay: 0.4s;"></div>
+            <div class="glowing-ball" style="top: 25%; right: 20%; width: 8px; height: 8px; animation-delay: 1.1s;"></div>
+            <div class="glowing-ball" style="top: 45%; left: 22%; width: 6px; height: 6px; animation-delay: 1.7s;"></div>
+            <div class="glowing-ball" style="top: 65%; right: 16%; width: 9px; height: 9px; animation-delay: 2.3s;"></div>
+            <div class="glowing-ball" style="top: 78%; left: 20%; width: 7px; height: 7px; animation-delay: 2.9s;"></div>
+        </div>
+        
+        <div class="section-container relative z-10">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center mb-10 text-violet-400" data-aos="fade-up">
+                <i class="fas fa-magic mr-2"></i>Odyssey of My Imagination
+            </h2>
+            
+            <div class="space-y-8" data-aos="fade-up" data-aos-delay="200">
+                <!-- Astronaut Dream -->
+                <div class="dream-card bg-gradient-to-br from-indigo-900 to-purple-900 relative overflow-hidden">
+                    <!-- Card-specific stars and balls -->
+                    <div class="star-background">
+                        <i class="fas fa-star golden-star text-sm" style="top: 15%; right: 10%; animation-delay: 0.5s;"></i>
+                        <i class="fas fa-star golden-star" style="top: 35%; left: 8%; font-size: 0.5rem; animation-delay: 1.2s;"></i>
+                        <i class="fas fa-star golden-star text-sm" style="top: 65%; right: 12%; animation-delay: 1.8s;"></i>
+                        <div class="glowing-ball" style="top: 25%; left: 15%; width: 5px; height: 5px; animation-delay: 0.7s;"></div>
+                        <div class="glowing-ball" style="top: 55%; right: 18%; width: 6px; height: 6px; animation-delay: 1.5s;"></div>
+                        <div class="glowing-ball" style="top: 75%; left: 10%; width: 5px; height: 5px; animation-delay: 2.1s;"></div>
+                    </div>
+                    <div class="flex items-start relative z-10">
+                        <div class="mr-6 flex-shrink-0">
+                            <div class="w-20 h-20 bg-gradient-to-br from-violet-500 to-purple-600 rounded-full flex items-center justify-center">
+                                <i class="fas fa-rocket text-3xl text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">A Celestial Calling: To Explore the Cosmos</h3>
+                            <div class="text-gray-200 space-y-3 leading-relaxed">
+                                <p>
+                                    In the quiet corners of my imagination, I dream of being an <strong>astronaut</strong> — a lone traveler of infinity. I see myself drifting through the vast ocean of the cosmos, not bound by gravity nor time. I wish to sail among the galaxies, tracing constellations with my fingertips, whispering to the stars, and learning the silent language of light.
+                                </p>
+                                <p>
+                                    I long to explore the uncharted corners of the universe, to go beyond the known and into the unknowable, where mystery itself takes form. My heart yearns to dive into the <strong>black holes</strong> — those majestic cosmic whirlpools that defy logic, swallowing light and time, yet holding secrets older than creation.
+                                </p>
+                                <p>
+                                    In my fantasy, I drift through nebulae of colors unseen by human eyes, witness the birth of stars, and touch the cold silence where even echoes fade. I imagine standing on alien worlds, gazing at skies with a thousand suns, and feeling the hum of the cosmos beneath my boots.
+                                </p>
+                                <p>
+                                    It's not merely about exploring space — it's about <strong>understanding existence</strong>, finding meaning in the endless expanse, and realizing how small yet significant a single heartbeat can be in this boundless universe.
+                                </p>
+                                <p class="italic text-violet-200 font-semibold">
+                                    Though my path on Earth belongs to a different field, this dream — this celestial calling — will always live within me, quietly burning like a distant star that never stops shining.
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="text-xs bg-indigo-900 text-indigo-200 px-3 py-1 rounded-full">Space</span>
+                                <span class="text-xs bg-indigo-900 text-indigo-200 px-3 py-1 rounded-full">Exploration</span>
+                                <span class="text-xs bg-indigo-900 text-indigo-200 px-3 py-1 rounded-full">Cosmos</span>
+                                <span class="text-xs bg-indigo-900 text-indigo-200 px-3 py-1 rounded-full">Philosophy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Machine Dream -->
+                <div class="dream-card bg-gradient-to-br from-purple-900 to-indigo-900 relative overflow-hidden">
+                    <!-- Card-specific stars and balls -->
+                    <div class="star-background">
+                        <i class="fas fa-star golden-star text-sm" style="top: 12%; left: 8%; animation-delay: 0.6s;"></i>
+                        <i class="fas fa-star golden-star" style="top: 38%; right: 10%; font-size: 0.5rem; animation-delay: 1.3s;"></i>
+                        <i class="fas fa-star golden-star text-sm" style="top: 68%; left: 12%; animation-delay: 1.9s;"></i>
+                        <div class="glowing-ball" style="top: 20%; right: 15%; width: 5px; height: 5px; animation-delay: 0.8s;"></div>
+                        <div class="glowing-ball" style="top: 50%; left: 18%; width: 6px; height: 6px; animation-delay: 1.6s;"></div>
+                        <div class="glowing-ball" style="top: 80%; right: 12%; width: 5px; height: 5px; animation-delay: 2.2s;"></div>
+                    </div>
+                    <div class="flex items-start relative z-10">
+                        <div class="mr-6 flex-shrink-0">
+                            <div class="w-20 h-20 bg-gradient-to-br from-violet-500 to-purple-600 rounded-full flex items-center justify-center">
+                                <i class="fas fa-clock text-3xl text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-3">My Fantasy Ambition – The Time Voyager</h3>
+                            <div class="text-gray-200 space-y-3 leading-relaxed">
+                                <p>
+                                    Beyond my cosmic dreams lies another — a fascination not with space, but with <strong>time itself</strong>.
+                                    I dream of creating a <strong>time machine</strong>, a vessel of destiny that can pierce the veil of ages and traverse the endless river of moments. In my mind, I see gears woven from eternity, circuits that hum with the rhythm of creation, and lights that shimmer with the pulse of existence.
+                                </p>
+                                <p>
+                                    I wish to journey through the <strong>past</strong>, to witness the birth of civilizations, to stand beside the great minds who shaped humanity's path, and to feel the raw heartbeat of history as it unfolded. I long to wander through the <strong>present</strong>, not as a passerby, but as an observer of how beautifully chaos and order intertwine to create the story of "now."
+                                </p>
+                                <p>
+                                    And then, I yearn to voyage into the <strong>future</strong> — to witness what we will become, what dreams we will dare to build, and whether humanity's light still burns bright among the stars. I imagine walking through the golden corridors of time, where every step reveals a new era, every breath carries the scent of change, and every glance opens a doorway to another possibility.
+                                </p>
+                                <p>
+                                    My time machine is not merely a creation of metal and code — it is the embodiment of <strong>curiosity</strong>, the desire to understand every fragment of existence, every echo of "what was," "what is," and "what will be."
+                                </p>
+                                <p class="italic text-violet-200 font-semibold">
+                                    Though this ambition lies in the realm of fantasy, it fuels my imagination, my creativity, and my belief that even impossibilities begin as dreams.
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap gap-2 mt-4">
+                                <span class="text-xs bg-purple-900 text-purple-200 px-3 py-1 rounded-full">Time Travel</span>
+                                <span class="text-xs bg-purple-900 text-purple-200 px-3 py-1 rounded-full">History</span>
+                                <span class="text-xs bg-purple-900 text-purple-200 px-3 py-1 rounded-full">Future</span>
+                                <span class="text-xs bg-purple-900 text-purple-200 px-3 py-1 rounded-full">Curiosity</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Motivational Quote -->
+            <div class="mt-12 p-8 bg-gradient-to-r from-violet-900 to-purple-900 rounded-xl text-center" data-aos="fade-up">
+                <i class="fas fa-quote-left text-3xl text-violet-400 mb-4"></i>
+                <p class="text-2xl font-bold text-white mb-4 italic">
+                    "Dream beyond stars, build with courage, wander through wonder, and let the universe itself be your companion in the grand adventure of life."
+                </p>
+                <i class="fas fa-quote-right text-3xl text-violet-400"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-12 relative overflow-hidden">
+        <!-- Background Stars and Balls -->
+        <div class="star-background">
+            <i class="fas fa-star golden-star text-2xl" style="top: 20%; left: 15%; animation-delay: 0.3s;"></i>
+            <i class="fas fa-star golden-star text-xl" style="top: 40%; right: 20%; animation-delay: 0.9s;"></i>
+            <i class="fas fa-star golden-star text-lg" style="top: 60%; left: 18%; animation-delay: 1.5s;"></i>
+            <i class="fas fa-star golden-star" style="top: 30%; right: 12%; font-size: 0.6rem; animation-delay: 1.1s;"></i>
+            <i class="fas fa-star golden-star" style="top: 70%; left: 25%; font-size: 0.5rem; animation-delay: 1.8s;"></i>
+            <div class="glowing-ball" style="top: 25%; left: 22%; width: 7px; height: 7px; animation-delay: 0.6s;"></div>
+            <div class="glowing-ball" style="top: 50%; right: 15%; width: 8px; height: 8px; animation-delay: 1.2s;"></div>
+            <div class="glowing-ball" style="top: 75%; left: 20%; width: 6px; height: 6px; animation-delay: 1.9s;"></div>
+        </div>
+        
+        <div class="section-container text-center relative z-10">
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="personal.html" class="bg-violet-500 text-white px-6 py-3 rounded-full font-semibold glow-button transition">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Personal
+                </a>
+                <a href="index.html" class="bg-gray-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-600 transition">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 py-8 text-center relative overflow-hidden">
+        <!-- Footer Stars -->
+        <div class="star-background">
+            <i class="fas fa-star golden-star text-sm" style="top: 30%; left: 10%; animation-delay: 0.4s;"></i>
+            <i class="fas fa-star golden-star text-sm" style="top: 50%; right: 15%; animation-delay: 1s;"></i>
+            <i class="fas fa-star golden-star" style="top: 60%; left: 20%; font-size: 0.5rem; animation-delay: 1.6s;"></i>
+            <div class="glowing-ball" style="top: 40%; right: 10%; width: 5px; height: 5px; animation-delay: 0.7s;"></div>
+            <div class="glowing-ball" style="top: 70%; left: 15%; width: 6px; height: 6px; animation-delay: 1.3s;"></div>
+        </div>
+        <p class="text-gray-400 relative z-10">Built with <span class="text-violet-400">❤️</span> by Geo Nithin J</p>
+    </footer>
+
+    <script>
+        // Dynamic Loader Messages
+        const loaderMessages = [
+            "Loading dreams...",
+            "Unveiling aspirations...",
+            "Gathering wishes...",
+            "Preparing visions...",
+            "Opening imagination..."
+        ];
+        
+        let messageIndex = 0;
+        let percentage = 0;
+        let messageInterval;
+        let percentageInterval;
+        
+        function hideLoader() {
+            const loader = document.getElementById('pageLoader');
+            const loaderPercentage = document.getElementById('loaderPercentage');
+            
+            if (loader) {
+                percentage = 100;
+                if (loaderPercentage) {
+                    loaderPercentage.textContent = "Ready! 100%";
+                }
+                
+                setTimeout(function() {
+                    if (messageInterval) clearInterval(messageInterval);
+                    if (percentageInterval) clearInterval(percentageInterval);
+                    loader.classList.add('hidden');
+                }, 800);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const loaderSubtext = document.getElementById('loaderSubtext');
+            const loaderPercentage = document.getElementById('loaderPercentage');
+            
+            messageInterval = setInterval(() => {
+                messageIndex = (messageIndex + 1) % loaderMessages.length;
+                if (loaderSubtext) {
+                    loaderSubtext.textContent = loaderMessages[messageIndex];
+                }
+            }, 600);
+            
+            percentageInterval = setInterval(() => {
+                if (percentage < 100) {
+                    percentage += Math.random() * 15;
+                    if (percentage > 100) percentage = 100;
+                    if (loaderPercentage) {
+                        loaderPercentage.textContent = `${loaderMessages[messageIndex]} ${Math.floor(percentage)}%`;
+                    }
+                }
+            }, 150);
+        });
+        
+        window.addEventListener('load', hideLoader);
+        setTimeout(hideLoader, 3000);
+
+        AOS.init({ duration: 1000, once: true });
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            const currentTheme = body.classList.contains('light-theme') ? 'light' : 'dark';
+            
+            if (currentTheme === 'dark') {
+                body.classList.add('light-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (savedTheme === 'light') {
+                body.classList.add('light-theme');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                body.classList.remove('light-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        });
+    </script>
+</body>
+</html>
