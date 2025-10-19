@@ -13,7 +13,7 @@
     </head>
     <body class="bg-gray-900 text-gray-200 smooth-scroll">
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full navbar z-50" id="navbar">
+    <nav class="fixed top-0 w-full navbar z-50 hidden sm:flex" id="pageNavbar">
         <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 flex justify-between items-center">
             <div class="flex items-center space-x-2 sm:space-x-3">
                 <!-- Theme Toggle Button -->
@@ -22,7 +22,7 @@
                         <i class="fas fa-moon" id="themeIcon"></i>
                     </div>
                 </div>
-                <span class="text-base sm:text-lg md:text-xl font-bold text-white">Geo Nithin J</span>
+                <span class="text-base sm:text-lg md:text-xl font-bold text-white hidden sm:inline-block">Geo Nithin J</span>
             </div>
             <div class="hidden sm:flex space-x-3 sm:space-x-6 text-xs sm:text-sm md:text-base">
                 <a href="index.html#projects" class="text-gray-300 hover:text-violet-400 transition">← Back to My Projects</a>
@@ -447,8 +447,8 @@
         </div>
     </div>
     
-    <!-- Navbar -->
-    <nav class="glass-navbar" id="navbar">
+    <!-- Navbar (hidden on small screens to avoid duplicate header) -->
+    <nav class="glass-navbar hidden sm:flex" id="pageNavbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
                 <!-- Theme Toggle Button -->
@@ -457,7 +457,7 @@
                         <i class="fas fa-moon" id="themeIcon"></i>
                     </div>
                 </div>
-                <span class="text-lg sm:text-xl font-bold text-white">Geo Nithin J</span>
+                <span class="text-lg sm:text-xl font-bold text-white hidden sm:inline-block">Geo Nithin J</span>
             </div>
             <div class="flex space-x-6">
                 <a href="index.html#projects" class="text-gray-300 hover:text-violet-400 transition">← Back to My Projects</a>
