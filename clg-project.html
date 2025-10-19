@@ -12,24 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     </head>
     <body class="bg-gray-900 text-gray-200 smooth-scroll">
-    <!-- Navbar -->
-    <nav class="fixed top-0 w-full navbar z-50 hidden sm:flex" id="pageNavbar">
-        <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2 sm:space-x-3">
-                <!-- Theme Toggle Button -->
-                <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
-                    <div class="theme-toggle-slider">
-                        <i class="fas fa-moon" id="themeIcon"></i>
-                    </div>
-                </div>
-                <span class="text-base sm:text-lg md:text-xl font-bold text-white hidden sm:inline-block">Geo Nithin J</span>
-            </div>
-            <div class="hidden sm:flex space-x-3 sm:space-x-6 text-xs sm:text-sm md:text-base">
-                <a href="index.html#projects" class="text-gray-300 hover:text-violet-400 transition">← Back to My Projects</a>
-            </div>
-            <a href="index.html#projects" class="sm:hidden text-gray-300 hover:text-violet-400 transition text-xs">Back</a>
-        </div>
-    </nav>
+    <!-- navbar intentionally removed: using the single `glass-navbar` below to avoid duplicate headers -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -198,8 +181,11 @@
             border-radius: 9999px;
             font-weight: 600;
             transition: all 0.3s ease;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
+            min-width: 140px;
         }
         
         .glass-btn:hover {
@@ -447,21 +433,24 @@
         </div>
     </div>
     
-    <!-- Navbar (hidden on small screens to avoid duplicate header) -->
-    <nav class="glass-navbar hidden sm:flex" id="pageNavbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
+    <!-- Navbar (same pattern as lms-project.html) -->
+    <nav class="fixed top-0 w-full glass-navbar z-50" id="pageNavbar">
+        <div class="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-3 sm:py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2 sm:space-x-3">
                 <!-- Theme Toggle Button -->
                 <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
                     <div class="theme-toggle-slider">
                         <i class="fas fa-moon" id="themeIcon"></i>
                     </div>
                 </div>
-                <span class="text-lg sm:text-xl font-bold text-white hidden sm:inline-block">Geo Nithin J</span>
+                <span class="text-base sm:text-lg md:text-xl font-bold text-white hidden sm:inline-block">Geo Nithin J</span>
             </div>
-            <div class="flex space-x-6">
+
+            <div class="hidden sm:flex space-x-3 sm:space-x-6 text-xs sm:text-sm md:text-base">
                 <a href="index.html#projects" class="text-gray-300 hover:text-violet-400 transition">← Back to My Projects</a>
             </div>
+
+            <a href="index.html#projects" class="sm:hidden text-gray-300 hover:text-violet-400 transition text-xs">Back</a>
         </div>
     </nav>
 

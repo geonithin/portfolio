@@ -1301,9 +1301,9 @@
 
     <!-- Navbar -->
     <nav class="fixed top-0 w-full navbar z-50" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <!-- Theme Toggle Button -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+            <!-- Left: toggle + name -->
+            <div class="flex items-center space-x-3 flex-shrink-0">
                 <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
                     <div class="theme-toggle-slider">
                         <i class="fas fa-moon" id="themeIcon"></i>
@@ -1311,18 +1311,43 @@
                 </div>
                 <span class="text-lg sm:text-xl font-bold text-white hidden sm:inline-block">Geo Nithin J</span>
             </div>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+
+            <!-- Center: nav menu (takes remaining space and centers its contents) -->
+            <div class="flex-1 flex justify-center">
+                <div class="nav-menu space-x-6 hidden sm:flex sm:items-center" id="nav-menu">
+                    <button onclick="showSection('home')" class="text-gray-300 hover:text-violet-400 transition">Home</button>
+                    <button onclick="showSection('about')" class="text-gray-300 hover:text-violet-400 transition">About</button>
+                    <button onclick="showSection('skills')" class="text-gray-300 hover:text-violet-400 transition">Skills</button>
+                    <button onclick="showSection('projects')" class="text-gray-300 hover:text-violet-400 transition">Projects</button>
+                    <a href="personal.html" class="text-gray-300 hover:text-violet-400 transition">Personal Hub</a>
+                    <button onclick="showSection('contact')" class="text-gray-300 hover:text-violet-400 transition">Contact</button>
+                </div>
+                <!-- Hamburger (visible on small screens) -->
+                <div class="hamburger sm:hidden ml-2" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
-            <div class="nav-menu space-y-4 sm:space-y-0 sm:space-x-6 sm:flex sm:items-center" id="nav-menu">
-                <button onclick="showSection('home')" class="text-gray-300 hover:text-violet-400 transition">Home</button>
-                <button onclick="showSection('about')" class="text-gray-300 hover:text-violet-400 transition">About</button>
-                <button onclick="showSection('skills')" class="text-gray-300 hover:text-violet-400 transition">Skills</button>
-                <button onclick="showSection('projects')" class="text-gray-300 hover:text-violet-400 transition">Projects</button>
-                <a href="personal.html" class="text-gray-300 hover:text-violet-400 transition">Personal Hub</a>
-                <button onclick="showSection('contact')" class="text-gray-300 hover:text-violet-400 transition">Contact</button>
+
+            <!-- Right: back link placeholder (hidden on home; project pages will show their own back link) -->
+            <div class="flex-shrink-0">
+                <a href="#" id="backToProjects" class="text-gray-300 hover:text-violet-400 transition hidden">← Back to My Projects</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navbar (visible on small screens) -->
+    <nav class="fixed top-0 w-full z-50 sm:hidden bg-gray-900/90 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center">
+                <div class="theme-toggle" id="themeToggleMobile" onclick="toggleTheme()">
+                    <div class="theme-toggle-slider"><i class="fas fa-moon"></i></div>
+                </div>
+            </div>
+            <div class="text-lg font-bold text-white">Geo Nithin J</div>
+            <div>
+                <a id="backToProjectsMobile" href="#" class="text-gray-300 hover:text-violet-400 transition hidden">← Back</a>
             </div>
         </div>
     </nav>
@@ -2258,11 +2283,11 @@
                 <div class="space-y-8 max-w-5xl mx-auto">
                     <!-- Library Management System -->
                     <div class="bg-violet-500/10 rounded-xl border-2 border-violet-500/30 overflow-hidden hover-scale" data-aos="fade-up">
-                        <div class="grid md:grid-cols-2 gap-0 items-stretch">
-                            <div class="relative h-48 sm:h-64 md:min-h-64">
+                        <div class="md:grid md:grid-cols-2 gap-0 items-stretch">
+                            <div class="relative h-48 sm:h-64 md:h-full">
                                 <img src="images/projects/lms/cover.jpg" alt="Library Management System" class="w-full h-full object-cover object-center block" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%231f2937%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%238b5cf6%22 font-family=%22Arial%22 font-size=%2220%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22%3ELibrary Management System%3C/text%3E%3C/svg%3E'">
                                 <div class="absolute top-2 right-2 sm:top-4 sm:right-4">
-                                    <span class="bg-violet-500 text-white text-xs px-3 py-1 rounded-full flex items-center gap-1">
+                                    <span class="bg-violet-500 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
                                         <i class="fas fa-check"></i>Completed
                                     </span>
                                 </div>
@@ -2299,11 +2324,11 @@
 
                     <!-- Class Management System -->
                     <div class="bg-violet-500/10 rounded-xl border-2 border-violet-500/30 overflow-hidden hover-scale" data-aos="fade-up" data-aos-delay="100">
-                        <div class="grid md:grid-cols-2 gap-0 items-stretch">
-                            <div class="relative h-48 sm:h-64 md:min-h-64">
+                        <div class="md:grid md:grid-cols-2 gap-0 items-stretch">
+                            <div class="relative h-48 sm:h-64 md:h-full">
                                 <img src="images/projects/class-management/cover.jpg" alt="Class Management System" class="w-full h-full object-cover object-center block">
                                 <div class="absolute top-2 right-2 sm:top-4 sm:right-4">
-                                    <span class="bg-violet-500 text-white text-xs px-3 py-1 rounded-full flex items-center gap-1">
+                                    <span class="bg-violet-500 text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
                                         <i class="fas fa-check"></i>Completed
                                     </span>
                                 </div>
@@ -2326,7 +2351,7 @@
                                     <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">TypeScript</span>
                                     <span class="text-xs bg-violet-900 text-violet-200 px-3 py-1 rounded-full">Supabase</span>
                                 </div>
-                                <div class="flex flex-wrap gap-3">
+                                <div class="flex flex-wrap gap-3 justify-center">
                                     <a href="clg-project.html" class="bg-violet-600 text-white px-4 py-2 rounded-full font-semibold hover:bg-violet-700 transition text-sm flex items-center">
                                         <i class="fas fa-info-circle mr-2"></i>View Details
                                     </a>
@@ -2340,9 +2365,9 @@
 
                     <!-- GuardianTrack -->
                     <div class="bg-violet-500/10 rounded-xl border-2 border-violet-500/30 overflow-hidden hover-scale relative" data-aos="fade-up" data-aos-delay="200">
-                        <div class="grid md:grid-cols-2 gap-0 items-stretch">
-                            <div class="relative h-48 sm:h-64 md:min-h-64">
-                                <img src="images/projects/guardiantrack/cover.jpg" alt="GuardianTrack" class="w-full h-full object-cover object-center block" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%231f2937%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%238b5cf6%22 font-family=%22Arial%22 font-size=%2222%22 x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22%3EGuardianTrack%3C/text%3E%3Ctext fill=%22%23a78bfa%22 font-family=%22Arial%22 font-size=%2216%22 x=%2250%25%22 y=%2265%25%22 text-anchor=%22middle%22%3ESmart Safety System%3C/text%3E%3C/svg%3E'>
+                        <div class="md:grid md:grid-cols-2 gap-0 items-stretch">
+                            <div class="relative h-48 sm:h-64 md:h-full">
+                                <img src="images/projects/guardiantrack/cover.jpg" alt="GuardianTrack" class="w-full h-full object-cover object-center block" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%231f2937%22 width=%22400%22 height=%22300%22/%3E%3Ctext fill=%22%238b5cf6%22 font-family=%22Arial%22 font-size=%2222%22 x=%2250%25%22 y=%2245%25%22 text-anchor=%22middle%22%3EGuardianTrack%3C/text%3E%3Ctext fill=%22%23a78bfa%22 font-family=%22Arial%22 font-size=%2216%22 x=%2250%25%22 y=%2265%25%22 text-anchor=%22middle%22%3ESmart Safety System%3C/text%3E%3C/svg%3E'">
                                 <div class="absolute top-2 right-2 sm:top-4 sm:right-4">
                                     <span class="bg-violet-500 text-white text-xs px-3 py-1 rounded-full font-bold animate-pulse flex items-center gap-1">
                                         <i class="fas fa-hard-hat"></i>In Development - 85%
