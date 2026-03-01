@@ -1,0 +1,251 @@
+/* ── Thumbnail row — invisible wrapper, never draws itself ────── */
+.pg-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+  /* generous padding so 3D-transformed backs don't clip */
+  padding: 1.5rem 2rem 3.5rem;
+  overflow: visible;
+  /* completely invisible — no bg, no border, no shadow */
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+/* ── Each folder button ──────────────────────────────────────── */
+.pg-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  flex: 0 0 auto;
+  width: 6.5rem;
+  height: 4.75rem;
+  perspective: 28em;
+  transform-style: preserve-3d;
+  -webkit-tap-highlight-color: transparent;
+  /* no shadow on the button itself */
+  filter: none;
+}
+
+/* shared transition */
+.pg-btn__back,
+.pg-btn__front,
+.pg-btn__label {
+  transition:
+    opacity 0.3s cubic-bezier(0.83, 0, 0.17, 1),
+    transform 0.3s cubic-bezier(0.83, 0, 0.17, 1),
+    box-shadow 0.3s cubic-bezier(0.83, 0, 0.17, 1),
+    background 0.3s cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+/* ── Layer 1: Back panel — screenshot, rotated behind the card ─ */
+.pg-btn__back {
+  border-radius: 1em;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transform: rotate(8deg);
+  transform-origin: 100% 100%;
+  will-change: transform;
+  z-index: 0;
+  box-shadow: 0.3em -0.3em 0.6em rgba(0, 0, 0, 0.10);
+}
+
+.pg-btn__thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+  transition: transform 0.3s cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+/* ── Layer 2: Front panel — white frosted glass card with label ─ */
+.pg-btn__front {
+  border-radius: 1em;
+  position: absolute;
+  inset: 0;
+  background: hsla(211, 55%, 81%, 0.438);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid hsla(210, 100%, 80%, 0.55);
+  box-shadow:
+    0 1px 10px rgba(0, 80, 180, 0.12),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+  transform-origin: 80% 50%;
+  will-change: transform;
+  z-index: 1;
+  pointer-events: none;
+  /* center icon + label vertically */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3em;
+}
+
+.pg-btn__front-icon {
+  width: 1.4em;
+  height: 1.4em;
+  opacity: 0.9;
+  color: #ffffff;
+  flex-shrink: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease,
+              filter 0.25s ease;
+}
+
+.pg-btn__front-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  line-height: 1;
+  transition: opacity 0.25s ease, transform 0.25s ease,
+              text-shadow 0.25s ease;
+}
+
+/* ── Hover / focus ───────────────────────────────────────────── */
+.pg-btn:hover .pg-btn__back,
+.pg-btn:focus-visible .pg-btn__back {
+  transform: rotate(16deg) translate3d(-0.55em, -0.5em, 0);
+  box-shadow: 0.6em -0.6em 1.2em rgba(0, 0, 0, 0.18);
+}
+
+.pg-btn:hover .pg-btn__thumb,
+.pg-btn:focus-visible .pg-btn__thumb {
+  transform: scale(1.06);
+}
+
+.pg-btn:hover .pg-btn__front,
+.pg-btn:focus-visible .pg-btn__front {
+  transform: translate3d(0, 0, 2em);
+  background: hsla(209, 43%, 75%, 0.493);
+  border-color: hsla(210, 100%, 85%, 0.75);
+  box-shadow:
+    0 4px 18px rgba(0, 80, 200, 0.15),
+    inset 0 2px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.pg-btn:hover .pg-btn__front-icon,
+.pg-btn:focus-visible .pg-btn__front-icon {
+  opacity: 1;
+  transform: scale(1.15) translateY(-2px);
+  filter: drop-shadow(0 1px 6px rgba(255,255,255,0.6));
+}
+
+.pg-btn:hover .pg-btn__front-label,
+.pg-btn:focus-visible .pg-btn__front-label {
+  opacity: 1;
+  transform: translateY(2px);
+  text-shadow: 0 1px 6px rgba(255,255,255,0.5), 0 0 10px rgba(180,220,255,0.4);
+}
+
+/* ── Lightbox overlay ────────────────────────────────────────── */
+.pg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: hsla(220, 20%, 8%, 0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* space from header at the top */
+  padding: 5rem 1.5rem 1.5rem;
+  animation: pg-fade-in 0.2s ease;
+}
+
+@keyframes pg-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.pg-overlay__close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.pg-overlay__close:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.pg-overlay__frame {
+  max-width: min(78vw, 900px);
+  max-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  /* white glass frame around the large image */
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 1.25rem;
+  padding: 1rem;
+  box-shadow:
+    0 2rem 5rem rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  animation: pg-slide-up 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes pg-slide-up {
+  from { transform: translateY(1.5rem) scale(0.95); opacity: 0; }
+  to   { transform: translateY(0)      scale(1);    opacity: 1; }
+}
+
+.pg-overlay__img {
+  max-width: 100%;
+  max-height: calc(70vh - 5rem);
+  object-fit: contain;
+  border-radius: 0.6rem;
+  display: block;
+}
+
+.pg-overlay__caption {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.03em;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .pg-btn {
+    width: 5rem;
+    height: 3.75rem;
+  }
+  .pg-row {
+    gap: 1rem;
+    justify-content: flex-start;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    overflow-x: auto;
+  }
+}
