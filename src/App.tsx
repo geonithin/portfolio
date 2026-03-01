@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, useNavigate, useLocation, useSearchParams } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Header from './components/Header'
 import SplashCursor from './components/SplashCursor'
 import Dock from './components/Dock'
@@ -19,6 +19,13 @@ function GlobalDock() {
   const location = useLocation()
   const [searchParams] = useSearchParams()
   const activeSection = location.pathname === '/' ? (searchParams.get('s') ?? '') : ''
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   function goSection(id: string) {
     if (location.pathname !== '/') {
@@ -67,10 +74,10 @@ function GlobalDock() {
   return (
     <Dock
       items={dockItems}
-      panelHeight={64}
-      baseItemSize={48}
-      magnification={72}
-      distance={140}
+      panelHeight={isMobile ? 52 : 64}
+      baseItemSize={isMobile ? 40 : 48}
+      magnification={isMobile ? 48 : 72}
+      distance={isMobile ? 100 : 140}
       activeItem={activeSection ? labelMap[activeSection] : undefined}
     />
   )

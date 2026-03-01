@@ -77,3 +77,35 @@
   transform: translateX(-50%);
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .dock-panel {
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem 0.4rem;
+    border-radius: 1rem 1rem 0 0;
+  }
+  
+  .dock-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .dock-label {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dock-panel {
+    gap: 0.3rem;
+    padding: 0.35rem 0.5rem;
+    border-radius: 0.875rem 0.875rem 0 0;
+  }
+  
+  .dock-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+}
