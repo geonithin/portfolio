@@ -67,9 +67,20 @@ Be helpful, knowledgeable, and engaging on ANY topic. Maintain your enthusiastic
 export function useAIChat(): UseAIChatReturn {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [lastRequestTime, setLastRequestTime] = useState<number>(0)
 
   const sendMessage = useCallback(async (text: string) => {
     if (!text.trim()) return
+    
+    // Prevent rapid successive requests (debounce)
+    const now = Date.now()
+    const timeSinceLastRequest = now - lastRequestTime
+    if (timeSinceLastRequest < 1000 && lastRequestTime > 0) {
+      console.log('Please wait a moment before sending another message')
+      return
+    }
+    
+    setLastRequestTime(now)
 
     const userMessage: ChatMessage = {
       id: Date.now().toString() + '-user',
@@ -95,10 +106,10 @@ export function useAIChat(): UseAIChatReturn {
     } catch (error) {
       console.error('AI Chat Error:', error)
       
-      // Fallback response if API fails
+      // More helpful fallback response
       const fallbackMessage: ChatMessage = {
         id: Date.now().toString() + '-ai',
-        text: "Hey! Thanks for visiting my portfolio! I'm excited to chat with you. Feel free to ask me about my projects, skills, education, or anything else you'd like to know about my journey in tech!",
+        text: "Hey! I'm having some trouble with my AI service right now, but I'm still here to chat! Feel free to ask me about my projects, skills, education, or anything else. I might use pre-written responses, but I'm happy to help however I can! 😊",
         isUser: false,
         timestamp: new Date()
       }

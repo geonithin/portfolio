@@ -89,63 +89,137 @@ export async function getMockAIResponse(message: string): Promise<string> {
   return `That's an interesting question! I'd love to help with that. As a CS student who's always curious about learning new things, I enjoy discussing all kinds of topics! While I might not have access to the latest information like ChatGPT, I'm happy to share my thoughts and perspectives. Feel free to ask me about anything - whether it's tech-related, general knowledge, or just casual conversation!`;
 }
 
-// Google Gemini API integration (free and powerful!)
+// Simple rate limiting
+class RateLimiter {
+  private lastRequestTime: number = 0;
+  private requestCount: number = 0;
+  private resetTime: number = 0;
+  
+  async waitIfNeeded(): Promise<void> {
+    const now = Date.now();
+    const timeSinceReset = now - this.resetTime;
+    
+    // Reset counter every minute
+    if (timeSinceReset >= 60000) {
+      this.requestCount = 0;
+      this.resetTime = now;
+    }
+    
+    // Limit to 10 requests per minute
+    if (this.requestCount >= 10) {
+      const waitTime = 60000 - timeSinceReset;
+      if (waitTime > 0) {
+        console.log(`Rate limiting: waiting ${Math.ceil(waitTime / 1000)}s before next request`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
+        this.requestCount = 0;
+        this.resetTime = Date.now();
+      }
+    }
+    
+    // Minimum 2 second delay between requests
+    const timeSinceLastRequest = now - this.lastRequestTime;
+    const minDelay = 2000;
+    if (timeSinceLastRequest < minDelay) {
+      const delayNeeded = minDelay - timeSinceLastRequest;
+      await new Promise(resolve => setTimeout(resolve, delayNeeded));
+    }
+    
+    this.lastRequestTime = Date.now();
+    this.requestCount++;
+  }
+}
+
+const rateLimiter = new RateLimiter();
+
+// Exponential backoff retry logic
+async function makeRequestWithRetry(
+  apiKey: string, 
+  model: string, 
+  context: string, 
+  message: string, 
+  retryCount = 0
+): Promise<Response> {
+  const maxRetries = 3;
+  const baseDelay = 1000; // 1 second
+  
+  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+      'HTTP-Referer': 'https://geonithin.dev',
+      'X-Title': 'Geo Portfolio'
+    },
+    body: JSON.stringify({
+      model: model,
+      messages: [
+        {
+          role: 'system',
+          content: context
+        },
+        {
+          role: 'user',
+          content: message
+        }
+      ],
+      temperature: 0.7,
+      max_tokens: 1000
+    })
+  });
+  
+  // If we get a 429 (rate limit) and haven't exhausted retries
+  if (response.status === 429 && retryCount < maxRetries) {
+    const delay = baseDelay * Math.pow(2, retryCount); // Exponential backoff
+    console.log(`Rate limited. Retrying in ${delay}ms (attempt ${retryCount + 1}/${maxRetries})`);
+    
+    await new Promise(resolve => setTimeout(resolve, delay));
+    return makeRequestWithRetry(apiKey, model, context, message, retryCount + 1);
+  }
+  
+  return response;
+}
+
+// OpenRouter API integration (free and powerful!)
 export async function getAIResponse(message: string, context: string): Promise<string> {
   try {
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
     
     if (!apiKey) {
-      console.log('No Gemini API key found - using mock responses');
+      console.log('No OpenRouter API key found - using mock responses');
       return await getMockAIResponse(message);
     }
 
-    const model = import.meta.env.VITE_GEMINI_MODEL || 'gemini-2.5-flash';
-    console.log('Calling Google Gemini API with model:', model);
+    const model = import.meta.env.VITE_OPENROUTER_MODEL || 'meta-llama/llama-3.3-70b-instruct:free';
+    console.log('Calling OpenRouter API with model:', model);
 
-    // Google Gemini API format
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: `${context}\n\nUser question: ${message}`
-                }
-              ]
-            }
-          ],
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 1000,
-          }
-        })
-      }
-    );
+    // Apply rate limiting before making request
+    await rateLimiter.waitIfNeeded();
+
+    // OpenRouter API format with retry logic
+    const response = await makeRequestWithRetry(apiKey, model, context, message);
 
     const data = await response.json();
-    console.log('Gemini response status:', response.status);
+    console.log('OpenRouter response status:', response.status);
 
     if (!response.ok) {
-      console.error('Gemini API error:', data);
+      if (response.status === 429) {
+        console.warn('Rate limit exceeded even after retries - falling back to mock response');
+      } else {
+        console.error('OpenRouter API error:', data);
+      }
       return await getMockAIResponse(message);
     }
 
-    const aiText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    const aiText = data.choices?.[0]?.message?.content;
     if (aiText) {
       return aiText;
     }
     
-    console.warn('No content in Gemini response, using mock');
+    console.warn('No content in OpenRouter response, using mock');
     return await getMockAIResponse(message);
     
   } catch (error) {
-    console.error('Error calling Gemini API:', error);
+    console.error('Error calling OpenRouter API:', error);
     return await getMockAIResponse(message);
   }
 }
